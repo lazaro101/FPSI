@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/create','WebController@create');
+Route::get('/Login',function(){
+	return view('login');
+});
+Route::post('/dologin','WebController@dologin');
+Route::get('/logout',function(){
+	Auth::logout();
+	return redirect('/Login');
+});
+
+Route::get('/Maintenance','AdminController@Maintenance');
