@@ -33,8 +33,8 @@ class AdminController extends Controller
 
     public function MaintenanceCountry(){
     	$req = DB::table('genreqs_t')->get();
-    	$cnt = DB::table('country_t as ct')->get();
-    	// die(); ->leftjoin('countryreqs_t as crt','crt.COUNTRY_ID','=','ct.COUNTRY_ID')
+    	$cnt = DB::table('country_t as ct')->leftjoin('countryreqs_t as crt','crt.COUNTRY_ID','=','ct.COUNTRY_ID')->select(DB::raw('count(crt.COUNTRY_ID) as nor, ct.COUNTRY_ID, ct.COUNTRYNAME'))->groupby('COUNTRY_ID','COUNTRYNAME')->get();
+    	// die(); 
     	return view('maintenance.country',['genreq' => $req, 'cnt' => $cnt]);
     }
     public function addCountry(Request $req){

@@ -50,7 +50,7 @@
                   <tr>
                     <td>{{$cnt->COUNTRY_ID}}</td>
                     <td>{{$cnt->COUNTRYNAME}}</td>
-                    <td>###</td>
+                    <td>{{$cnt->nor}}</td>
                   </tr>
                   @endforeach
                 </table>
