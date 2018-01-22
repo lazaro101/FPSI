@@ -25,4 +25,20 @@ Route::get('/logout',function(){
 	return redirect('/Login');
 });
 
-Route::get('/Maintenance','AdminController@Maintenance');
+Route::get('/Dashboard','AdminController@Dashboard');
+
+Route::get('/Maintenance/GeneralRequirements','AdminController@MaintenanceGeneralRequirements');
+Route::post('/addGenreq','AdminController@addGenreq');
+
+Route::get('/Maintenance/Country','AdminController@MaintenanceCountry');
+Route::post('/addCountry','AdminController@addCountry');
+
+Route::get('/Maintenance/Currency','AdminController@MaintenanceCurrency');
+Route::post('/addCurrency','AdminController@addCurrency');
+
+Route::get('/Maintenance/Banks','AdminController@MaintenanceBanks');
+Route::post('/addBanks','AdminController@addBanks');
+
+Route::get('/Maintenance/AcceptedBanks','AdminController@MaintenanceAccBanks');
+Route::post('/addAccBanks','AdminController@addAccBanks');
+

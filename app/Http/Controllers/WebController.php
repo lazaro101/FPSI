@@ -11,7 +11,7 @@ class WebController extends Controller
     public function dologin(Request $req){
 
     	if(Auth::attempt(['username'=> $req->username,'password'=> $req->password])){
-          	return redirect('/Maintenance');
+          	return redirect('/Dashboard');
         }
         return redirect('/Login');
 
