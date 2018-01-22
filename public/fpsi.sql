@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 21, 2018 at 09:11 PM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Jan 22, 2018 at 11:45 AM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -185,8 +187,38 @@ CREATE TABLE `app_t` (
 
 CREATE TABLE `banksallowed_t` (
   `COUNTRY_ID` int(11) DEFAULT NULL,
-  `BANKNAME` varchar(100) DEFAULT NULL
+  `BANK_ID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `banksallowed_t`
+--
+
+INSERT INTO `banksallowed_t` (`COUNTRY_ID`, `BANK_ID`) VALUES
+(3, 1),
+(3, 2),
+(2, 1),
+(1, 1),
+(1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banks_t`
+--
+
+CREATE TABLE `banks_t` (
+  `BANK_ID` int(11) NOT NULL,
+  `BANKNAME` varchar(55) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `banks_t`
+--
+
+INSERT INTO `banks_t` (`BANK_ID`, `BANKNAME`) VALUES
+(1, 'Metrobank'),
+(2, 'BPIU');
 
 -- --------------------------------------------------------
 
@@ -199,6 +231,15 @@ CREATE TABLE `countryreqs_t` (
   `REQ_ID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `countryreqs_t`
+--
+
+INSERT INTO `countryreqs_t` (`COUNTRY_ID`, `REQ_ID`) VALUES
+(2, 1),
+(3, 1),
+(3, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -209,6 +250,15 @@ CREATE TABLE `country_t` (
   `COUNTRY_ID` int(11) NOT NULL,
   `COUNTRYNAME` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `country_t`
+--
+
+INSERT INTO `country_t` (`COUNTRY_ID`, `COUNTRYNAME`) VALUES
+(1, 'Japan'),
+(2, 'Japan'),
+(3, 'US');
 
 -- --------------------------------------------------------
 
@@ -294,6 +344,14 @@ CREATE TABLE `genreqs_t` (
   `ALLOCATION` varchar(30) DEFAULT NULL,
   `Description` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `genreqs_t`
+--
+
+INSERT INTO `genreqs_t` (`REQ_ID`, `REQNAME`, `ALLOCATION`, `Description`) VALUES
+(1, 'ID', '100', 'BLAH BLAH'),
+(2, '2X2', '200', 'LOLO');
 
 -- --------------------------------------------------------
 
@@ -561,7 +619,14 @@ ALTER TABLE `app_t`
 -- Indexes for table `banksallowed_t`
 --
 ALTER TABLE `banksallowed_t`
-  ADD KEY `COUNTRY_ID` (`COUNTRY_ID`);
+  ADD KEY `COUNTRY_ID` (`COUNTRY_ID`),
+  ADD KEY `BANK_ID` (`BANK_ID`);
+
+--
+-- Indexes for table `banks_t`
+--
+ALTER TABLE `banks_t`
+  ADD PRIMARY KEY (`BANK_ID`);
 
 --
 -- Indexes for table `countryreqs_t`
@@ -709,65 +774,83 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `banks_t`
+--
+ALTER TABLE `banks_t`
+  MODIFY `BANK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `country_t`
 --
 ALTER TABLE `country_t`
-  MODIFY `COUNTRY_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `COUNTRY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `employer_t`
 --
 ALTER TABLE `employer_t`
   MODIFY `EMPLOYER_ID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `emp_t`
 --
 ALTER TABLE `emp_t`
   MODIFY `EMP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `genfees_t`
 --
 ALTER TABLE `genfees_t`
   MODIFY `FEE_ID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `genreqs_t`
 --
 ALTER TABLE `genreqs_t`
-  MODIFY `REQ_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `REQ_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `genskills_t`
 --
 ALTER TABLE `genskills_t`
   MODIFY `SKILL_ID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `jobcategory_t`
 --
 ALTER TABLE `jobcategory_t`
   MODIFY `CATEGORY_ID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `joborder_t`
 --
 ALTER TABLE `joborder_t`
   MODIFY `JORDER_ID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `jobtype_t`
 --
 ALTER TABLE `jobtype_t`
   MODIFY `JOBTYPE_ID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `job_t`
 --
 ALTER TABLE `job_t`
   MODIFY `JOB_ID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `logs_t`
 --
 ALTER TABLE `logs_t`
   MODIFY `LOG_ID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- Constraints for dumped tables
 --
@@ -925,6 +1008,7 @@ ALTER TABLE `placementfee_t`
 --
 ALTER TABLE `receipts_t`
   ADD CONSTRAINT `receipts_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
