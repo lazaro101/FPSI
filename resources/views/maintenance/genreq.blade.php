@@ -18,49 +18,89 @@
     </section>
 
     <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+           <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">General Requirements</h3>
+            </div>
+            <div class="box-body">
+              <button class="btn btn-primary" data-toggle="modal" data-target="#addGenreq" style="padding: 10px; width: 100px;"><strong>ADD</strong>  <span class="fa fa-plus"></span></button>
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="box-header">
 
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">General Requirements</h3>
-        </div>
-        <div class="box-body">
-          <button class="btn btn-primary" data-toggle="modal" data-target="#addGenreq" style="padding: 10px; width: 100px;"><strong>ADD</strong>  <span class="fa fa-plus"></span></button>
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="box-header">
-
-                <div class="box-tools">
-                  <div class="input-group input-group-sm" style="width: 200px;">
-                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-                    <div class="input-group-btn">
-                      <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                    </div>
                   </div>
+                <!-- /.box-header -->
+                  <div class="box-body">
+                    <table class="table table-hover">
+                      <thead>
+                      <tr>
+                        <th>Requirement Name</th>
+                        <th>Allocation</th>
+                        <th>Description</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      @foreach($genreq as $req)
+                      <tr>
+                        <td>{{$req->REQNAME}}</td>
+                        <td>{{$req->ALLOCATION}}</td>
+                        <td>{{$req->Description}}<td>
+                      </tr>
+                      @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                <!-- /.box-body -->
                 </div>
               </div>
-            <!-- /.box-header -->
-              <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
-                  <tr>
-                    <th>Requirement Name</th>
-                    <th>Allocation</th>
-                    <th>Description</th>
-                  </tr>
-                  @foreach($genreq as $req)
-                  <tr>
-                    <td>{{$req->REQNAME}}</td>
-                    <td>{{$req->ALLOCATION}}</td>
-                    <td>{{$req->Description}}<td>
-                  </tr>
-                  @endforeach
-                </table>
-              </div>
-            <!-- /.box-body -->
+            </div>
+            <!-- /.box-footer-->
+          </div>
+        </div>
+      </div>
+     <!--  <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Data Table With Full Features</h3>
+            </div>
+            <div class="box-body">
+              <table class="table table-bordered table-striped" id="example1">
+                <thead>
+                <tr>
+                  <th>Rendering engine</th>
+                  <th>Browser</th>
+                  <th>Platform(s)</th>
+                  <th>Engine version</th>
+                  <th>CSS grade</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Other browsers</td>
+                  <td>All others</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>U</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>Rendering engine</th>
+                  <th>Browser</th>
+                  <th>Platform(s)</th>
+                  <th>Engine version</th>
+                  <th>CSS grade</th>
+                </tr>
+                </tfoot>
+              </table>
             </div>
           </div>
         </div>
-        <!-- /.box-footer-->
-      </div>
+      </div> -->
+         
       <!-- /.box -->
 
   <!-- modal -->
@@ -110,6 +150,8 @@
     $(document).ready(function(){
       $('.sidebar-menu .mntc').trigger('click');
       $('.sidebar-menu li.gr').addClass('active'); 
+      $('#example1').DataTable();
+
     });
   </script>
   @endsection
