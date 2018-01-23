@@ -1,199 +1,90 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>LOGIN</title>
-	<style type="text/css">
-	body{
-	  margin: 0px;
-	  padding: 0px;
-	  background: #1abc9d;
-	}
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>FPSI | Log in</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/font-awesome/css/font-awesome.min.css') }}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/Ionicons/css/ionicons.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/AdminLTE.min.css') }}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/iCheck/square/blue.css') }}">
 
-	h1{
-	  color: #fff;
-	  text-align: center;
-	  font-family: Arial;
-	  font-weight: normal;
-	  margin: 2em auto 0px;
-	}
-	.outer-screen{
-	  background: #13202c;
-	  width: 900px;
-	  height: 540px;
-	  margin: 50px auto;
-	  border-radius: 20px;
-	  -moz-border-radius: 20px;
-	  -webkit-border-radius: 20px;
-	  position: relative;
-	  padding-top: 35px;
-	}
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
-	.outer-screen:before{
-	  content: "";
-	  background: #3e4a53;
-	  border-radius: 50px;
-	  position: absolute;
-	  bottom: 20px;
-	  left: 0px;
-	  right: 0px;
-	  margin: auto;
-	  z-index: 9999;
-	  width: 50px;
-	  height: 50px;
-	}
-	.outer-screen:after{
-	  content: "";
-	  background: #ecf0f1;
-	  width: 900px;
-	  height: 88px;
-	  position: absolute;
-	  bottom: 0px;
-	  border-radius: 0px 0px 20px 20px;
-	  -moz-border-radius: 0px 0px 20px 20px;
-	  -webkit-border-radius: 0px 0px 20px 20px;
-	}
-
-	.stand{
-	  position: relative;  
-	}
-
-	.stand:before{
-	  content: "";
-	  position: absolute;
-	  bottom: -150px;
-	  border-bottom: 150px solid #bdc3c7;
-	  border-left: 30px solid transparent;
-	  border-right: 30px solid transparent;
-	  width: 200px;
-	  left: 0px;
-	  right: 0px;
-	  margin: auto;
-	}
-
-	.stand:after{
-	  content: "";
-	  position: absolute;
-	  width: 260px;
-	  left: 0px;
-	  right: 0px;
-	  margin: auto;
-	  border-bottom: 30px solid #bdc3c7;
-	  border-left: 30px solid transparent;
-	  border-right: 30px solid transparent;
-	  bottom: -180px;
-	  box-shadow: 0px 4px 0px #7e7e7e
-	}
-
-	.inner-screen{
-	  width: 800px;
-	  height: 340px;
-	  background: #1abc9d;
-	  margin: 0px auto;
-	  padding-top: 80px;
-	}
-
-	.form{
-	  width: 400px;
-	  height: 230px;
-	  background: #edeff1;
-	  margin: 0px auto;
-	  padding-top: 20px;
-	  border-radius: 10px;
-	  -moz-border-radius: 10px;
-	  -webkit-border-radius: 10px;
-	}
-
-	input[type="text"]{
-	  display: block;
-	  width: 309px;
-	  height: 35px;
-	  margin: 15px auto;
-	  background: #fff;
-	  border: 0px;
-	  padding: 5px;
-	  font-size: 16px;
-	   border: 2px solid #fff;
-	  transition: all 0.3s ease;
-	  border-radius: 5px;
-	  -moz-border-radius: 5px;
-	  -webkit-border-radius: 5px;
-	}
-
-	input[type="text"]:focus{
-	  border: 2px solid #1abc9d
-	}
-
-	input[type="submit"]{
-	  display: block;
-	  background: #1abc9d;
-	  width: 314px;
-	  padding: 12px;
-	  cursor: pointer;
-	  color: #fff;
-	  border: 0px;
-	  margin: auto;
-	  border-radius: 5px;
-	  -moz-border-radius: 5px;
-	  -webkit-border-radius: 5px;
-	  font-size: 17px;
-	  transition: all 0.3s ease;
-	}
-
-	input[type="submit"]:hover{
-	  background: #09cca6
-	}
-
-	a{
-	  text-align: center;
-	  font-family: Arial;
-	  color: gray;
-	  display: block;
-	  margin: 15px auto;
-	  text-decoration: none;
-	  transition: all 0.3s ease;
-	  font-size: 12px;
-	}
-
-	a:hover{
-	  color: #1abc9d;
-	}
-
-
-	::-webkit-input-placeholder {
-	   color: gray;
-	}
-
-	:-moz-placeholder { /* Firefox 18- */
-	   color: gray;  
-	}
-
-	::-moz-placeholder {  /* Firefox 19+ */
-	   color: gray;  
-	}
-
-	:-ms-input-placeholder {  
-	   color: gray;  
-	}
-	</style>
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body>
-<h1>Login</h1>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="/"><b>F</b>PSI</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">Sign in to start your session</p>
 
-<div class="stand">
-  <div class="outer-screen">
-    <div class="inner-screen">
-    	<form method="post" action="/dologin">
-    		{{csrf_field()}}
-		<div class="form">
-			<input type="text" name="username" class="zocial-dribbble" placeholder="Enter your email" />
-			<input type="text" name="password" placeholder="Password" />
-			<input type="submit" value="Login" />
-			<a href="">Lost your password?</a>
-		</div> 
-    	</form>
-    </div> 
-  </div> 
+    <form action="/dologin" method="post">
+    	{{csrf_field()}}
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="Username" name="username">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="password" class="form-control" placeholder="Password" name="password">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-8">
+          <div class="checkbox icheck">
+            <label>
+              <input type="checkbox"> Remember Me
+            </label>
+          </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+
+<!--     <a href="#">I forgot my password</a><br>
+    <a href="register.html" class="text-center">Register a new membership</a> -->
+
+  </div>
+  <!-- /.login-box-body -->
 </div>
-  
+<!-- /.login-box -->
+
+<!-- jQuery 3 -->
+<script src="{{ asset('AdminLTE/bower_components/jquery/dist/jquery.min.js') }}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="{{ asset('AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<!-- iCheck -->
+<script src="{{ asset('AdminLTE/plugins/iCheck/icheck.min.js') }}"></script>
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
 </body>
 </html>
