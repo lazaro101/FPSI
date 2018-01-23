@@ -18,7 +18,7 @@ class AdminController extends Controller
     }
 
     public function MaintenanceDocReq(){
-    	$data = DB::table('genreqs_t')->get();
+    	$data = DB::table('genreqs_t')->where('status',0)->get();
     	return view('maintenance.docreq',['genreq' => $data]);
     }
     public function addDocreq(Request $req){
@@ -28,6 +28,24 @@ class AdminController extends Controller
     		'Description' => $req->desc
     	]);
 
+    	return redirect('/Maintenance/DocumentaryRequirements');
+    }
+    public function getDocreq(Request $req){
+    	$var = DB::table('genreqs_t')->where('REQ_ID',$req->id)->first();
+    	return response()->json($var);
+    }
+    public function editDocreq(Request $req){
+    	DB::table('genreqs_t')->where('REQ_ID',$req->id)->update([
+    		'REQNAME' => $req->reqname,
+    		'ALLOCATION' => $req->allo,
+    		'Description' => $req->desc
+    	]);
+    	return redirect('/Maintenance/DocumentaryRequirements');
+    }
+    public function delDocreq(Request $req){
+    	DB::table('genreqs_t')->where('REQ_ID',$req->id)->update([
+    		'status' => 1
+    	]);
     	return redirect('/Maintenance/DocumentaryRequirements');
     }
 

@@ -28,7 +28,10 @@ Route::get('/logout',function(){
 Route::get('/Dashboard','AdminController@Dashboard');
 
 Route::get('/Maintenance/DocumentaryRequirements','AdminController@MaintenanceDocReq');
+Route::get('/getDocreq','AdminController@getDocreq');
 Route::post('/addDocreq','AdminController@addDocreq');
+Route::post('/editDocreq','AdminController@editDocreq');
+Route::post('/delDocreq','AdminController@delDocreq');
 
 Route::get('/Maintenance/Country','AdminController@MaintenanceCountry');
 Route::post('/addCountry','AdminController@addCountry');
@@ -41,4 +44,5 @@ Route::post('/addBanks','AdminController@addBanks');
 
 Route::get('/Maintenance/AcceptedBanks','AdminController@MaintenanceAccBanks');
 Route::post('/addAccBanks','AdminController@addAccBanks');
+
 
