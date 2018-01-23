@@ -99,13 +99,25 @@ class AdminController extends Controller
     }
 
     public function MaintenanceBanks(){
-    	$bank = DB::table('banks_t')->get();
+    	$bank = DB::table('banks_t')->where('status',0)->get();
     	return view('maintenance.banks',['bank' => $bank]);
     }
     public function addBanks(Request $req){
     	DB::table('banks_t')->insert([
     		'BANKNAME' => $req->bankname
     	]);
+    	return redirect('/Maintenance/Banks');
+    }
+    public function getBanks(Request $req){
+    	$var = DB::table('banks_t')->where('BANK_ID',$req->id)->first();
+    	return response()->json($var);
+    }
+    public function editBanks(Request $req){
+    	DB::table('banks_t')->where('BANK_ID',$req->id)->update([ 'BANKNAME' => $req->bankname]);
+    	return redirect('/Maintenance/Banks');
+    }
+    public function delBanks(Request $req){
+    	DB::table('banks_t')->where('BANK_ID',$req->id)->update([ 'status' => 1]);
     	return redirect('/Maintenance/Banks');
     }
 

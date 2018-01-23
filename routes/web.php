@@ -43,7 +43,10 @@ Route::get('/Maintenance/Currency','AdminController@MaintenanceCurrency');
 Route::post('/addCurrency','AdminController@addCurrency');
 
 Route::get('/Maintenance/Banks','AdminController@MaintenanceBanks');
+Route::get('/getBanks','AdminController@getBanks');
 Route::post('/addBanks','AdminController@addBanks');
+Route::post('/editBanks','AdminController@editBanks');
+Route::post('/delBanks','AdminController@delBanks');
 
 Route::get('/Maintenance/AcceptedBanks','AdminController@MaintenanceAccBanks');
 Route::post('/addAccBanks','AdminController@addAccBanks');
