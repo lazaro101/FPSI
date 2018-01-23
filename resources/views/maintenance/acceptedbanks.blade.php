@@ -19,49 +19,38 @@
 
     <section class="content">
 
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Acccepted Banks</h3>
-        </div>
-        <div class="box-body">
-          <button class="btn btn-primary" data-toggle="modal" data-target="#addAccBanks" style="padding: 10px; width: 100px;"><strong>ADD</strong>  <span class="fa fa-plus"></span></button>
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="box-header">
-
-                <div class="box-tools">
-                  <div class="input-group input-group-sm" style="width: 200px;">
-                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-                    <div class="input-group-btn">
-                      <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <!-- /.box-header -->
-              <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
-                  <tr>
-                    <th>Country ID</th>
-                    <th>Country Name</th>
-                    <th>Banks Allowed</th>
-                  </tr>
-                  @foreach($acbnk as $acbnk)
-                  <tr>
-                  	<td>{{$acbnk->COUNTRY_ID}}</td>
-                  	<td>{{$acbnk->COUNTRYNAME}}</td>
-                  	<td>{{$acbnk->bank}}</td>
-                  </tr>
-                  @endforeach
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Acccepted Banks</h3>
+            </div>
+            <div class="box-body">
+              <button class="btn btn-primary" data-toggle="modal" data-target="#addAccBanks" style="padding: 10px; width: 100px;"><strong>ADD</strong>  <span class="fa fa-plus"></span></button>
+              <div class="content">
+                <table class="table table-hover" id="example1">
+                  <thead>
+                    <tr>
+                      <th>Country ID</th>
+                      <th>Country Name</th>
+                      <th>Banks Allowed</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($acbnk as $acbnk)
+                    <tr>
+                      <td>{{$acbnk->COUNTRY_ID}}</td>
+                      <td>{{$acbnk->COUNTRYNAME}}</td>
+                      <td>{{$acbnk->bank}}</td>
+                    </tr>
+                    @endforeach
+                  </tbody>
                 </table>
               </div>
-            <!-- /.box-body -->
-            </div>
+            </div> 
           </div>
         </div>
-        <!-- /.box-footer-->
       </div>
-      <!-- /.box -->
 
   <!-- modal -->
       <div class="modal fade" id="addAccBanks">

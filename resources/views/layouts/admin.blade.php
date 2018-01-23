@@ -325,7 +325,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="gr"><a href="/Maintenance/GeneralRequirements"><i class="fa fa-circle-o"></i>General Requirements</a></li>
+            <li class="gr"><a href="/Maintenance/DocumentaryRequirements"><i class="fa fa-circle-o"></i>Documentary Requirements</a></li>
             <li class="cty"><a href="/Maintenance/Country"><i class="fa fa-circle-o"></i>Country</a></li>
             <li class="cnc"><a href="/Maintenance/Currency"><i class="fa fa-circle-o"></i>Currency</a></li>
             <li class="bnk"><a href="/Maintenance/Banks"><i class="fa fa-circle-o"></i>Banks</a></li>
@@ -428,5 +428,11 @@
 <script src="{{ asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 
 @yield('script')
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#example1').DataTable();
+  });
+</script>
 </body>
 </html>
