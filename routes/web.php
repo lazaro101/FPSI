@@ -49,6 +49,9 @@ Route::post('/editBanks','AdminController@editBanks');
 Route::post('/delBanks','AdminController@delBanks');
 
 Route::get('/Maintenance/AcceptedBanks','AdminController@MaintenanceAccBanks');
+Route::get('/getAccBanks','AdminController@getAccBanks');
 Route::post('/addAccBanks','AdminController@addAccBanks');
+Route::post('/editAccBanks','AdminController@editAccBanks');
+Route::post('/delAccBanks','AdminController@delAccBanks');
 
 

@@ -163,6 +163,7 @@
       $('.sidebar-menu li.cty').addClass('active'); 
 
       $('.edit').click(function(){
+        $('#edit form .checkbox input').prop('checked',false);
         $.ajax
         ({
           url: '/getCountry',
@@ -186,7 +187,7 @@
         $('#del form input[name=id]').val($(this).val());
         $('#del').modal();
       });
-      
+
     });
   </script>
   @endsection
