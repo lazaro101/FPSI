@@ -37,7 +37,7 @@ class AdminController extends Controller
     public function editDocreq(Request $req){
     	DB::table('genreqs_t')->where('REQ_ID',$req->id)->update([
     		'REQNAME' => $req->reqname,
-    		'ALLOCATION' => $req->allo,
+    		'ALLOCATION' => $req->alloc,
     		'Description' => $req->desc
     	]);
     	return redirect('/Maintenance/DocumentaryRequirements');
