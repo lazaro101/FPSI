@@ -28,11 +28,11 @@ class AdminController extends Controller
     		'Description' => $req->desc
     	]);
 
-    	return redirect('/Maintenance/DocuemntaryRequirements');
+    	return redirect('/Maintenance/DocumentaryRequirements');
     }
 
     public function MaintenanceCountry(){
-    	$req = DB::table('genreqs_t')->get();
+    	$req = DB::table('genreqs_t')->where('ALLOCATION','Country')->get();
     	$cnt = DB::table('country_t as ct')->leftjoin('countryreqs_t as crt','crt.COUNTRY_ID','=','ct.COUNTRY_ID')->select(DB::raw('count(crt.COUNTRY_ID) as nor, ct.COUNTRY_ID, ct.COUNTRYNAME'))->groupby('COUNTRY_ID','COUNTRYNAME')->get();
     	// die(); 
     	return view('maintenance.country',['genreq' => $req, 'cnt' => $cnt]);
