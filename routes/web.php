@@ -45,4 +45,10 @@ Route::post('/addBanks','AdminController@addBanks');
 Route::get('/Maintenance/AcceptedBanks','AdminController@MaintenanceAccBanks');
 Route::post('/addAccBanks','AdminController@addAccBanks');
 
+Route::get('/Maintenance/JobCategory','AdminController@MaintenanceJobCategory');
+Route::post('/addJobCategory','AdminController@addJobCategory');
+
+Route::get('/Maintenance/JobType','AdminController@MaintenanceJobType');
+Route::post('/addJobType','AdminController@addJobType');
+
 

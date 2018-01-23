@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title','Currency')
+@section('title','Job Type')
 
 @section('content')
 
-  <div class="content-wrapper">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -23,17 +23,15 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Currency</h3>
+              <h3 class="box-title">Job Type</h3>
             </div>
             <div class="box-body">
-              <button class="btn btn-primary" data-toggle="modal" data-target="#addCurrency" style="padding: 10px; width: 100px;"><strong>ADD</strong>  <span class="fa fa-plus"></span></button>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#addJobType" style="padding: 10px; width: 100px;"><strong>ADD</strong>  <span class="fa fa-plus"></span></button>
               <div class="content">
                 <table class="table table-hover" id="example1">
                   <thead>
                     <tr>
-                      <th>Requirement Name</th>
-                      <th>Allocation</th>
-                      <th>Description</th>
+                      <th>Job Type</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -47,24 +45,20 @@
       </div>
 
   <!-- modal -->
-      <div class="modal fade" id="addCurrency">
-        <form method="post" action="/addCurrency">
+      <div class="modal fade" id="addJobType">
+        <form method="post" action="/addJobType">
           {{csrf_field()}}
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Currency</h4>
+                <h4 class="modal-title">Add Job Type</h4>
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>Currency</label>
-                  <input type="text" class="form-control" placeholder="ex. Philippine Peso" name="">
-                </div>
-                <div class="form-group">
-                  <label>Symbol</label>
-                  <input type="text" class="form-control" placeholder="ex. ‎Php" name="">
+                  <label>Job Type</label>
+                  <input type="text" class="form-control" placeholder="ex. Skilled" name="">
                 </div>
               </div>
               <div class="modal-footer">
@@ -81,7 +75,8 @@
 
   </div>
 
-  @endsection
+
+@endsection
 
   @section('script')
   <script type="text/javascript">

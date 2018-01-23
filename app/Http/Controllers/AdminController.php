@@ -98,4 +98,12 @@ class AdminController extends Controller
     	}
     	return redirect('/Maintenance/AcceptedBanks');
     }
+
+    public function MaintenanceJobCategory(){
+        return view('maintenance.jobcategory');
+    }
+
+    public function MaintenanceJobType(){
+        return view('maintenance.jobtype');
+    }
 }
