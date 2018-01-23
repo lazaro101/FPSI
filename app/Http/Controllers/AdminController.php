@@ -95,7 +95,30 @@ class AdminController extends Controller
     }
 
     public function MaintenanceCurrency(){
-    	return view('maintenance.currency');
+    	$cur = DB::table('currency_t')->where('status',0)->get();
+    	return view('maintenance.currency',['cur' => $cur]);
+    }
+    public function addCurrency(Request $req){
+    	DB::table('currency_t')->insert([
+    		'CURRENCY' => $req->currency,
+    		'SYMBOL' => $req->symbol,
+    	]);
+    	return redirect('/Maintenance/Currency');
+    }
+    public function getCurrency(Request $req){
+    	$var = DB::table('currency_t')->where('CUR_ID',$req->id)->first();
+    	return response()->json($var);
+    }
+    public function editCurrency(Request $req){
+    	DB::table('currency_t')->where('CUR_ID',$req->id)->update([
+    		'CURRENCY' => $req->currency,
+    		'SYMBOL' => $req->symbol
+    	]);
+    	return redirect('/Maintenance/Currency');
+    }
+    public function delCurrency(Request $req){
+    	DB::table('currency_t')->where('CUR_ID',$req->id)->update([ 'status' => 1 ]);
+    	return redirect('/Maintenance/Currency');
     }
 
     public function MaintenanceBanks(){

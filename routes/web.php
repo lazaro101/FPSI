@@ -40,7 +40,10 @@ Route::post('/editCountry','AdminController@editCountry');
 Route::post('/delCountry','AdminController@delCountry');
 
 Route::get('/Maintenance/Currency','AdminController@MaintenanceCurrency');
+Route::get('/getCurrency','AdminController@getCurrency');
 Route::post('/addCurrency','AdminController@addCurrency');
+Route::post('/editCurrency','AdminController@editCurrency');
+Route::post('/delCurrency','AdminController@delCurrency');
 
 Route::get('/Maintenance/Banks','AdminController@MaintenanceBanks');
 Route::get('/getBanks','AdminController@getBanks');
