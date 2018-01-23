@@ -43,7 +43,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>FPSI</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b></b>Findstaff Placement Service Inc.</span>
+      <span class="logo-lg"><b></b>Findstaff</span>
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
@@ -244,14 +244,14 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">Aubrey Vidanes</span>
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">
                 <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
+                  Aubrey Vidanes - Web Developer
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -296,7 +296,7 @@
           <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>Aubrey Vidanes</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -325,7 +325,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="gr"><a href="/Maintenance/DocumentaryRequirements"><i class="fa fa-circle-o"></i>Documentary Requirements</a></li>
+            
             <li class="cty"><a href="/Maintenance/Country"><i class="fa fa-circle-o"></i>Country</a></li>
             <li class="cnc"><a href="/Maintenance/Currency"><i class="fa fa-circle-o"></i>Currency</a></li>
             <li class="bnk"><a href="/Maintenance/Banks"><i class="fa fa-circle-o"></i>Banks</a></li>
@@ -335,12 +335,12 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </span> </a>
               <ul class="treeview-menu">
-                <li><a href="jobcategory.php"><i class="fa fa-circle-o"></i>Job Category</a></li>
-                <li><a href="jobtype.php"><i class="fa fa-circle-o"></i>Job Type</a></li>
-                <li><a href="job.php"><i class="fa fa-circle-o"></i>Job</a></li>
-                <li><a href="genskills.php"><i class="fa fa-circle-o"></i>General Skills</a></li>
+                <li><a href="/Maintenance/JobCategory"><i class="fa fa-circle-o"></i>Job Category</a></li>
+                <li><a href="/Maintenance/JobType"><i class="fa fa-circle-o"></i>Job Type</a></li>
+                <li><a href="/Maintenance/Job"><i class="fa fa-circle-o"></i>Job</a></li>
+                <li><a href="genskills.php"><i class="fa fa-circle-o"></i>Skills</a></li>
                 <li><a href="fees.php"><i class="fa fa-circle-o"></i>Fees</a></li>
-                <li><a href="reqs.php"><i class="fa fa-circle-o"></i>Documentary Requirements</a></li>
+                <li class="gr"><a href="/Maintenance/DocumentaryRequirements"><i class="fa fa-circle-o"></i>Documentary Requirements</a></li>
               </ul>
             </li>
           </ul>
@@ -391,7 +391,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+    <strong>Copyright &copy; 2018 <a href="https://adminlte.io">Findstaff Placement Services, Inc.</a>.</strong> All rights
     reserved.
   </footer>
 
