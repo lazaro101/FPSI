@@ -34,16 +34,28 @@ Route::post('/editDocreq','AdminController@editDocreq');
 Route::post('/delDocreq','AdminController@delDocreq');
 
 Route::get('/Maintenance/Country','AdminController@MaintenanceCountry');
+Route::get('/getCountry','AdminController@getCountry');
 Route::post('/addCountry','AdminController@addCountry');
+Route::post('/editCountry','AdminController@editCountry');
+Route::post('/delCountry','AdminController@delCountry');
 
 Route::get('/Maintenance/Currency','AdminController@MaintenanceCurrency');
+Route::get('/getCurrency','AdminController@getCurrency');
 Route::post('/addCurrency','AdminController@addCurrency');
+Route::post('/editCurrency','AdminController@editCurrency');
+Route::post('/delCurrency','AdminController@delCurrency');
 
 Route::get('/Maintenance/Banks','AdminController@MaintenanceBanks');
+Route::get('/getBanks','AdminController@getBanks');
 Route::post('/addBanks','AdminController@addBanks');
+Route::post('/editBanks','AdminController@editBanks');
+Route::post('/delBanks','AdminController@delBanks');
 
 Route::get('/Maintenance/AcceptedBanks','AdminController@MaintenanceAccBanks');
+Route::get('/getAccBanks','AdminController@getAccBanks');
 Route::post('/addAccBanks','AdminController@addAccBanks');
+Route::post('/editAccBanks','AdminController@editAccBanks');
+Route::post('/delAccBanks','AdminController@delAccBanks');
 
 Route::get('/Maintenance/JobCategory','AdminController@MaintenanceJobCategory');
 Route::post('/addJobCategory','AdminController@addJobCategory');
