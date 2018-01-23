@@ -34,7 +34,7 @@
                       <th>Requirement Name</th>
                       <th>Allocation</th>
                       <th>Description</th>
-                      <th>Actions</th>
+                      <th width="100px">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -43,7 +43,7 @@
                     <td>{{$req->REQNAME}}</td>
                     <td>{{$req->ALLOCATION}}</td>
                     <td>{{$req->Description}}</td>
-                    <td width="100px">
+                    <td>
                       <button class="btn btn-info edit" value="{{$req->REQ_ID}}"><i class="fa fa-pencil"></i></button>
                       <button class="btn btn-danger del" value="{{$req->REQ_ID}}"><i class="fa fa-trash"></i></button>
                     </td>

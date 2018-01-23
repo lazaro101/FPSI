@@ -34,6 +34,7 @@
                     <th>Country ID</th>
                     <th>Country</th>
                     <th>No. of Requirements</th>
+                    <th width="100px">Actions</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -42,6 +43,10 @@
                     <td>{{$cnt->COUNTRY_ID}}</td>
                     <td>{{$cnt->COUNTRYNAME}}</td>
                     <td>{{$cnt->nor}}</td>
+                    <td>
+                      <button class="btn btn-info edit" value="{{$cnt->COUNTRY_ID}}"><i class="fa fa-pencil"></i></button>
+                      <button class="btn btn-danger del" value="{{$cnt->COUNTRY_ID}}"><i class="fa fa-trash"></i></button>
+                    </td>
                   </tr>
                   @endforeach
                   </tbody>
@@ -88,6 +93,63 @@
         </form>
       </div>
 
+      <div class="modal fade" id="edit">
+        <form method="post" action="/editCountry">
+          <input type="hidden" name="id">
+          {{csrf_field()}}
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit Country</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>Country Name</label>
+                  <input type="text" class="form-control" name="countryname">
+                </div>
+                <div class="form-group">
+                  <label>Country Requirements</label>
+                  @foreach($genreq as $req)
+                  <div class="checkbox">
+                    <label><input type="checkbox" name="req[]" value="{{$req->REQ_ID}}">{{$req->REQNAME}}</label>
+                  </div>
+                  @endforeach
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-success">Save</button>
+                  <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div> 
+            </div> 
+          </div>
+        </form>
+      </div>
+
+      <div class="modal modal-warning fade in" id="del">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span></button>
+              <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want to delete?</p>
+            </div>
+            <div class="modal-footer">
+              <form method="post" action="/delCountry">
+                {{csrf_field()}}
+                <input type="hidden" name="id">
+                <button type="submit" class="btn btn-outline">Yes</button>
+                <button type="button" class="btn btn-outline" data-dismiss="modal">No</button>
+              </form>
+            </div>
+          </div> 
+        </div> 
+      </div>
+
     </section>
 
   </div>
@@ -99,6 +161,32 @@
     $(document).ready(function(){
       $('.sidebar-menu .mntc').trigger('click');
       $('.sidebar-menu li.cty').addClass('active'); 
+
+      $('.edit').click(function(){
+        $.ajax
+        ({
+          url: '/getCountry',
+          type:'get',
+          dataType : 'json',
+          data: { id : $(this).val() },
+          success:function(response) {
+            $('#edit form input[name=id]').val(response[0].COUNTRY_ID);
+            $('#edit form input[name=countryname]').val(response[0].COUNTRYNAME);
+            response[1].forEach(function(data) { 
+              $('#edit form .checkbox input[value='+data.REQ_ID+']').prop('checked',true);
+            });
+          },
+          complete:function(){
+            $('#edit').modal();
+          }
+        });
+      });
+
+      $('.del').click(function(){
+        $('#del form input[name=id]').val($(this).val());
+        $('#del').modal();
+      });
+      
     });
   </script>
   @endsection

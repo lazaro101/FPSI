@@ -34,7 +34,10 @@ Route::post('/editDocreq','AdminController@editDocreq');
 Route::post('/delDocreq','AdminController@delDocreq');
 
 Route::get('/Maintenance/Country','AdminController@MaintenanceCountry');
+Route::get('/getCountry','AdminController@getCountry');
 Route::post('/addCountry','AdminController@addCountry');
+Route::post('/editCountry','AdminController@editCountry');
+Route::post('/delCountry','AdminController@delCountry');
 
 Route::get('/Maintenance/Currency','AdminController@MaintenanceCurrency');
 Route::post('/addCurrency','AdminController@addCurrency');

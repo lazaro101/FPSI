@@ -50,9 +50,9 @@ class AdminController extends Controller
     }
 
     public function MaintenanceCountry(){
-    	$req = DB::table('genreqs_t')->where('ALLOCATION','Country')->get();
-    	$cnt = DB::table('country_t as ct')->leftjoin('countryreqs_t as crt','crt.COUNTRY_ID','=','ct.COUNTRY_ID')->select(DB::raw('count(crt.COUNTRY_ID) as nor, ct.COUNTRY_ID, ct.COUNTRYNAME'))->groupby('COUNTRY_ID','COUNTRYNAME')->get();
-    	// die(); 
+    	$req = DB::table('genreqs_t')->where('ALLOCATION','Country')->where('status',0)->get();
+    	$cnt = DB::table('country_t as ct')->leftjoin('countryreqs_t as crt','crt.COUNTRY_ID','=','ct.COUNTRY_ID')->select(DB::raw('count(crt.COUNTRY_ID) as nor, ct.COUNTRY_ID, ct.COUNTRYNAME'))->groupby('COUNTRY_ID','COUNTRYNAME')->where('ct.status',0)->get();
+    	// $cnt = DB::table('country_t as ct')->leftjoin('countryreqs_t as crt','crt.COUNTRY_ID','=','ct.COUNTRY_ID')->leftjoin('genreqs_t as gt','gt.REQ_ID','=','crt.REQ_ID')->select(DB::raw('count(case when gt.status = 0 then 1 else null end) as nor, ct.COUNTRY_ID, ct.COUNTRYNAME'))->groupby('COUNTRY_ID','COUNTRYNAME')->where('ct.status',0)->get();
     	return view('maintenance.country',['genreq' => $req, 'cnt' => $cnt]);
     }
     public function addCountry(Request $req){
@@ -65,6 +65,32 @@ class AdminController extends Controller
     			'REQ_ID' => $val
     		]);
     	}
+    	return redirect('/Maintenance/Country');
+    }
+    public function getCountry(Request $req){
+    	$var = DB::table('country_t')->where('COUNTRY_ID',$req->id)->first();
+    	$var1 = DB::table('countryreqs_t')->where('COUNTRY_ID',$req->id)->get();
+    	return response()->json([$var,$var1]);
+    }
+    public function editCountry(Request $req){
+    	DB::table('country_t')->where('COUNTRY_ID',$req->id)->update([
+    		'COUNTRYNAME' => $req->countryname
+    	]);
+    	DB::table('countryreqs_t')->where('COUNTRY_ID',$req->id)->delete();
+    	if (isset($req->req)) {
+	    	foreach ($req->req as $val) {
+	    		DB::table('countryreqs_t')->insert([
+	    			'COUNTRY_ID' => $req->id,
+	    			'REQ_ID' => $val
+	    		]);
+	    	}
+    	}
+    	return redirect('/Maintenance/Country');
+    }
+    public function delCountry(Request $req){
+    	DB::table('country_t')->where('COUNTRY_ID',$req->id)->update([
+    		'status' => 1
+    	]);
     	return redirect('/Maintenance/Country');
     }
 
