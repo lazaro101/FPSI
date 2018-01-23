@@ -331,7 +331,7 @@
             <li class="bnk"><a href="/Maintenance/Banks"><i class="fa fa-circle-o"></i>Banks</a></li>
             <li class="abnk"><a href="/Maintenance/AcceptedBanks"><i class="fa fa-circle-o"></i>Accepted Banks</a></li>
             <li class="jd treeview">
-              <a href="maintenance.php"><i class="fa fa-circle-o"></i>Job Details <span class="pull-right-container">
+              <a class="jd"><i class="fa fa-circle-o"></i>Job Details <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span> </a>
               <ul class="treeview-menu">
