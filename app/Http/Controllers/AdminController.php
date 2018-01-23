@@ -106,4 +106,8 @@ class AdminController extends Controller
     public function MaintenanceJobType(){
         return view('maintenance.jobtype');
     }
+
+    public function MaintenanceJob(){
+        return view('maintenance.job');
+    }
 }

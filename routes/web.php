@@ -51,4 +51,7 @@ Route::post('/addJobCategory','AdminController@addJobCategory');
 Route::get('/Maintenance/JobType','AdminController@MaintenanceJobType');
 Route::post('/addJobType','AdminController@addJobType');
 
+Route::get('/Maintenance/Job','AdminController@MaintenanceJob');
+Route::post('/addJob','AdminController@addJob');
+
 

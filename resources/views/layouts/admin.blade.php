@@ -337,8 +337,8 @@
               <ul class="treeview-menu">
                 <li><a href="/Maintenance/JobCategory"><i class="fa fa-circle-o"></i>Job Category</a></li>
                 <li><a href="/Maintenance/JobType"><i class="fa fa-circle-o"></i>Job Type</a></li>
-                <li><a href="job.php"><i class="fa fa-circle-o"></i>Job</a></li>
-                <li><a href="genskills.php"><i class="fa fa-circle-o"></i>General Skills</a></li>
+                <li><a href="/Maintenance/Job"><i class="fa fa-circle-o"></i>Job</a></li>
+                <li><a href="genskills.php"><i class="fa fa-circle-o"></i>Skills</a></li>
                 <li><a href="fees.php"><i class="fa fa-circle-o"></i>Fees</a></li>
                 <li class="gr"><a href="/Maintenance/DocumentaryRequirements"><i class="fa fa-circle-o"></i>Documentary Requirements</a></li>
               </ul>
