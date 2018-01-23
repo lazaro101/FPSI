@@ -17,18 +17,18 @@ class AdminController extends Controller
     	return view('dashboard');
     }
 
-    public function MaintenanceGeneralRequirements(){
+    public function MaintenanceDocReq(){
     	$data = DB::table('genreqs_t')->get();
-    	return view('maintenance.genreq',['genreq' => $data]);
+    	return view('maintenance.docreq',['genreq' => $data]);
     }
-    public function addGenreq(Request $req){
+    public function addDocreq(Request $req){
     	DB::table('genreqs_t')->insert([
     		'REQNAME' => $req->reqname,
     		'ALLOCATION' => $req->alloc,
     		'Description' => $req->desc
     	]);
 
-    	return redirect('/Maintenance/GeneralRequirements');
+    	return redirect('/Maintenance/DocuemntaryRequirements');
     }
 
     public function MaintenanceCountry(){

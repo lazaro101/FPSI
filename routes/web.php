@@ -27,8 +27,8 @@ Route::get('/logout',function(){
 
 Route::get('/Dashboard','AdminController@Dashboard');
 
-Route::get('/Maintenance/GeneralRequirements','AdminController@MaintenanceGeneralRequirements');
-Route::post('/addGenreq','AdminController@addGenreq');
+Route::get('/Maintenance/DocumentaryRequirements','AdminController@MaintenanceDocReq');
+Route::post('/addDocreq','AdminController@addDocreq');
 
 Route::get('/Maintenance/Country','AdminController@MaintenanceCountry');
 Route::post('/addCountry','AdminController@addCountry');
