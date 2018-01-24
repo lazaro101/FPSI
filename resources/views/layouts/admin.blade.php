@@ -318,7 +318,7 @@
         <li class="db"><a href="/Dashboard"> <i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
         <li class="treeview">
-          <a class="mntc" href="#">
+          <a class="mntc" href="#"><i class="fa fa-cogs"></i>
             <span><strong>Maintenance</strong></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -348,7 +348,7 @@
 
 
         <li class="treeview">
-          <a class="trnsc" href="#">
+          <a class="trnsc" href="#"><i class="fa fa-pencil-square-o"></i>
             <span><strong>Transactions</strong></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -384,7 +384,7 @@
         </li>
 
          <li class="treeview">
-          <a href="#">
+          <a href="#"><i class="fa fa-file-text"></i>
             <span><strong>Reports</strong></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -395,7 +395,7 @@
           </ul>
         </li>
          <li class="treeview">
-          <a href="#">
+          <a href="#"><i class="fa fa-wrench"></i>
             <span><strong>Utilities</strong></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
