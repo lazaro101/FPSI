@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2018 at 11:42 AM
+-- Generation Time: Jan 24, 2018 at 05:31 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -281,7 +281,7 @@ CREATE TABLE `currency_t` (
 --
 
 INSERT INTO `currency_t` (`CUR_ID`, `CURRENCY`, `SYMBOL`, `status`) VALUES
-(1, 'Philippine Peso 1', 'Php', 0),
+(1, 'Philippine Peso', 'Php', 0),
 (2, 'asd', 'asd', 1);
 
 -- --------------------------------------------------------
@@ -393,7 +393,8 @@ INSERT INTO `genreqs_t` (`REQ_ID`, `REQNAME`, `ALLOCATION`, `Description`, `stat
 
 CREATE TABLE `genskills_t` (
   `SKILL_ID` int(11) NOT NULL,
-  `SKILLNAME` varchar(100) NOT NULL
+  `SKILLNAME` varchar(100) NOT NULL,
+  `SKILLTYPE` varchar(55) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -553,6 +554,17 @@ CREATE TABLE `receipts_t` (
   `PAYMENT` int(11) DEFAULT NULL,
   `CHNGE` int(11) DEFAULT NULL,
   `RDATE` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `specskills_t`
+--
+
+CREATE TABLE `specskills_t` (
+  `Job_id` int(11) DEFAULT NULL,
+  `Skill_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -799,6 +811,13 @@ ALTER TABLE `placementfee_t`
 ALTER TABLE `receipts_t`
   ADD PRIMARY KEY (`PAY_ID`),
   ADD KEY `APP_ID` (`APP_ID`);
+
+--
+-- Indexes for table `specskills_t`
+--
+ALTER TABLE `specskills_t`
+  ADD KEY `Job_id` (`Job_id`),
+  ADD KEY `Skill_id` (`Skill_id`);
 
 --
 -- Indexes for table `users`
@@ -1052,6 +1071,13 @@ ALTER TABLE `placementfee_t`
 --
 ALTER TABLE `receipts_t`
   ADD CONSTRAINT `receipts_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`);
+
+--
+-- Constraints for table `specskills_t`
+--
+ALTER TABLE `specskills_t`
+  ADD CONSTRAINT `specskills_t_ibfk_1` FOREIGN KEY (`Job_id`) REFERENCES `job_t` (`JOB_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `specskills_t_ibfk_2` FOREIGN KEY (`Skill_id`) REFERENCES `genskills_t` (`SKILL_ID`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
