@@ -174,6 +174,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $('.sidebar-menu .mntc').trigger('click');
+      $('.sidebar-menu .jd').trigger('click');
       $('.sidebar-menu li.gr').addClass('active');
 
       $('.edit').click(function(){
