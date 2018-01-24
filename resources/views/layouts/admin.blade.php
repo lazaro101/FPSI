@@ -360,7 +360,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </span> </a>
               <ul class="treeview-menu">
-                <li class="jbc"><a href="/Transactions/Employer"><i class="fa fa-circle-o"></i>Employer</a></li>
+                <li class="empr"><a href="/Transactions/Employer"><i class="fa fa-circle-o"></i>Employer</a></li>
                 <li class="jbt"><a href="/Transactions/JobOrder"><i class="fa fa-circle-o"></i>Job Order</a></li>
                 <li class="jb"><a href="/Transactions/JobFees"><i class="fa fa-circle-o"></i>Job Fees</a></li>
               </ul>

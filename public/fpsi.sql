@@ -1,23 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Jan 24, 2018 at 05:31 AM
--- Server version: 10.1.29-MariaDB
--- PHP Version: 7.2.0
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Database: `fpsi`
 --
@@ -195,9 +175,7 @@ CREATE TABLE `banksallowed_t` (
 --
 
 INSERT INTO `banksallowed_t` (`COUNTRY_ID`, `BANK_ID`) VALUES
-(2, 1),
-(4, 1),
-(4, 2);
+(7, 4);
 
 -- --------------------------------------------------------
 
@@ -218,7 +196,7 @@ CREATE TABLE `banks_t` (
 INSERT INTO `banks_t` (`BANK_ID`, `BANKNAME`, `status`) VALUES
 (1, 'Metrobank', 0),
 (2, 'BPI', 0),
-(3, 'as', 1);
+(4, 'BDO', 0);
 
 -- --------------------------------------------------------
 
@@ -236,10 +214,8 @@ CREATE TABLE `countryreqs_t` (
 --
 
 INSERT INTO `countryreqs_t` (`COUNTRY_ID`, `REQ_ID`) VALUES
-(3, 1),
-(3, 2),
-(4, 6),
-(4, 7);
+(7, 22),
+(8, 22);
 
 -- --------------------------------------------------------
 
@@ -258,10 +234,8 @@ CREATE TABLE `country_t` (
 --
 
 INSERT INTO `country_t` (`COUNTRY_ID`, `COUNTRYNAME`, `status`) VALUES
-(1, 'Japan', 1),
-(2, 'Japan', 0),
-(3, 'US', 1),
-(4, 'US', 0);
+(7, 'Japan', 0),
+(8, 'United States of America', 0);
 
 -- --------------------------------------------------------
 
@@ -281,8 +255,9 @@ CREATE TABLE `currency_t` (
 --
 
 INSERT INTO `currency_t` (`CUR_ID`, `CURRENCY`, `SYMBOL`, `status`) VALUES
-(1, 'Philippine Peso', 'Php', 0),
-(2, 'asd', 'asd', 1);
+(1, 'Philippine Peso', 'PHP', 0),
+(3, 'United States Dollar', 'USD', 0),
+(4, 'Japan Yen', 'JPY', 0);
 
 -- --------------------------------------------------------
 
@@ -329,8 +304,7 @@ CREATE TABLE `emp_t` (
 --
 
 INSERT INTO `emp_t` (`EMP_ID`, `LNAME`, `FNAME`, `MNAME`, `GENDER`, `BIRTHDATE`, `ADDRSS`, `CONTACT`, `DEPTNAME`) VALUES
-(1, 'Almojuela', 'Danielle Elijah', 'Jainar', 'Male', '1997-10-12', 'Makati City', '09989892720', 'Operations'),
-(2, 'Almojuela', 'Danielle Elijah', 'Jainar', 'Male', '1997-10-12', 'Makati City', '09989892720', 'Operations');
+(1, 'Vidanes', 'Aubrey', 'Santiago', 'Female', '1998-05-18', 'Pasig City', '09995093954', 'Operations');
 
 -- --------------------------------------------------------
 
@@ -375,15 +349,28 @@ CREATE TABLE `genreqs_t` (
 --
 
 INSERT INTO `genreqs_t` (`REQ_ID`, `REQNAME`, `ALLOCATION`, `Description`, `status`) VALUES
-(1, 'ID', '100', 'BLAH BLAH', 1),
-(2, '2X2', '200', 'LOLO', 1),
-(3, 'asd', 'Job', 'asd', 1),
-(4, 'Birth Certificate', 'Country', 'asd', 1),
-(5, 'asd', 'Basic', 'asd', 1),
-(6, 'Birth Certificate', 'Country', NULL, 0),
-(7, 'NSO', 'Country', NULL, 0),
-(8, 'asd', NULL, NULL, 0),
-(9, 'dsa', 'Basic', 'das', 0);
+(1, 'Accomplished Agency Application Form', 'Basic', 'All necessary fields must be filled out', 0),
+(2, 'Comprehensive Resume', 'Basic', '', 0),
+(3, 'Valid Medical Certificate', 'Basic', '', 0),
+(4, 'Valid Passport Original', 'Basic', '', 0),
+(5, 'Colored Whole Body Picture (2 pcs.)', 'Basic', 'White background', 0),
+(6, 'Colored 2x2 Pictures (6 pcs.)', 'Basic', 'White background', 0),
+(7, 'Employment Certificate', 'Basic', '', 0),
+(8, 'Training Certificate', 'Basic', '', 0),
+(9, 'Valid Original NBI Clearance', 'Basic', '', 0),
+(10, 'Barangay Clearance', 'Basic', '', 0),
+(11, 'College Diploma', 'Job', '', 0),
+(12, 'High School Diploma', 'Job', '', 0),
+(13, 'Related Learning Experience (RLE) Summary', 'Job', '', 0),
+(14, 'Valid PRC License/ID', 'Job', '', 0),
+(15, 'Board Certificate', 'Job', '', 0),
+(16, 'Board Rating', 'Job', '', 0),
+(17, 'Project Portfolio', 'Job', '', 0),
+(18, 'Certificate of Singleness', 'Job', '', 0),
+(19, 'Marriage Contract', 'Job', '', 0),
+(20, 'Family Photo', 'Job', '', 0),
+(21, 'NCII', 'Job', '', 0),
+(22, 'Visa', 'Country', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -834,86 +821,72 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `banks_t`
 --
 ALTER TABLE `banks_t`
-  MODIFY `BANK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `BANK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `country_t`
 --
 ALTER TABLE `country_t`
-  MODIFY `COUNTRY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
+  MODIFY `COUNTRY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `currency_t`
 --
 ALTER TABLE `currency_t`
-  MODIFY `CUR_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `CUR_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `employer_t`
 --
 ALTER TABLE `employer_t`
   MODIFY `EMPLOYER_ID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `emp_t`
 --
 ALTER TABLE `emp_t`
   MODIFY `EMP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `genfees_t`
 --
 ALTER TABLE `genfees_t`
   MODIFY `FEE_ID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `genreqs_t`
 --
 ALTER TABLE `genreqs_t`
-  MODIFY `REQ_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
+  MODIFY `REQ_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `genskills_t`
 --
 ALTER TABLE `genskills_t`
   MODIFY `SKILL_ID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `jobcategory_t`
 --
 ALTER TABLE `jobcategory_t`
   MODIFY `CATEGORY_ID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `joborder_t`
 --
 ALTER TABLE `joborder_t`
   MODIFY `JORDER_ID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `jobtype_t`
 --
 ALTER TABLE `jobtype_t`
   MODIFY `JOBTYPE_ID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `job_t`
 --
 ALTER TABLE `job_t`
   MODIFY `JOB_ID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `logs_t`
 --
 ALTER TABLE `logs_t`
   MODIFY `LOG_ID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- Constraints for dumped tables
 --
@@ -1078,7 +1051,6 @@ ALTER TABLE `receipts_t`
 ALTER TABLE `specskills_t`
   ADD CONSTRAINT `specskills_t_ibfk_1` FOREIGN KEY (`Job_id`) REFERENCES `job_t` (`JOB_ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `specskills_t_ibfk_2` FOREIGN KEY (`Skill_id`) REFERENCES `genskills_t` (`SKILL_ID`) ON DELETE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
