@@ -345,19 +345,44 @@
             </li>
           </ul>
         </li>
+
+
         <li class="treeview">
-          <a href="#">
+          <a class="trnsc" href="#">
             <span><strong>Transactions</strong></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i>Job Order Management</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i>Application Management</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i>Collections Monitoring</a></li>
+            <li class="jd treeview">
+              <a class="jd"><i class="fa fa-circle-o"></i>Job Order Management <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span> </a>
+              <ul class="treeview-menu">
+                <li class="jbc"><a href="/Transactions/Employer"><i class="fa fa-circle-o"></i>Employer</a></li>
+                <li class="jbt"><a href="/Transactions/JobOrder"><i class="fa fa-circle-o"></i>Job Order</a></li>
+                <li class="jb"><a href="/Transactions/JobFees"><i class="fa fa-circle-o"></i>Job Fees</a></li>
+              </ul>
+            </li>
+
+            <li class="jd treeview">
+              <a class="jd"><i class="fa fa-circle-o"></i>Application Management <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span> </a>
+              <ul class="treeview-menu">
+                <li class="jbc"><a href="/Transactions/Applicant"><i class="fa fa-circle-o"></i>Applicant</a></li>
+                <li class="jbt"><a href="/Transactions/ApplicantMatching"><i class="fa fa-circle-o"></i>Applicant Matching</a></li>
+                <li class="jb"><a href="/Transactions/InitialInterview"><i class="fa fa-circle-o"></i>Initial Interview</a></li>
+                <li class="jb"><a href="/Transactions/FinalInterview"><i class="fa fa-circle-o"></i>Final Interview</a></li>
+                <li class="jb"><a href="/Transactions/DocumentsCollection"><i class="fa fa-circle-o"></i>Documents Collection</a></li>
+              </ul>
+            </li>
+
+            <li class="cty"><a href="/Transactions/CollectionsMonitoring"><i class="fa fa-circle-o"></i>Collections Monitoring</a></li>
           </ul>
         </li>
+
          <li class="treeview">
           <a href="#">
             <span><strong>Reports</strong></span>

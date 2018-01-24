@@ -32,7 +32,7 @@
                   <thead>
                     <tr>
                       <th>Skill Name</th>
-                      <th>Skill Category</th>
+                      <th>Skill Type</th>
                       <th width="100px">Actions</th>
                     </tr>
                   </thead>
@@ -62,7 +62,7 @@
                   <input type="text" class="form-control" name="">
                 </div>
                 <div class="form-group">
-                  <label>Skill Category</label>
+                  <label>Skill Type</label>
                   <select class="form-control" placeholder="Input something.." name="">
                     <option value="General">General</option>
                     <option value="Specific">Specific</option>

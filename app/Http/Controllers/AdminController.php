@@ -188,7 +188,11 @@ class AdminController extends Controller
         return view('maintenance.skills');
     }
 
-     public function MaintenanceFees(){
+    public function MaintenanceFees(){
         return view('maintenance.fees');
+    }
+
+    public function TransactionsEmployer(){
+        return view('transactions.employer');
     }
 }

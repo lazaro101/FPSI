@@ -71,3 +71,6 @@ Route::post('/addSkills','AdminController@addSkills');
 
 Route::get('/Maintenance/Fees','AdminController@MaintenanceFees');
 Route::post('/addFees','AdminController@addFees');
+
+Route::get('/Transactions/Employer','AdminController@TransactionsEmployer');
+Route::post('/addEmployer','AdminController@addEmployer');

@@ -79,14 +79,14 @@
                   </select>
                 </div>
                 <div class="form-group">
+                  <div class="Checkbox">
                   <label>Skills</label><br>
-                  
                   <input type="Checkbox"  name=""> Skill 1 <br>
                   <input type="Checkbox"  name=""> Skill 2 <br>
                   <input type="Checkbox"  name=""> Skill 3 <br>
                   <input type="Checkbox"  name=""> Skill 4 <br>
                   <input type="Checkbox"  name=""> Skill 5
-                       
+                  </div>     
                 </div>
               </div>
               <div class="modal-footer">
@@ -131,15 +131,14 @@
                 </div>
                 <div class="form-group">
                   <label>Skills</label><br>
-                  
+                  <div class="Checkbox">
                   <input type="Checkbox"  name=""> Skill 1 <br>
                   <input type="Checkbox"  name=""> Skill 2 <br>
                   <input type="Checkbox"  name=""> Skill 3 <br>
                   <input type="Checkbox"  name=""> Skill 4 <br>
                   <input type="Checkbox"  name=""> Skill 5
-                       
+                  </div>    
                 </div>
-
               </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-success">Save</button>

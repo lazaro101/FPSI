@@ -32,6 +32,7 @@
                   <thead>
                     <tr>
                       <th>Fee Name</th>
+                      <th>Job Type</th>
                       <th width="100px">Actions</th>
                     </tr>
                   </thead>
@@ -59,6 +60,13 @@
                 <div class="form-group">
                   <label>Fee Name</label>
                   <input type="text" class="form-control" name="">
+                </div>
+                <div class="form-group">
+                  <div class="Checkbox">
+                  <label>For Job Type</label> <br>
+                  <input type="Checkbox"  name=""> Job Type 1 <br>
+                  <input type="Checkbox"  name=""> Job Type 2 <br>
+                  </div>   
                 </div>
               </div>
               <div class="modal-footer">
@@ -88,6 +96,13 @@
                   <input type="text" class="form-control" name="">
                 </div>
               </div>
+              <div class="form-group">
+                  <div class="Checkbox">
+                  <label>For Job Type</label><br>
+                  <input type="Checkbox"  name=""> Job Type 1 <br>
+                  <input type="Checkbox"  name=""> Job Type 2 <br>
+                  </div>     
+                </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-success">Save</button>
                 <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
