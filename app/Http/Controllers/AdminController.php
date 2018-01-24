@@ -37,7 +37,7 @@ class AdminController extends Controller
     public function editDocreq(Request $req){
     	DB::table('genreqs_t')->where('REQ_ID',$req->id)->update([
     		'REQNAME' => $req->reqname,
-    		'ALLOCATION' => $req->allo,
+    		'ALLOCATION' => $req->alloc,
     		'Description' => $req->desc
     	]);
     	return redirect('/Maintenance/DocumentaryRequirements');
@@ -159,6 +159,7 @@ class AdminController extends Controller
     	}
     	return redirect('/Maintenance/AcceptedBanks');
     }
+
     public function getAccBanks(Request $req){
     	$var = DB::table('banksallowed_t')->where('COUNTRY_ID',$req->id)->get();
     	return response()->json($var);
@@ -169,5 +170,19 @@ class AdminController extends Controller
     public function delAccBanks(Request $req){
     	DB::table('banksallowed_t')->where('COUNTRY_ID',$req->id)->delete();
     	return redirect('/Maintenance/AcceptedBanks');
+    }
+
+
+    public function MaintenanceJobCategory(){
+        return view('maintenance.jobcategory');
+    }
+
+    public function MaintenanceJobType(){
+        return view('maintenance.jobtype');
+    }
+
+    public function MaintenanceJob(){
+        return view('maintenance.job');
+
     }
 }
