@@ -148,6 +148,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $('.sidebar-menu .mntc').trigger('click');
+      $('.sidebar-menu .jd').trigger('click');
       $('.sidebar-menu li.fes').addClass('active');
     });
   </script>
