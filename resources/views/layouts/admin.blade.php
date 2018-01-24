@@ -335,11 +335,11 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </span> </a>
               <ul class="treeview-menu">
-                <li><a href="/Maintenance/JobCategory"><i class="fa fa-circle-o"></i>Job Category</a></li>
-                <li><a href="/Maintenance/JobType"><i class="fa fa-circle-o"></i>Job Type</a></li>
-                <li><a href="/Maintenance/Job"><i class="fa fa-circle-o"></i>Job</a></li>
-                <li><a href="genskills.php"><i class="fa fa-circle-o"></i>Skills</a></li>
-                <li><a href="fees.php"><i class="fa fa-circle-o"></i>Fees</a></li>
+                <li class="jbc"><a href="/Maintenance/JobCategory"><i class="fa fa-circle-o"></i>Job Category</a></li>
+                <li class="jbt"><a href="/Maintenance/JobType"><i class="fa fa-circle-o"></i>Job Type</a></li>
+                <li class="jb"><a href="/Maintenance/Job"><i class="fa fa-circle-o"></i>Job</a></li>
+                <li class="sls"><a href="/Maintenance/Skills"><i class="fa fa-circle-o"></i>Skills</a></li>
+                <li class="fes"><a href="/Maintenance/Fees"><i class="fa fa-circle-o"></i>Fees</a></li>
                 <li class="gr"><a href="/Maintenance/DocumentaryRequirements"><i class="fa fa-circle-o"></i>Documentary Requirements</a></li>
               </ul>
             </li>

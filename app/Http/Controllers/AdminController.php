@@ -172,7 +172,6 @@ class AdminController extends Controller
     	return redirect('/Maintenance/AcceptedBanks');
     }
 
-
     public function MaintenanceJobCategory(){
         return view('maintenance.jobcategory');
     }
@@ -183,6 +182,13 @@ class AdminController extends Controller
 
     public function MaintenanceJob(){
         return view('maintenance.job');
+    }
 
+    public function MaintenanceSkills(){
+        return view('maintenance.skills');
+    }
+
+     public function MaintenanceFees(){
+        return view('maintenance.fees');
     }
 }

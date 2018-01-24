@@ -32,6 +32,7 @@
                   <thead>
                     <tr>
                       <th>Job Type</th>
+                      <th width="100px">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -71,6 +72,58 @@
         </form>
       </div>
 
+      <div class="modal fade" id="editJobType">
+        <form method="post" action="/editJobType">
+          {{csrf_field()}}
+          <input type="hidden" name="id">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit Job Type</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>Job Type</label>
+                  <input type="text" class="form-control" name="">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Save</button>
+                <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+        </form>
+      </div>
+
+      <div class="modal modal-warning fade in" id="delJobType">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span></button>
+              <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want to delete?</p>
+            </div>
+            <div class="modal-footer">
+              <form method="post" action="/delJobType">
+                {{csrf_field()}}
+                <input type="hidden" name="id" value="">
+                <button type="submit" class="btn btn-outline">Yes</button>
+                <button type="button" class="btn btn-outline" data-dismiss="modal">No</button>
+              </form>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
     </section>
 
   </div>
@@ -82,7 +135,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $('.sidebar-menu .mntc').trigger('click');
-      $('.sidebar-menu li.cnc').addClass('active'); 
+      $('.sidebar-menu li.jbt').addClass('active'); 
     });
   </script>
   @endsection

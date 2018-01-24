@@ -33,7 +33,7 @@
                     <tr>
                       <th>Country ID</th>
                       <th>Country Name</th>
-                      <th>Banks Allowed</th>
+                      <th>Accepted Banks</th>
                       <th width="100px">Actions</th>
                     </tr>
                   </thead>
