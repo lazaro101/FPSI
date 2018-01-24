@@ -4,6 +4,7 @@
 --
 -- Host: 127.0.0.1
 -- Generation Time: Jan 22, 2018 at 11:45 AM
+-- Generation Time: Jan 23, 2018 at 11:42 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -195,11 +196,9 @@ CREATE TABLE `banksallowed_t` (
 --
 
 INSERT INTO `banksallowed_t` (`COUNTRY_ID`, `BANK_ID`) VALUES
-(3, 1),
-(3, 2),
 (2, 1),
-(1, 1),
-(1, 2);
+(4, 1),
+(4, 2);
 
 -- --------------------------------------------------------
 
@@ -209,16 +208,18 @@ INSERT INTO `banksallowed_t` (`COUNTRY_ID`, `BANK_ID`) VALUES
 
 CREATE TABLE `banks_t` (
   `BANK_ID` int(11) NOT NULL,
-  `BANKNAME` varchar(55) NOT NULL
+  `BANKNAME` varchar(55) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `banks_t`
 --
 
-INSERT INTO `banks_t` (`BANK_ID`, `BANKNAME`) VALUES
-(1, 'Metrobank'),
-(2, 'BPIU');
+INSERT INTO `banks_t` (`BANK_ID`, `BANKNAME`, `status`) VALUES
+(1, 'Metrobank', 0),
+(2, 'BPI', 0),
+(3, 'as', 1);
 
 -- --------------------------------------------------------
 
@@ -236,9 +237,10 @@ CREATE TABLE `countryreqs_t` (
 --
 
 INSERT INTO `countryreqs_t` (`COUNTRY_ID`, `REQ_ID`) VALUES
-(2, 1),
 (3, 1),
-(3, 2);
+(3, 2),
+(4, 6),
+(4, 7);
 
 -- --------------------------------------------------------
 
@@ -248,17 +250,40 @@ INSERT INTO `countryreqs_t` (`COUNTRY_ID`, `REQ_ID`) VALUES
 
 CREATE TABLE `country_t` (
   `COUNTRY_ID` int(11) NOT NULL,
-  `COUNTRYNAME` varchar(30) NOT NULL
+  `COUNTRYNAME` varchar(30) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `country_t`
 --
 
-INSERT INTO `country_t` (`COUNTRY_ID`, `COUNTRYNAME`) VALUES
-(1, 'Japan'),
-(2, 'Japan'),
-(3, 'US');
+INSERT INTO `country_t` (`COUNTRY_ID`, `COUNTRYNAME`, `status`) VALUES
+(1, 'Japan', 1),
+(2, 'Japan', 0),
+(3, 'US', 1),
+(4, 'US', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `currency_t`
+--
+
+CREATE TABLE `currency_t` (
+  `CUR_ID` int(11) NOT NULL,
+  `CURRENCY` varchar(55) NOT NULL,
+  `SYMBOL` varchar(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `currency_t`
+--
+
+INSERT INTO `currency_t` (`CUR_ID`, `CURRENCY`, `SYMBOL`, `status`) VALUES
+(1, 'Philippine Peso 1', 'Php', 0),
+(2, 'asd', 'asd', 1);
 
 -- --------------------------------------------------------
 
@@ -342,16 +367,24 @@ CREATE TABLE `genreqs_t` (
   `REQ_ID` int(11) NOT NULL,
   `REQNAME` varchar(100) NOT NULL,
   `ALLOCATION` varchar(30) DEFAULT NULL,
-  `Description` varchar(100) DEFAULT NULL
+  `Description` varchar(100) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `genreqs_t`
 --
 
-INSERT INTO `genreqs_t` (`REQ_ID`, `REQNAME`, `ALLOCATION`, `Description`) VALUES
-(1, 'ID', '100', 'BLAH BLAH'),
-(2, '2X2', '200', 'LOLO');
+INSERT INTO `genreqs_t` (`REQ_ID`, `REQNAME`, `ALLOCATION`, `Description`, `status`) VALUES
+(1, 'ID', '100', 'BLAH BLAH', 1),
+(2, '2X2', '200', 'LOLO', 1),
+(3, 'asd', 'Job', 'asd', 1),
+(4, 'Birth Certificate', 'Country', 'asd', 1),
+(5, 'asd', 'Basic', 'asd', 1),
+(6, 'Birth Certificate', 'Country', NULL, 0),
+(7, 'NSO', 'Country', NULL, 0),
+(8, 'asd', NULL, NULL, 0),
+(9, 'dsa', 'Basic', 'das', 0);
 
 -- --------------------------------------------------------
 
@@ -642,6 +675,12 @@ ALTER TABLE `country_t`
   ADD PRIMARY KEY (`COUNTRY_ID`);
 
 --
+-- Indexes for table `currency_t`
+--
+ALTER TABLE `currency_t`
+  ADD PRIMARY KEY (`CUR_ID`);
+
+--
 -- Indexes for table `employer_t`
 --
 ALTER TABLE `employer_t`
@@ -777,13 +816,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `banks_t`
 --
 ALTER TABLE `banks_t`
-  MODIFY `BANK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `BANK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `country_t`
 --
 ALTER TABLE `country_t`
-  MODIFY `COUNTRY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `COUNTRY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `currency_t`
+--
+ALTER TABLE `currency_t`
+  MODIFY `CUR_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `employer_t`
@@ -807,7 +852,7 @@ ALTER TABLE `genfees_t`
 -- AUTO_INCREMENT for table `genreqs_t`
 --
 ALTER TABLE `genreqs_t`
-  MODIFY `REQ_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `REQ_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `genskills_t`
