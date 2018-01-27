@@ -34,6 +34,8 @@
                       <th>Employer</th>
                       <th>Country</th>
                       <th>Foreign Principal</th>
+                      <th>Cellphone No.</th>
+                      <th>Landline No.</th>
                       <th width="100px">Actions</th>
                     </tr>
                   </thead>

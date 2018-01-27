@@ -259,4 +259,12 @@ class AdminController extends Controller
     public function TransactionsEmployer(){
         return view('transactions.employer');
     }
+
+    public function TransactionsJobOrder(){
+        return view('transactions.joborder');
+    }
+
+    public function TransactionsInitialInterview(){
+        return view('transactions.initialinterview');
+    }
 }

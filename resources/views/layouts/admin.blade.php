@@ -361,8 +361,7 @@
               </span> </a>
               <ul class="treeview-menu">
                 <li class="empr"><a href="/Transactions/Employer"><i class="fa fa-circle-o"></i>Employer</a></li>
-                <li class="jbt"><a href="/Transactions/JobOrder"><i class="fa fa-circle-o"></i>Job Order</a></li>
-                <li class="jb"><a href="/Transactions/JobFees"><i class="fa fa-circle-o"></i>Job Fees</a></li>
+                <li class="jor"><a href="/Transactions/JobOrder"><i class="fa fa-circle-o"></i>Job Order</a></li>
               </ul>
             </li>
 
@@ -371,11 +370,11 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </span> </a>
               <ul class="treeview-menu">
-                <li class="jbc"><a href="/Transactions/Applicant"><i class="fa fa-circle-o"></i>Applicant</a></li>
-                <li class="jbt"><a href="/Transactions/ApplicantMatching"><i class="fa fa-circle-o"></i>Applicant Matching</a></li>
-                <li class="jb"><a href="/Transactions/InitialInterview"><i class="fa fa-circle-o"></i>Initial Interview</a></li>
-                <li class="jb"><a href="/Transactions/FinalInterview"><i class="fa fa-circle-o"></i>Final Interview</a></li>
-                <li class="jb"><a href="/Transactions/DocumentsCollection"><i class="fa fa-circle-o"></i>Documents Collection</a></li>
+                <li class=""><a href="/Transactions/Applicant"><i class="fa fa-circle-o"></i>Applicant</a></li>
+                <li class=""><a href="/Transactions/ApplicantMatching"><i class="fa fa-circle-o"></i>Applicant Matching</a></li>
+                <li class="intin"><a href="/Transactions/InitialInterview"><i class="fa fa-circle-o"></i>Initial Interview</a></li>
+                <li class=""><a href="/Transactions/FinalInterview"><i class="fa fa-circle-o"></i>Final Interview</a></li>
+                <li class=""><a href="/Transactions/DocumentsCollection"><i class="fa fa-circle-o"></i>Documents Collection</a></li>
               </ul>
             </li>
 
