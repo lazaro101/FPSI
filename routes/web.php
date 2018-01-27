@@ -58,10 +58,16 @@ Route::post('/editAccBanks','AdminController@editAccBanks');
 Route::post('/delAccBanks','AdminController@delAccBanks');
 
 Route::get('/Maintenance/JobCategory','AdminController@MaintenanceJobCategory');
+Route::get('/getJobCategory','AdminController@getJobCategory');
 Route::post('/addJobCategory','AdminController@addJobCategory');
+Route::post('/editJobCategory','AdminController@editJobCategory');
+Route::post('/delJobCategory','AdminController@delJobCategory');
 
 Route::get('/Maintenance/JobType','AdminController@MaintenanceJobType');
+Route::get('/getJobType','AdminController@getJobType');
 Route::post('/addJobType','AdminController@addJobType');
+Route::post('/editJobType','AdminController@editJobType');
+Route::post('/delJobType','AdminController@delJobType');
 
 Route::get('/Maintenance/Job','AdminController@MaintenanceJob');
 Route::post('/addJob','AdminController@addJob');

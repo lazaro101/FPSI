@@ -173,11 +173,49 @@ class AdminController extends Controller
     }
 
     public function MaintenanceJobCategory(){
-        return view('maintenance.jobcategory');
+        $jobcategory = DB::table('jobcategory_t')->where('status',0)->get();
+        return view('maintenance.jobcategory',['jobcategory' => $jobcategory]);
+    }
+    public function addJobCategory(Request $req){
+        DB::table('jobcategory_t')->insert([
+            'CATEGORYNAME' => $req->categoryname
+        ]);
+        return redirect('/Maintenance/JobCategory');
+    }
+    public function getJobCategory(Request $req){
+        $var = DB::table('jobcategory_t')->where('CATEGORY_ID',$req->id)->first();
+        return response()->json($var);
+    }
+    public function editJobCategory(Request $req){
+        DB::table('jobcategory_t')->where('CATEGORY_ID',$req->id)->update([ 'CATEGORYNAME' => $req->categoryname]);
+        return redirect('/Maintenance/JobCategory');
+    }
+    public function delJobCategory(Request $req){
+        DB::table('jobcategory_t')->where('CATEGORY_ID',$req->id)->update([ 'status' => 1]);
+        return redirect('/Maintenance/JobCategory');
     }
 
     public function MaintenanceJobType(){
-        return view('maintenance.jobtype');
+        $jobtype = DB::table('jobtype_t')->where('status',0)->get();
+        return view('maintenance.jobtype',['jobtype' => $jobtype]);
+    }
+    public function addJobType(Request $req){
+        DB::table('jobtype_t')->insert([
+            'TYPENAME' => $req->typename
+        ]);
+        return redirect('/Maintenance/JobType');
+    }
+    public function getJobType(Request $req){
+        $var = DB::table('jobtype_t')->where('JOBTYPE_ID',$req->id)->first();
+        return response()->json($var);
+    }
+    public function editJobType(Request $req){
+        DB::table('jobtype_t')->where('JOBTYPE_ID',$req->id)->update([ 'TYPENAME' => $req->typename]);
+        return redirect('/Maintenance/JobType');
+    }
+    public function delJobType(Request $req){
+        DB::table('jobtype_t')->where('JOBTYPE_ID',$req->id)->update([ 'status' => 1]);
+        return redirect('/Maintenance/JobType');
     }
 
     public function MaintenanceJob(){

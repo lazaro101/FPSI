@@ -392,8 +392,20 @@ CREATE TABLE `genskills_t` (
 
 CREATE TABLE `jobcategory_t` (
   `CATEGORY_ID` int(11) NOT NULL,
-  `CATEGORYNAME` varchar(30) DEFAULT NULL
+  `CATEGORYNAME` varchar(30) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jobcategory_t`
+--
+
+INSERT INTO `jobcategory_t` (`CATEGORY_ID`, `CATEGORYNAME`, `status`) VALUES
+(1, 'Information Technology', 0),
+(2, 'Engineering', 0),
+(3, 'Human Resource', 0),
+(4, 'Health Care / Medical', 0),
+(5, 'Hospitality', 0);
 
 -- --------------------------------------------------------
 
@@ -469,8 +481,17 @@ CREATE TABLE `jobskills_t` (
 
 CREATE TABLE `jobtype_t` (
   `JOBTYPE_ID` int(11) NOT NULL,
-  `TYPENAME` varchar(100) NOT NULL
+  `TYPENAME` varchar(100) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jobtype_t`
+--
+
+INSERT INTO `jobtype_t` (`JOBTYPE_ID`, `TYPENAME`, `status`) VALUES
+(2, 'Skilled', 0),
+(3, 'Vulnerable', 0);
 
 -- --------------------------------------------------------
 
@@ -841,7 +862,7 @@ ALTER TABLE `employer_t`
 -- AUTO_INCREMENT for table `emp_t`
 --
 ALTER TABLE `emp_t`
-  MODIFY `EMP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `EMP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `genfees_t`
 --
@@ -861,7 +882,7 @@ ALTER TABLE `genskills_t`
 -- AUTO_INCREMENT for table `jobcategory_t`
 --
 ALTER TABLE `jobcategory_t`
-  MODIFY `CATEGORY_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `CATEGORY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `joborder_t`
 --
@@ -871,7 +892,7 @@ ALTER TABLE `joborder_t`
 -- AUTO_INCREMENT for table `jobtype_t`
 --
 ALTER TABLE `jobtype_t`
-  MODIFY `JOBTYPE_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `JOBTYPE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `job_t`
 --
