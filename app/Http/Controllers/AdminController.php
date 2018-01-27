@@ -223,7 +223,33 @@ class AdminController extends Controller
     }
 
     public function MaintenanceSkills(){
-        return view('maintenance.skills');
+        $data = DB::table('genskills_t')->where('status',0)->get();
+        return view('maintenance.skills',['genskills' => $data]);
+    }
+    public function addSkills(Request $req){
+        DB::table('genskills_t')->insert([
+            'SKILLNAME' => $req->skillname,
+            'SKILLTYPE' => $req->skilltype,
+        ]);
+
+        return redirect('/Maintenance/Skills');
+    }
+    public function getSkills(Request $req){
+        $var = DB::table('genskills_t')->where('SKILL_ID',$req->id)->first();
+        return response()->json($var);
+    }
+    public function editSkills(Request $req){
+        DB::table('genskills_t')->where('SKILL_ID',$req->id)->update([
+            'SKILLNAME' => $req->skillname,
+            'SKILLTYPE' => $req->skilltype,
+        ]);
+        return redirect('/Maintenance/Skills');
+    }
+    public function delSkills(Request $req){
+        DB::table('genskills_t')->where('SKILL_ID',$req->id)->update([
+            'status' => 1
+        ]);
+        return redirect('/Maintenance/Skills');
     }
 
     public function MaintenanceFees(){

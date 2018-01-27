@@ -1,3 +1,21 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jan 27, 2018 at 06:52 AM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 7.0.8
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
 -- Database: `fpsi`
 --
@@ -381,8 +399,25 @@ INSERT INTO `genreqs_t` (`REQ_ID`, `REQNAME`, `ALLOCATION`, `Description`, `stat
 CREATE TABLE `genskills_t` (
   `SKILL_ID` int(11) NOT NULL,
   `SKILLNAME` varchar(100) NOT NULL,
-  `SKILLTYPE` varchar(55) NOT NULL
+  `SKILLTYPE` varchar(55) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `genskills_t`
+--
+
+INSERT INTO `genskills_t` (`SKILL_ID`, `SKILLNAME`, `SKILLTYPE`, `status`) VALUES
+(1, 'Good Communication', 'General', 0),
+(2, 'Programming (Java)', 'Specific', 0),
+(3, 'Analytical', 'General', 0),
+(4, 'Creative Thinking', 'General', 0),
+(5, 'Critical Thinking', 'General', 0),
+(6, 'Decision Making', 'General', 0),
+(7, 'Leadership', 'General', 0),
+(8, 'Logical Thinking', 'General', 0),
+(9, 'Listening', 'General', 0),
+(10, 'Programming (PHP)', 'Specific', 0);
 
 -- --------------------------------------------------------
 
@@ -877,7 +912,7 @@ ALTER TABLE `genreqs_t`
 -- AUTO_INCREMENT for table `genskills_t`
 --
 ALTER TABLE `genskills_t`
-  MODIFY `SKILL_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `SKILL_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `jobcategory_t`
 --

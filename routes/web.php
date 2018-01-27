@@ -73,7 +73,10 @@ Route::get('/Maintenance/Job','AdminController@MaintenanceJob');
 Route::post('/addJob','AdminController@addJob');
 
 Route::get('/Maintenance/Skills','AdminController@MaintenanceSkills');
+Route::get('/getSkills','AdminController@getSkills');
 Route::post('/addSkills','AdminController@addSkills');
+Route::post('/editSkills','AdminController@editSkills');
+Route::post('/delSkills','AdminController@delSkills');
 
 Route::get('/Maintenance/Fees','AdminController@MaintenanceFees');
 Route::post('/addFees','AdminController@addFees');

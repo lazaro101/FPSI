@@ -36,6 +36,18 @@
                       <th width="100px">Actions</th>
                     </tr>
                   </thead>
+                  <tbody>
+                  @foreach($genskills as $req)
+                  <tr>
+                    <td>{{$req->SKILLNAME}}</td>
+                    <td>{{$req->SKILLTYPE}}</td>
+                    <td>
+                      <button class="btn btn-info edit" value="{{$req->SKILL_ID}}"><i class="fa fa-pencil"></i></button>
+                      <button class="btn btn-danger del" value="{{$req->SKILL_ID}}"><i class="fa fa-trash"></i></button>
+                    </td>
+                  </tr>
+                  @endforeach
+                  </tbody>
                 </table>
               </div>
             </div> 
@@ -59,11 +71,11 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label>Skill Name</label>
-                  <input type="text" class="form-control" name="">
+                  <input type="text" class="form-control" name="skillname">
                 </div>
                 <div class="form-group">
                   <label>Skill Type</label>
-                  <select class="form-control" placeholder="Input something.." name="">
+                  <select class="form-control" placeholder="Input something.." name="skilltype">
                     <option value="General">General</option>
                     <option value="Specific">Specific</option>
                   </select>
@@ -79,7 +91,7 @@
         </form>
       </div>
 
-      <div class="modal fade" id="editSkills">
+      <div class="modal fade" id="edit">
         <form method="post" action="/editSkills">
           {{csrf_field()}}
           <input type="hidden" name="id">
@@ -93,16 +105,15 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label>Skill Name</label>
-                  <input type="text" class="form-control" name="">
+                  <input type="text" class="form-control" name="skillname">
                 </div>
                 <div class="form-group">
-                  <label>Category</label>
-                  <select class="form-control" placeholder="Input something.." name="">
+                  <label>Skill Type</label>
+                  <select class="form-control" placeholder="Input something.." name="skilltype">
                     <option value="General">General</option>
                     <option value="Specific">Specific</option>
                   </select>
                 </div>
-
               </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-success">Save</button>
@@ -114,7 +125,7 @@
         </form>
       </div>
 
-      <div class="modal modal-warning fade in" id="delSkills">
+      <div class="modal modal-warning fade in" id="del">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -126,7 +137,7 @@
               <p>Are you sure you want to delete?</p>
             </div>
             <div class="modal-footer">
-              <form method="post" action="/delSkills">
+              <form method="post" action="/delSKills">
                 {{csrf_field()}}
                 <input type="hidden" name="id" value="">
                 <button type="submit" class="btn btn-outline">Yes</button>
@@ -151,6 +162,29 @@
       $('.sidebar-menu .mntc').trigger('click');
       $('.sidebar-menu .jd').trigger('click');
       $('.sidebar-menu li.sls').addClass('active');
+
+      $('.edit').click(function(){
+          $.ajax
+          ({
+            url: '/getSkills',
+            type:'get',
+            dataType : 'json',
+            data: { id : $(this).val() },
+            success:function(response) {
+              $('#edit form input[name=id]').val(response.SKILL_ID);
+              $('#edit form input[name=skillname]').val(response.SKILLNAME);
+              $('#edit form option[value='+response.SKILLTYPE+']').attr('selected','selected');
+            },
+            complete:function(){
+              $('#edit').modal();
+            }
+          });
+      });
+
+      $('.del').click(function(){
+        $('#del form input[name=id]').val($(this).val());
+        $('#del').modal();
+      });
     });
   </script>
   @endsection
