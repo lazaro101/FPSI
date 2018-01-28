@@ -15,7 +15,11 @@ Route::get('/json/jobcategory/all', 'JSONController@getJobCategoryAll');
 Route::get('/json/jobtype/all', 'JSONController@getJobTypeAll');
 Route::get('/json/skillspecific/all', 'JSONController@getSkillSpecificAll');
 
+Route::get('/json/job/one', 'JSONController@getJobOne');
+Route::get('/json/specificskill/one', 'JSONController@getSpecificSkillOne');
+
 Route::post('/maintenance/job', 'MaintenanceController@postJob');
+Route::post('/maintenance/remove/job', 'MaintenanceController@postRemoveJob');
 
 Route::get('/', function () {
     return view('welcome');

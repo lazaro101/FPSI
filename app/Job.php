@@ -8,6 +8,7 @@ class Job extends Model
 {
     protected $table = 'job_t';
     protected $primaryKey = 'JOB_ID';
+    public $timestamps = false;
 
     public function jobcategory() {
     	return $this->belongsTo('App\JobCategory', 'CATEGORY_ID');

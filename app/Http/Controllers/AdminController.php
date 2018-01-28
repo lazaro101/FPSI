@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Job;
 use DB;
 
 class AdminController extends Controller
@@ -219,7 +220,9 @@ class AdminController extends Controller
     }
 
     public function MaintenanceJob(){
-        return view('maintenance.job');
+        $jobs = Job::get();
+
+        return view('maintenance.job', compact('jobs'));
     }
 
     public function MaintenanceSkills(){
