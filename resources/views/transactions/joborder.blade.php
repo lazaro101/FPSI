@@ -26,16 +26,16 @@
               <h3 class="box-title">Job Order</h3>
             </div>
             <div class="box-body">
-              <button class="btn btn-primary" data-toggle="modal" data-target="#addJobOrder" style="padding: 10px; width: 100px;"><strong>NEW</strong>  <span class="fa fa-plus"></span></button>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#addJobOrder" style="padding: 10px; width: 160px;"><strong>CREATE JOB ORDER</strong>  <span class="fa fa-plus"></span></button>
               <div class="content">
                 <table class="table table-hover" id="example1">
                   <thead>
                     <tr>
                       <th>Employer</th>
-                      <th>Country</th>
-                      <th>Foreign Principal</th>
-                      <th>Cellphone No.</th>
-                      <th>Landline No.</th>
+                      <th>Job Name</th>
+                      <th>Required Skills</th>
+                      <th>Required Documentary Requirements</th>
+                      <th>Required Fees</th>
                       <th width="100px">Actions</th>
                     </tr>
                   </thead>

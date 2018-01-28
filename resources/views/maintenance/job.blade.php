@@ -34,7 +34,7 @@
                             <th>Job Category</th>
                             <th>Job</th>
                             <th>Job Type</th>
-                            <th>No. of Required Skills</th>
+                            <th>Required Skills</th>
                             <th width="100px">Actions</th>
                        </tr>
                   </thead>
@@ -51,7 +51,7 @@
                                @endforeach
                           </ul>
                      </td>
-                     <td style="text-align: right;">
+                     <td>
                         <button class='btn btn-info edit' id='btnUpdate' value="{{$job->JOB_ID}}"><i class='fa fa-pencil'></i></button>
                         <button class='btn btn-danger del' id='btnRemove' value="{{$job->JOB_ID}}"><i class='fa fa-trash'></i></button>
                    </td>
