@@ -101,24 +101,24 @@ class AdminController extends Controller
     }
     public function addCurrency(Request $req){
     	DB::table('currency_t')->insert([
-    		'CURRENCY' => $req->currency,
+    		'CURRENCYNAME' => $req->currency,
     		'SYMBOL' => $req->symbol,
     	]);
     	return redirect('/Maintenance/Currency');
     }
     public function getCurrency(Request $req){
-    	$var = DB::table('currency_t')->where('CUR_ID',$req->id)->first();
+    	$var = DB::table('currency_t')->where('CURRENCY_ID',$req->id)->first();
     	return response()->json($var);
     }
     public function editCurrency(Request $req){
-    	DB::table('currency_t')->where('CUR_ID',$req->id)->update([
-    		'CURRENCY' => $req->currency,
+    	DB::table('currency_t')->where('CURRENCY_ID',$req->id)->update([
+    		'CURRENCYNAME' => $req->currency,
     		'SYMBOL' => $req->symbol
     	]);
     	return redirect('/Maintenance/Currency');
     }
     public function delCurrency(Request $req){
-    	DB::table('currency_t')->where('CUR_ID',$req->id)->update([ 'status' => 1 ]);
+    	DB::table('currency_t')->where('CURRENCY_ID',$req->id)->update([ 'status' => 1 ]);
     	return redirect('/Maintenance/Currency');
     }
 

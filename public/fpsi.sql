@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2018 at 06:52 AM
+-- Generation Time: Jan 30, 2018 at 04:05 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -262,20 +262,22 @@ INSERT INTO `country_t` (`COUNTRY_ID`, `COUNTRYNAME`, `status`) VALUES
 --
 
 CREATE TABLE `currency_t` (
-  `CUR_ID` int(11) NOT NULL,
-  `CURRENCY` varchar(55) NOT NULL,
+  `CURRENCY_ID` int(11) NOT NULL,
+  `CURRENCYNAME` varchar(30) NOT NULL,
   `SYMBOL` varchar(11) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0'
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `COUNTRY_ID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `currency_t`
 --
 
-INSERT INTO `currency_t` (`CUR_ID`, `CURRENCY`, `SYMBOL`, `status`) VALUES
-(1, 'Philippine Peso', 'PHP', 0),
-(3, 'United States Dollar', 'USD', 0),
-(4, 'Japan Yen', 'JPY', 0);
+INSERT INTO `currency_t` (`CURRENCY_ID`, `CURRENCYNAME`, `SYMBOL`, `status`, `COUNTRY_ID`) VALUES
+(1, 'Philippine Peso', 'PHP', 0, NULL),
+(3, 'United States Dollar', 'USD', 0, NULL),
+(4, 'Japan Yen', 'JPY', 0, NULL),
+(5, 'Hong Kong Dollar', 'HKD', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -345,7 +347,8 @@ CREATE TABLE `genfees_t` (
   `FEE_ID` int(11) NOT NULL,
   `FEENAME` varchar(30) NOT NULL,
   `PAYMENTTYPE` varchar(30) DEFAULT NULL,
-  `NOOFPAYMENTS` int(11) DEFAULT NULL
+  `NOOFPAYMENTS` int(11) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -538,8 +541,16 @@ CREATE TABLE `job_t` (
   `JOB_ID` int(11) NOT NULL,
   `CATEGORY_ID` int(11) DEFAULT NULL,
   `JOBNAME` varchar(30) NOT NULL,
-  `JOBTYPE_ID` int(11) DEFAULT NULL
+  `JOBTYPE_ID` int(11) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `job_t`
+--
+
+INSERT INTO `job_t` (`JOB_ID`, `CATEGORY_ID`, `JOBNAME`, `JOBTYPE_ID`, `status`) VALUES
+(2, 1, 'Web Developer', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -609,6 +620,13 @@ CREATE TABLE `specskills_t` (
   `Job_id` int(11) DEFAULT NULL,
   `Skill_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `specskills_t`
+--
+
+INSERT INTO `specskills_t` (`Job_id`, `Skill_id`) VALUES
+(2, 10);
 
 -- --------------------------------------------------------
 
@@ -732,7 +750,8 @@ ALTER TABLE `country_t`
 -- Indexes for table `currency_t`
 --
 ALTER TABLE `currency_t`
-  ADD PRIMARY KEY (`CUR_ID`);
+  ADD PRIMARY KEY (`CURRENCY_ID`),
+  ADD KEY `COUNTRY_ID` (`COUNTRY_ID`);
 
 --
 -- Indexes for table `employer_t`
@@ -887,7 +906,7 @@ ALTER TABLE `country_t`
 -- AUTO_INCREMENT for table `currency_t`
 --
 ALTER TABLE `currency_t`
-  MODIFY `CUR_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `CURRENCY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `employer_t`
 --
@@ -912,7 +931,7 @@ ALTER TABLE `genreqs_t`
 -- AUTO_INCREMENT for table `genskills_t`
 --
 ALTER TABLE `genskills_t`
-  MODIFY `SKILL_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `SKILL_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `jobcategory_t`
 --
@@ -932,7 +951,7 @@ ALTER TABLE `jobtype_t`
 -- AUTO_INCREMENT for table `job_t`
 --
 ALTER TABLE `job_t`
-  MODIFY `JOB_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `JOB_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `logs_t`
 --
@@ -1020,6 +1039,12 @@ ALTER TABLE `banksallowed_t`
 ALTER TABLE `countryreqs_t`
   ADD CONSTRAINT `countryreqs_t_ibfk_1` FOREIGN KEY (`COUNTRY_ID`) REFERENCES `country_t` (`COUNTRY_ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `countryreqs_t_ibfk_2` FOREIGN KEY (`REQ_ID`) REFERENCES `genreqs_t` (`REQ_ID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `currency_t`
+--
+ALTER TABLE `currency_t`
+  ADD CONSTRAINT `currency_t_ibfk_1` FOREIGN KEY (`COUNTRY_ID`) REFERENCES `country_t` (`COUNTRY_ID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `employer_t`

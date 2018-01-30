@@ -32,7 +32,7 @@
                   <thead>
                     <tr>
                       <th>Requirement Name</th>
-                      <th>Allocation</th>
+                      <th>Purpose</th>
                       <th>Description</th>
                       <th width="100px">Actions</th>
                     </tr>

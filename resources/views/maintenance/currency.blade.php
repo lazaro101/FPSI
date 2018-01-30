@@ -31,6 +31,7 @@
                 <table class="table table-hover" id="example1">
                   <thead>
                     <tr> 
+                      <th>Country</th>
                       <th>Currency</th>
                       <th>Symbol</th>
                       <th width="100px">Actions</th>
@@ -39,11 +40,11 @@
                   <tbody> 
                     @foreach($cur as $cur)
                     <tr>
-                      <td>{{$cur->CURRENCY}}</td>
+                      <td>{{$cur->CURRENCYNAME}}</td>
                       <td>{{$cur->SYMBOL}}</td>
                       <td>
-                        <button class="btn btn-info edit" value="{{$cur->CUR_ID}}"><i class="fa fa-pencil"></i></button>
-                        <button class="btn btn-danger del" value="{{$cur->CUR_ID}}"><i class="fa fa-trash"></i></button>
+                        <button class="btn btn-info edit" value="{{$cur->CURRENCY_ID}}"><i class="fa fa-pencil"></i></button>
+                        <button class="btn btn-danger del" value="{{$cur->CURRENCY_ID}}"><i class="fa fa-trash"></i></button>
                       </td>
                     </tr>
                     @endforeach
@@ -66,6 +67,14 @@
                 <h4 class="modal-title">Add Currency</h4>
               </div>
               <div class="modal-body">
+                <div class="form-group">
+                  <label>Purpose</label>
+                  <select class="form-control" placeholder="Input something.." name="">
+                    <option value="">Country1</option>
+                    <option value="">Country2</option>
+                    <option value="">Country3</option>
+                  </select>
+                </div>
                 <div class="form-group">
                   <label>Currency</label>
                   <input type="text" class="form-control" placeholder="ex. Philippine Peso" name="currency">
@@ -157,8 +166,8 @@
           dataType : 'json',
           data: { id : $(this).val() },
           success:function(response) {
-            $('#edit form input[name=id]').val(response.CUR_ID);
-            $('#edit form input[name=currency]').val(response.CURRENCY);
+            $('#edit form input[name=id]').val(response.CURRENCY_ID);
+            $('#edit form input[name=currency]').val(response.CURRENCYNAME);
             $('#edit form input[name=symbol]').val(response.SYMBOL);
           },
           complete:function(){
