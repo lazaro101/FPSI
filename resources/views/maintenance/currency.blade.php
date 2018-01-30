@@ -68,7 +68,7 @@
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>Purpose</label>
+                  <label>Country</label>
                   <select class="form-control" placeholder="Input something.." name="">
                     <option value="">Country1</option>
                     <option value="">Country2</option>
@@ -105,6 +105,14 @@
                 <h4 class="modal-title">Add Currency</h4>
               </div>
               <div class="modal-body">
+                <div class="form-group">
+                  <label>Country</label>
+                  <select class="form-control" placeholder="Input something.." name="">
+                    <option value="">Country1</option>
+                    <option value="">Country2</option>
+                    <option value="">Country3</option>
+                  </select>
+                </div>
                 <div class="form-group">
                   <label>Currency</label>
                   <input type="text" class="form-control" placeholder="ex. Philippine Peso" name="currency">
