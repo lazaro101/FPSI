@@ -34,7 +34,7 @@
                       <th>Employer</th>
                       <th>Job Name</th>
                       <th>Required Skills</th>
-                      <th>Required Documentary Requirements</th>
+                      <th>Documentary Requirements</th>
                       <th>Required Fees</th>
                       <th width="100px">Actions</th>
                     </tr>
