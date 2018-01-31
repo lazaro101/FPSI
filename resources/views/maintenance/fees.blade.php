@@ -32,7 +32,9 @@
                   <thead>
                     <tr>
                       <th>Fee Name</th>
-                      <th>Job Type</th>
+                      <th>For Job Type</th>
+                      <th>Payment Type</th>
+                      <th>No. of Payment</th>
                       <th width="100px">Actions</th>
                     </tr>
                   </thead>
@@ -64,9 +66,20 @@
                 <div class="form-group">
                   <div class="Checkbox">
                   <label>For Job Type</label> <br>
-                  <input type="Checkbox"  name=""> Job Type 1 <br>
+                  <input type="Checkbox"  name=""> Job Type 1 
                   <input type="Checkbox"  name=""> Job Type 2 <br>
                   </div>   
+                </div>
+                <div class="form-group">
+                  <label>Payment Type</label>
+                  <select class="form-control" placeholder="Input something.." name="">
+                    <option value="Onetime">One Time</option>
+                    <option value="Multiple">Multiple</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>No. of Payment</label>
+                  <input type="text" class="form-control" name="">
                 </div>
               </div>
               <div class="modal-footer">
@@ -79,7 +92,7 @@
         </form>
       </div>
 
-      <div class="modal fade" id="editFees">
+      <div class="modal fade" id="edit">
         <form method="post" action="/editFees">
           {{csrf_field()}}
           <input type="hidden" name="id">
@@ -98,10 +111,21 @@
               </div>
               <div class="form-group">
                   <div class="Checkbox">
-                  <label>For Job Type</label><br>
-                  <input type="Checkbox"  name=""> Job Type 1 <br>
+                  <label>For Job Type</label> <br>
+                  <input type="Checkbox"  name=""> Job Type 1 
                   <input type="Checkbox"  name=""> Job Type 2 <br>
-                  </div>     
+                  </div>   
+                </div>
+                <div class="form-group">
+                  <label>Payment Type</label>
+                  <select class="form-control" placeholder="Input something.." name="">
+                    <option value="Onetime">One Time</option>
+                    <option value="Multiple">Multiple</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>No. of Payment</label>
+                  <input type="text" class="form-control" name="">
                 </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-success">Save</button>
@@ -113,7 +137,7 @@
         </form>
       </div>
 
-      <div class="modal modal-warning fade in" id="delFees">
+      <div class="modal modal-warning fade in" id="del">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">

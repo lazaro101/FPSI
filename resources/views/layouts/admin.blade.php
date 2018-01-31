@@ -39,7 +39,7 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="/Dashboard" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>FPSI</b></span>
       <!-- logo for regular state and mobile devices -->
@@ -243,12 +243,12 @@
           </li> -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="/AdminLTE/dist/img/avatar2.png" class="user-image" alt="User Image">
               <span class="hidden-xs">Aubrey Vidanes</span>
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">
-                <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="/AdminLTE/dist/img/avatar2.png" class="img-circle" alt="User Image">
 
                 <p>
                   Aubrey Vidanes - Web Developer
@@ -293,7 +293,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="/AdminLTE/dist/img/avatar2.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Aubrey Vidanes</p>
@@ -318,7 +318,7 @@
         <li class="db"><a href="/Dashboard"> <i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
         <li class="treeview">
-          <a class="mntc" href="#">
+          <a class="mntc" href="#"><i class="fa fa-cogs"></i>
             <span><strong>Maintenance</strong></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -348,7 +348,7 @@
 
 
         <li class="treeview">
-          <a class="trnsc" href="#">
+          <a class="trnsc" href="#"><i class="fa fa-pencil-square-o"></i>
             <span><strong>Transactions</strong></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -361,8 +361,7 @@
               </span> </a>
               <ul class="treeview-menu">
                 <li class="empr"><a href="/Transactions/Employer"><i class="fa fa-circle-o"></i>Employer</a></li>
-                <li class="jbt"><a href="/Transactions/JobOrder"><i class="fa fa-circle-o"></i>Job Order</a></li>
-                <li class="jb"><a href="/Transactions/JobFees"><i class="fa fa-circle-o"></i>Job Fees</a></li>
+                <li class="jor"><a href="/Transactions/JobOrder"><i class="fa fa-circle-o"></i>Job Order</a></li>
               </ul>
             </li>
 
@@ -371,11 +370,11 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </span> </a>
               <ul class="treeview-menu">
-                <li class="jbc"><a href="/Transactions/Applicant"><i class="fa fa-circle-o"></i>Applicant</a></li>
-                <li class="jbt"><a href="/Transactions/ApplicantMatching"><i class="fa fa-circle-o"></i>Applicant Matching</a></li>
-                <li class="jb"><a href="/Transactions/InitialInterview"><i class="fa fa-circle-o"></i>Initial Interview</a></li>
-                <li class="jb"><a href="/Transactions/FinalInterview"><i class="fa fa-circle-o"></i>Final Interview</a></li>
-                <li class="jb"><a href="/Transactions/DocumentsCollection"><i class="fa fa-circle-o"></i>Documents Collection</a></li>
+                <li class=""><a href="/Transactions/Applicant"><i class="fa fa-circle-o"></i>Applicant</a></li>
+                <li class=""><a href="/Transactions/ApplicantMatching"><i class="fa fa-circle-o"></i>Applicant Matching</a></li>
+                <li class="intin"><a href="/Transactions/InitialInterview"><i class="fa fa-circle-o"></i>Initial Interview</a></li>
+                <li class=""><a href="/Transactions/FinalInterview"><i class="fa fa-circle-o"></i>Final Interview</a></li>
+                <li class=""><a href="/Transactions/DocumentsCollection"><i class="fa fa-circle-o"></i>Documents Collection</a></li>
               </ul>
             </li>
 
@@ -384,7 +383,7 @@
         </li>
 
          <li class="treeview">
-          <a href="#">
+          <a href="#"><i class="fa fa-file-text"></i>
             <span><strong>Reports</strong></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -395,7 +394,7 @@
           </ul>
         </li>
          <li class="treeview">
-          <a href="#">
+          <a href="#"><i class="fa fa-wrench"></i>
             <span><strong>Utilities</strong></span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>

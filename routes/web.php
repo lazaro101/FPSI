@@ -11,6 +11,16 @@
 |
 */
 
+Route::get('/json/jobcategory/all', 'JSONController@getJobCategoryAll');
+Route::get('/json/jobtype/all', 'JSONController@getJobTypeAll');
+Route::get('/json/skillspecific/all', 'JSONController@getSkillSpecificAll');
+
+Route::get('/json/job/one', 'JSONController@getJobOne');
+Route::get('/json/specificskill/one', 'JSONController@getSpecificSkillOne');
+
+Route::post('/maintenance/job', 'MaintenanceController@postJob');
+Route::post('/maintenance/remove/job', 'MaintenanceController@postRemoveJob');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -58,19 +68,33 @@ Route::post('/editAccBanks','AdminController@editAccBanks');
 Route::post('/delAccBanks','AdminController@delAccBanks');
 
 Route::get('/Maintenance/JobCategory','AdminController@MaintenanceJobCategory');
+Route::get('/getJobCategory','AdminController@getJobCategory');
 Route::post('/addJobCategory','AdminController@addJobCategory');
+Route::post('/editJobCategory','AdminController@editJobCategory');
+Route::post('/delJobCategory','AdminController@delJobCategory');
 
 Route::get('/Maintenance/JobType','AdminController@MaintenanceJobType');
+Route::get('/getJobType','AdminController@getJobType');
 Route::post('/addJobType','AdminController@addJobType');
+Route::post('/editJobType','AdminController@editJobType');
+Route::post('/delJobType','AdminController@delJobType');
 
 Route::get('/Maintenance/Job','AdminController@MaintenanceJob');
 Route::post('/addJob','AdminController@addJob');
 
 Route::get('/Maintenance/Skills','AdminController@MaintenanceSkills');
+Route::get('/getSkills','AdminController@getSkills');
 Route::post('/addSkills','AdminController@addSkills');
+Route::post('/editSkills','AdminController@editSkills');
+Route::post('/delSkills','AdminController@delSkills');
 
 Route::get('/Maintenance/Fees','AdminController@MaintenanceFees');
 Route::post('/addFees','AdminController@addFees');
 
 Route::get('/Transactions/Employer','AdminController@TransactionsEmployer');
 Route::post('/addEmployer','AdminController@addEmployer');
+
+Route::get('/Transactions/JobOrder','AdminController@TransactionsJobOrder');
+Route::post('/addJobOrder','AdminController@addJobOrder');
+
+Route::get('/Transactions/InitialInterview','AdminController@TransactionsInitialInterview');

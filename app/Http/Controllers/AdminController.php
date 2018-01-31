@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Job;
 use DB;
 
 class AdminController extends Controller
@@ -100,24 +101,24 @@ class AdminController extends Controller
     }
     public function addCurrency(Request $req){
     	DB::table('currency_t')->insert([
-    		'CURRENCY' => $req->currency,
+    		'CURRENCYNAME' => $req->currency,
     		'SYMBOL' => $req->symbol,
     	]);
     	return redirect('/Maintenance/Currency');
     }
     public function getCurrency(Request $req){
-    	$var = DB::table('currency_t')->where('CUR_ID',$req->id)->first();
+    	$var = DB::table('currency_t')->where('CURRENCY_ID',$req->id)->first();
     	return response()->json($var);
     }
     public function editCurrency(Request $req){
-    	DB::table('currency_t')->where('CUR_ID',$req->id)->update([
-    		'CURRENCY' => $req->currency,
+    	DB::table('currency_t')->where('CURRENCY_ID',$req->id)->update([
+    		'CURRENCYNAME' => $req->currency,
     		'SYMBOL' => $req->symbol
     	]);
     	return redirect('/Maintenance/Currency');
     }
     public function delCurrency(Request $req){
-    	DB::table('currency_t')->where('CUR_ID',$req->id)->update([ 'status' => 1 ]);
+    	DB::table('currency_t')->where('CURRENCY_ID',$req->id)->update([ 'status' => 1 ]);
     	return redirect('/Maintenance/Currency');
     }
 
@@ -173,19 +174,85 @@ class AdminController extends Controller
     }
 
     public function MaintenanceJobCategory(){
-        return view('maintenance.jobcategory');
+        $jobcategory = DB::table('jobcategory_t')->where('status',0)->get();
+        return view('maintenance.jobcategory',['jobcategory' => $jobcategory]);
+    }
+    public function addJobCategory(Request $req){
+        DB::table('jobcategory_t')->insert([
+            'CATEGORYNAME' => $req->categoryname
+        ]);
+        return redirect('/Maintenance/JobCategory');
+    }
+    public function getJobCategory(Request $req){
+        $var = DB::table('jobcategory_t')->where('CATEGORY_ID',$req->id)->first();
+        return response()->json($var);
+    }
+    public function editJobCategory(Request $req){
+        DB::table('jobcategory_t')->where('CATEGORY_ID',$req->id)->update([ 'CATEGORYNAME' => $req->categoryname]);
+        return redirect('/Maintenance/JobCategory');
+    }
+    public function delJobCategory(Request $req){
+        DB::table('jobcategory_t')->where('CATEGORY_ID',$req->id)->update([ 'status' => 1]);
+        return redirect('/Maintenance/JobCategory');
     }
 
     public function MaintenanceJobType(){
-        return view('maintenance.jobtype');
+        $jobtype = DB::table('jobtype_t')->where('status',0)->get();
+        return view('maintenance.jobtype',['jobtype' => $jobtype]);
+    }
+    public function addJobType(Request $req){
+        DB::table('jobtype_t')->insert([
+            'TYPENAME' => $req->typename
+        ]);
+        return redirect('/Maintenance/JobType');
+    }
+    public function getJobType(Request $req){
+        $var = DB::table('jobtype_t')->where('JOBTYPE_ID',$req->id)->first();
+        return response()->json($var);
+    }
+    public function editJobType(Request $req){
+        DB::table('jobtype_t')->where('JOBTYPE_ID',$req->id)->update([ 'TYPENAME' => $req->typename]);
+        return redirect('/Maintenance/JobType');
+    }
+    public function delJobType(Request $req){
+        DB::table('jobtype_t')->where('JOBTYPE_ID',$req->id)->update([ 'status' => 1]);
+        return redirect('/Maintenance/JobType');
     }
 
     public function MaintenanceJob(){
-        return view('maintenance.job');
+        $jobs = Job::get();
+
+        return view('maintenance.job', compact('jobs'));
     }
 
     public function MaintenanceSkills(){
-        return view('maintenance.skills');
+        $data = DB::table('genskills_t')->where('status',0)->get();
+        return view('maintenance.skills',['genskills' => $data]);
+    }
+    public function addSkills(Request $req){
+        DB::table('genskills_t')->insert([
+            'SKILLNAME' => $req->skillname,
+            'SKILLTYPE' => $req->skilltype,
+        ]);
+
+        return redirect('/Maintenance/Skills');
+    }
+    public function getSkills(Request $req){
+        $var = DB::table('genskills_t')->where('SKILL_ID',$req->id)->first();
+        return response()->json($var);
+    }
+    public function editSkills(Request $req){
+        DB::table('genskills_t')->where('SKILL_ID',$req->id)->update([
+            'SKILLNAME' => $req->skillname,
+            'SKILLTYPE' => $req->skilltype,
+        ]);
+        return redirect('/Maintenance/Skills');
+    }
+    public function delSkills(Request $req){
+        DB::table('genskills_t')->where('SKILL_ID',$req->id)->update([
+            'status' => 1
+        ]);
+        return redirect('/Maintenance/Skills');
     }
 
     public function MaintenanceFees(){
@@ -194,5 +261,13 @@ class AdminController extends Controller
 
     public function TransactionsEmployer(){
         return view('transactions.employer');
+    }
+
+    public function TransactionsJobOrder(){
+        return view('transactions.joborder');
+    }
+
+    public function TransactionsInitialInterview(){
+        return view('transactions.initialinterview');
     }
 }

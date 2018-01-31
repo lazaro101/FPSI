@@ -36,7 +36,15 @@
                     </tr>
                   </thead>
                   <tbody>
-
+                    @foreach($jobcategory as $jobcategory)
+                    <tr>
+                      <td>{{$jobcategory->CATEGORYNAME}}</td>
+                      <td>
+                        <button class="btn btn-info edit" value="{{$jobcategory->CATEGORY_ID}}"><i class="fa fa-pencil"></i></button>
+                        <button class="btn btn-danger del" value="{{$jobcategory->CATEGORY_ID}}"><i class="fa fa-trash"></i></button>
+                      </td>
+                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -59,7 +67,7 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label>Job Category Name</label>
-                  <input type="text" class="form-control" placeholder="ex. Information Technology" name="">
+                  <input type="text" class="form-control" placeholder="ex. Information Technology" name="categoryname">
                 </div>
               </div>
               <div class="modal-footer">
@@ -72,7 +80,7 @@
         </form>
       </div>
 
-      <div class="modal fade" id="editJobCategory>
+      <div class="modal fade" id="edit">
         <form method="post" action="/editJobCategory">
           {{csrf_field()}}
           <input type="hidden" name="id">
@@ -85,8 +93,8 @@
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>Job Category</label>
-                  <input type="text" class="form-control" name="">
+                  <label>Job Category Name</label>
+                  <input type="text" class="form-control" placeholder="ex. Metrobank" name="categoryname">
                 </div>
               </div>
               <div class="modal-footer">
@@ -99,7 +107,7 @@
         </form>
       </div>
 
-      <div class="modal modal-warning fade in" id="delJobCategory">
+      <div class="modal modal-warning fade in" id="del">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -113,15 +121,13 @@
             <div class="modal-footer">
               <form method="post" action="/delJobCategory">
                 {{csrf_field()}}
-                <input type="hidden" name="id" value="">
+                <input type="hidden" name="id">
                 <button type="submit" class="btn btn-outline">Yes</button>
                 <button type="button" class="btn btn-outline" data-dismiss="modal">No</button>
               </form>
             </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
+          </div> 
+        </div> 
       </div>
 
     </section>
@@ -137,6 +143,28 @@
       $('.sidebar-menu .mntc').trigger('click');
       $('.sidebar-menu .jd').trigger('click');
       $('.sidebar-menu li.jbc').addClass('active'); 
+
+      $('.edit').click(function(){
+        $.ajax
+        ({
+          url: '/getJobCategory',
+          type:'get',
+          dataType : 'json',
+          data: { id : $(this).val() },
+          success:function(response) {
+            $('#edit form input[name=id]').val(response.CATEGORY_ID);
+            $('#edit form input[name=categoryname]').val(response.CATEGORYNAME);
+          },
+          complete:function(){
+            $('#edit').modal();
+          }
+        });
+      });
+
+      $('.del').click(function(){
+        $('#del form input[name=id]').val($(this).val());
+        $('#del').modal();
+      });
     });
   </script>
   @endsection
