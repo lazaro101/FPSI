@@ -42,6 +42,7 @@
                     <tr>
                       <td>{{$cur->CURRENCYNAME}}</td>
                       <td>{{$cur->SYMBOL}}</td>
+                      <td>{{$cur->COUNTRYNAME}}</td>
                       <td>
                         <button class="btn btn-info edit" value="{{$cur->CURRENCY_ID}}"><i class="fa fa-pencil"></i></button>
                         <button class="btn btn-danger del" value="{{$cur->CURRENCY_ID}}"><i class="fa fa-trash"></i></button>
@@ -69,10 +70,11 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label>Country</label>
-                  <select class="form-control" placeholder="Input something.." name="">
-                    <option value="">Country1</option>
-                    <option value="">Country2</option>
-                    <option value="">Country3</option>
+                  <select class="form-control" placeholder="Input something.." name="country">
+                    @php $cty1 = $cty @endphp
+                    @foreach($cty as $cty)
+                    <option value="{{$cty->COUNTRY_ID}}">{{$cty->COUNTRYNAME}}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="form-group">
@@ -108,9 +110,9 @@
                 <div class="form-group">
                   <label>Country</label>
                   <select class="form-control" placeholder="Input something.." name="">
-                    <option value="">Country1</option>
-                    <option value="">Country2</option>
-                    <option value="">Country3</option>
+                    @foreach($cty1 as $cty)
+                    <option value="{{$cty->COUNTRY_ID}}">{{$cty->COUNTRYNAME}}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="form-group">

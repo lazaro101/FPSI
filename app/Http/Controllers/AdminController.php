@@ -60,12 +60,14 @@ class AdminController extends Controller
     	$cid = DB::table('country_t')->insertGetId([
     		'COUNTRYNAME' => $req->countryname
     	]);
-    	foreach ($req->req as $val) {
-    		DB::table('countryreqs_t')->insert([
-    			'COUNTRY_ID' => $cid,
-    			'REQ_ID' => $val
-    		]);
-    	}
+        if (isset($req->req)) {
+            foreach ($req->req as $val) {
+                DB::table('countryreqs_t')->insert([
+                    'COUNTRY_ID' => $cid,
+                    'REQ_ID' => $val
+                ]);
+            }
+        }
     	return redirect('/Maintenance/Country');
     }
     public function getCountry(Request $req){
@@ -96,13 +98,15 @@ class AdminController extends Controller
     }
 
     public function MaintenanceCurrency(){
-    	$cur = DB::table('currency_t')->where('status',0)->get();
-    	return view('maintenance.currency',['cur' => $cur]);
+    	$cur = DB::table('currency_t as c')->where('c.status',0)->join('country_t as ct','ct.COUNTRY_ID','=','c.COUNTRY_ID')->get();
+        $cty = DB::table('country_t')->where('status',0)->get();
+    	return view('maintenance.currency',['cur' => $cur, 'cty' => $cty]);
     }
     public function addCurrency(Request $req){
     	DB::table('currency_t')->insert([
     		'CURRENCYNAME' => $req->currency,
-    		'SYMBOL' => $req->symbol,
+            'SYMBOL' => $req->symbol,
+    		'COUNTRY_ID' => $req->country,
     	]);
     	return redirect('/Maintenance/Currency');
     }
