@@ -74,11 +74,15 @@
               
                 <div class="form-group">
                   <label>Foreign Principal</label>
-                  <input type="text" class="form-control" placeholder="Last Name" name="">
+                  <input type="text" class="form-control" placeholder="First Name" name="">
                 </div>
               
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="First Name" name="">
+                  <input type="text" class="form-control" placeholder="Middle Name" name="">
+                </div>
+
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Last Name" name="">
                 </div>
               
                 <div class="form-group">
@@ -139,11 +143,15 @@
               
                 <div class="form-group">
                   <label>Foreign Principal</label>
-                  <input type="text" class="form-control" placeholder="Last Name" name="">
+                  <input type="text" class="form-control" placeholder="First Name" name="">
                 </div>
               
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="First Name" name="">
+                  <input type="text" class="form-control" placeholder="Middle Name" name="">
+                </div>
+
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Last Name" name="">
                 </div>
               
                 <div class="form-group">
