@@ -13,4 +13,5 @@ class JobType extends Model
     public function job() {
     	return $this->hasMany('App\Job', 'CATEGORY_ID');
     }
+
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Job;
+use App\Fees;
+use App\JobType;
 use DB;
 
 class AdminController extends Controller
@@ -225,7 +227,6 @@ class AdminController extends Controller
 
     public function MaintenanceJob(){
         $jobs = Job::get();
-
         return view('maintenance.job', compact('jobs'));
     }
 
@@ -260,7 +261,22 @@ class AdminController extends Controller
     }
 
     public function MaintenanceFees(){
-        return view('maintenance.fees');
+        $fees = Fees::get();
+        $jtype = JobType::get();
+        return view('maintenance.fees',compact('jtype','fees'));
+    }
+    public function addFees(Request $req){
+        $fid = DB::table('genfees_t')->insertGetId([
+            'FEENAME' => $req->feename,
+        ]);
+        foreach ($req->jtype as $key => $value) {
+            DB::table('feetype_t')->insert([
+                'FEE_ID' => $fid,
+                'JOBTYPE_ID' => $value,
+            ]);
+        }
+
+        return redirect('/Maintenance/Fees');
     }
 
     public function TransactionsEmployer(){
