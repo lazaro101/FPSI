@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/Ionicons/css/ionicons.min.css') }}">
   <!-- jvectormap -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/jvectormap/jquery-jvectormap.css') }}">
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/select2/dist/css/select2.css') }}">
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/AdminLTE.min.css') }}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -30,8 +33,7 @@
   <![endif]-->
 
   <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -244,14 +246,14 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="/AdminLTE/dist/img/avatar2.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Aubrey Vidanes</span>
+              <span class="hidden-xs">UserName</span>
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">
                 <img src="/AdminLTE/dist/img/avatar2.png" class="img-circle" alt="User Image">
 
                 <p>
-                  Aubrey Vidanes - Web Developer
+                  UserName - Web Developer
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -450,6 +452,9 @@
 <!-- DataTables -->
 <script src="{{ asset('AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+
+<script src="{{ asset('AdminLTE/bower_components/select2/dist/js/select2.js') }}"></script>
+<script src="{{ asset('AdminLTE/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 
 @yield('script')
 

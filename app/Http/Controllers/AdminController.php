@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Job;
-use App\Fees;
+use App\GenFees;
+use App\FeeType;
 use App\JobType;
 use DB;
 
@@ -261,21 +262,43 @@ class AdminController extends Controller
     }
 
     public function MaintenanceFees(){
-        $fees = Fees::get();
-        $jtype = JobType::get();
+        $fees = GenFees::where('status',0)->get();
+        $jtype = JobType::where('status',0)->get();
         return view('maintenance.fees',compact('jtype','fees'));
     }
     public function addFees(Request $req){
-        $fid = DB::table('genfees_t')->insertGetId([
+        $fid = GenFees::insertGetId([
             'FEENAME' => $req->feename,
         ]);
         foreach ($req->jtype as $key => $value) {
-            DB::table('feetype_t')->insert([
+            FeeType::insert([
                 'FEE_ID' => $fid,
                 'JOBTYPE_ID' => $value,
             ]);
         }
 
+        return redirect('/Maintenance/Fees');
+    }
+    public function getFees(Request $req){
+        $var = GenFees::find($req->id);
+        $var1 = FeeType::where('FEE_ID',$req->id)->get();
+        return response()->json([$var,$var1]);
+    }
+    public function editFees(Request $req){
+        GenFees::where('FEE_ID',$req->id)->update([
+            'FEENAME' => $req->feename,
+        ]);
+        FeeType::where('FEE_ID',$req->id)->delete();
+        foreach ($req->jtype as $key => $value) {
+            FeeType::insert([
+                'FEE_ID' => $req->id,
+                'JOBTYPE_ID' => $value,
+            ]);
+        }
+        return redirect('/Maintenance/Fees');
+    }
+    public function delFees(Request $req){
+        GenFees::where('FEE_ID',$req->id)->update([ 'status' => 1 ]);
         return redirect('/Maintenance/Fees');
     }
 
@@ -285,6 +308,10 @@ class AdminController extends Controller
 
     public function TransactionsJobOrder(){
         return view('transactions.joborder');
+    }
+    public function getAllSkills(){
+        $skill = Skill::where('status',0)->get();
+        return response()->json($skill);
     }
 
     public function TransactionsInitialInterview(){

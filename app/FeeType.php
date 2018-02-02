@@ -9,8 +9,8 @@ class FeeType extends Model
 	protected $table = 'feetype_t';
     public $timestamps = false;
 
-    public function fee() {
-    	return $this->belongsTo('App\Fees', 'FEE_ID');
+    public function genfees() {
+    	return $this->belongsTo('App\GenFees', 'FEE_ID');
     }
 
     public function feetype(){

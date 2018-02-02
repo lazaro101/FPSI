@@ -42,12 +42,13 @@
                       <td>{{$fee->FEENAME}}</td>
                       <td>
                         @foreach($fee->jobtype as $type)
-                        {{$type->feetype->TYPENAME}},
+                        {{$type->feetype->TYPENAME}} 
+                          @if(!$loop->remaining == 0) {{','}} @endif
                         @endforeach
                       </td>
                       <td>
-                        <button class='btn btn-info edit' id='btnUpdate' value="{{$fee->FEE_Id}}"><i class='fa fa-pencil'></i></button>
-                        <button class='btn btn-danger del' id='btnRemove' value="{{$fee->FEE_Id}}"><i class='fa fa-trash'></i></button>
+                        <button class='btn btn-info edit' id='btnUpdate' value="{{$fee->FEE_ID}}"><i class='fa fa-pencil'></i></button>
+                        <button class='btn btn-danger del' id='btnRemove' value="{{$fee->FEE_ID}}"><i class='fa fa-trash'></i></button>
                       </td>
                     </tr>
                     @endforeach
@@ -111,9 +112,8 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label>Fee Name</label>
-                  <input type="text" class="form-control" name="">
+                  <input type="text" class="form-control" name="feename">
                 </div>
-              </div>
               <div class="form-group">
                 <label>For Job Type</label>
                 @foreach($jtype1 as $jt)
@@ -121,6 +121,7 @@
                   <label><input type="checkbox" name="jtype[]" value="{{$jt->JOBTYPE_ID}}">{{$jt->TYPENAME}}</label>
                 </div>
                 @endforeach
+              </div>
               </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-success">Save</button>
@@ -171,16 +172,19 @@
       $('.sidebar-menu li.fes').addClass('active');
 
       $('.edit').click(function(){
+        $('#edit form .checkbox input').prop('checked',false);
         $.ajax
         ({
-          url: '/getCurrency',
+          url: '/getFees',
           type:'get',
           dataType : 'json',
           data: { id : $(this).val() },
           success:function(response) {
-            $('#edit form input[name=id]').val(response.CURRENCY_ID);
-            $('#edit form input[name=currency]').val(response.CURRENCYNAME);
-            $('#edit form input[name=symbol]').val(response.SYMBOL);
+            $('#edit form input[name=id]').val(response[0].FEE_ID);
+            $('#edit form input[name=feename]').val(response[0].FEENAME);
+            response[1].forEach(function(data) { 
+              $('#edit form input[type=checkbox][value='+data.JOBTYPE_ID+']').prop('checked',true);
+            });
           },
           complete:function(){
             $('#edit').modal();
@@ -188,7 +192,7 @@
         });
       });
 
-      $('.del').click(function(){
+      $('.del').click(function(){ 
         $('#del form input[name=id]').val($(this).val());
         $('#del').modal();
       });

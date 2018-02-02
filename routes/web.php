@@ -89,7 +89,10 @@ Route::post('/editSkills','AdminController@editSkills');
 Route::post('/delSkills','AdminController@delSkills');
 
 Route::get('/Maintenance/Fees','AdminController@MaintenanceFees');
+Route::get('/getFees','AdminController@getFees');
 Route::post('/addFees','AdminController@addFees');
+Route::post('/editFees','AdminController@editFees');
+Route::post('/delFees','AdminController@delFees');
 
 
 
@@ -97,6 +100,8 @@ Route::get('/Transactions/Employer','AdminController@TransactionsEmployer');
 Route::post('/addEmployer','AdminController@addEmployer');
 
 Route::get('/Transactions/JobOrder','AdminController@TransactionsJobOrder');
+Route::get('/getAllSkills','AdminController@getAllSkills');
 Route::post('/addJobOrder','AdminController@addJobOrder');
+
 
 Route::get('/Transactions/InitialInterview','AdminController@TransactionsInitialInterview');
