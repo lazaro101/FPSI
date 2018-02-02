@@ -97,4 +97,10 @@ Route::post('/addEmployer','AdminController@addEmployer');
 Route::get('/Transactions/JobOrder','AdminController@TransactionsJobOrder');
 Route::post('/addJobOrder','AdminController@addJobOrder');
 
+Route::get('/Transactions/ApplicantMatching','AdminController@TransactionsApplicantMatching');
+
 Route::get('/Transactions/InitialInterview','AdminController@TransactionsInitialInterview');
+
+Route::get('/Transactions/FinalInterview','AdminController@TransactionsFinalInterview');
+
+Route::get('/Transactions/DocumentsCollection','AdminController@TransactionsDocumentsCollection');

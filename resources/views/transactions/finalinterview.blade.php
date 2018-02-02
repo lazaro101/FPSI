@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title','Initial Interview')
+@section('title','Final Interview')
 
 @section('content')
 
@@ -13,7 +13,7 @@
     <section class="content-header">
       <h1>
         Transactions
-        <small>Initial Interview</small>
+        <small>Final Interview</small>
       </h1>
       <!--<ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -111,7 +111,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $('.sidebar-menu .trnsc').trigger('click');
-      $('.sidebar-menu li.intin').addClass('active');
+      $('.sidebar-menu li.finin').addClass('active');
       });
   </script>
 
