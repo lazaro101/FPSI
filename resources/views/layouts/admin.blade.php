@@ -298,7 +298,7 @@
           <img src="/AdminLTE/dist/img/avatar2.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Aubrey Vidanes</p>
+          <p>UserName</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>

@@ -7,6 +7,9 @@ use App\Job;
 use App\GenFees;
 use App\FeeType;
 use App\JobType;
+use App\JobCategory;
+use App\Skill;
+
 use DB;
 
 class AdminController extends Controller
@@ -307,11 +310,23 @@ class AdminController extends Controller
     }
 
     public function TransactionsJobOrder(){
-        return view('transactions.joborder');
+        // $skills = Skill::where('status',0)->get();
+        $jobs = Job::where('status',0)->get();
+        $jobcat = JobCategory::where('status',0)->get();
+        $docreq = DB::table('genreqs_t')->where('status',0)->get();
+        return view('transactions.joborder',compact('jobs','jobcat','docreq'));
     }
     public function getAllSkills(){
         $skill = Skill::where('status',0)->get();
         return response()->json($skill);
+    }
+    public function getAllReq(){
+        $req = DB::table('genreqs_t')->where('status',0)->get();
+        return response()->json($req);
+    }
+    public function getAllFees(){
+        $fees = GenFees::where('status',0)->get();
+        return response()->json($fees);
     }
 
     public function TransactionsInitialInterview(){

@@ -26,7 +26,7 @@
               <h3 class="box-title">Job Order</h3>
             </div>
             <div class="box-body">
-              <button class="btn btn-primary" data-toggle="modal" data-target="#addJobOrder" style="padding: 10px; width: 160px;"><strong>CREATE JOB ORDER</strong>  <span class="fa fa-plus"></span></button>
+              <button class="btn btn-primary addJobOrder" data-toggle="modal" data-target="#addJobOrder" style="padding: 10px; width: 160px;"><strong>CREATE JOB ORDER</strong>  <span class="fa fa-plus"></span></button>
               <div class="content">
                 <table class="table table-hover" id="example1">
                   <thead>
@@ -65,24 +65,26 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Employer</label>
-                      <input type="text" class="form-control" name="">
+                      <input type="text" class="form-control" name="employer">
                     </div>
                     <div class="form-group">
                       <label>Job Category</label> 
-                      <select class="select2 form-control" name="state" style="width: 100%">
-                        <option value="AL">Alabama</option>
-                        <option value="WY">Wyoming</option>
+                      <select class="select2 form-control" name="jobcat" style="width: 100%">
+                        @foreach($jobcat as $cat)
+                        <option value="{{$cat->CATEGORY_ID}}">{{$cat->CATEGORYNAME}}</option>
+                        @endforeach
                       </select>
                     </div>
                     <div class="form-group">
                       <label>Job Name</label> 
-                      <select class="select2 form-control" name="state" style="width: 100%">
-                        <option value="AL">Alabama</option>
-                        <option value="WY">Wyoming</option>
+                      <select class="select2 form-control" name="jobname" style="width: 100%">
+                        @foreach($jobs as $job)
+                        <option value="{{$job->JOB_ID}}">{{$job->JOBNAME}}</option>
+                        @endforeach
                       </select>
                     </div>
                     <div class="form-group">
-                      <label>Date:</label>
+                      <label>Contract Start</label>
 
                       <div class="input-group date">
                         <div class="input-group-addon">
@@ -140,30 +142,6 @@
                     <div class="page-header">
                       <h4>Required Skills</h4>
                     </div>
-                    <div class="row form-horizontal">
-                      <div class="col-sm-5">
-                        <div class="form-group">
-                          <label class="col-sm-4 control-label">Skill Name</label>
-                          <div class="col-sm-8">
-                            <select class="select2 form-control" name="state" style="width: 100%">
-                              <option value="AL">Alabama</option>
-                              <option value="WY">Wyoming</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-5">
-                        <div class="form-group">
-                          <label class="col-sm-4 control-label">Proficiency</label>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" name="">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-2">
-                        <button type="button" class="btn btn-danger removeskill"><i class="fa fa-close"></i></button>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div class="divskill"></div>
@@ -172,7 +150,47 @@
                     <button type="button" class="btn btn-success btn-block addskill"><i class="fa fa-plus"></i> ADD</button>
                   </div>
                 </div>
+
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="page-header">
+                      <h4>Documentary Requirements</h4>
+                    </div> 
+                  </div>
+                </div>
+                <div class="divdocreq">
+                  <div class="row form-horizontal">
+                    <div class="col-sm-10 col-sm-offset-1">
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Requirement Name</label>
+                        <div class="col-sm-8">
+                          <select class="select2 form-control" multiple name="skills[]" style="width: 100%">
+                            @foreach($docreq as $req)
+                            <option value="{{$req->REQ_ID }}">{{$req->REQNAME}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                    </div> 
+                  </div>
+                </div>
                       
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="page-header">
+                      <h4>Required Fees</h4>
+                    </div> 
+                  </div>
+                </div>
+                <div class="divreqfees"></div>
+                <div class="row">
+                  <div class="col-sm-2 col-sm-offset-5">
+                    <button type="button" class="btn btn-success btn-block addfees"><i class="fa fa-plus"></i> ADD</button>
+                  </div>
+                </div>
+
+
               </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-success">Save</button>
@@ -191,26 +209,80 @@
       $('.sidebar-menu .trnsc').trigger('click');
       $('.sidebar-menu li.jor').addClass('active');
 
-      $('.select2').select2();
-      $('#datepicker').datepicker();
-
-      $('#addJobOrder .addskill').click(function(){
-        $('#addJobOrder .divskill').append('<div class="row form-horizontal"><div class="col-sm-5"><div class="form-group"><label class="col-sm-4 control-label">Skill Name</label><div class="col-sm-8"><select class="select2 form-control" name="state" style="width: 100%"><option value="AL">Alabama</option><option value="WY">Wyoming</option></select></div></div></div><div class="col-sm-5"><div class="form-group"><label class="col-sm-4 control-label">Proficiency</label><div class="col-sm-8"><input type="text" class="form-control" name=""></div></div></div><div class="col-sm-2"><button type="button" class="btn btn-danger removeskill"><i class="fa fa-close"></i></button></div></div></div></div>');
-        $('#addJobOrder .divskill .select2').select2();
-      });
-      $(document).on('click','#addJobOrder .removeskill',function(){
-        $(this).closest('.row').remove();
-      });
-
+      var skilloption = "";
+      var reqoption = "";
+      var feeoption = "";
       $.ajax
         ({
           url: '/getAllSkills',
           type:'get',
           dataType : 'json',
           success:function(response) {
-            
+            response.forEach(function(data){
+              skilloption += '<option value='+data.SKILL_ID+'>'+data.SKILLNAME+'</option>';
+            });
           }
         });
+      $.ajax
+        ({
+          url: '/getAllReq',
+          type:'get',
+          dataType : 'json',
+          success:function(response) {
+            response.forEach(function(data){
+              reqoption += '<option value='+data.REQ_ID+'>'+data.REQNAME+'</option>';
+            });
+          }
+        });
+      $.ajax
+        ({
+          url: '/getAllFees',
+          type:'get',
+          dataType : 'json',
+          success:function(response) {
+            response.forEach(function(data){
+              feeoption += '<option value='+data.FEE_ID+'>'+data.FEENAME+'</option>';
+            });
+          }
+        });
+
+      $('.select2').select2();
+      $('#datepicker').datepicker();
+
+      $('button.addJobOrder').click(function(){
+        $('#addJobOrder .divskill').empty();
+        $('#addJobOrder .divreqfees').empty();
+        // addReq();
+        addSkill();
+        addFees();
+      });
+      $('#addJobOrder .addskill').click(function(){
+        addSkill();
+      });
+      $('#addJobOrder .addfees').click(function(){
+        addFees();
+      });
+      // $('#addJobOrder .addreq').click(function(){
+      //   addReq();
+      // });
+      // function addReq(){
+      //   $('#addJobOrder .divdocreq').append('<div class="row form-horizontal"><div class="col-sm-8 col-sm-offset-1"><div class="form-group"><label class="col-sm-4 control-label">Requirement Name</label><div class="col-sm-8"><select class="select2 form-control" multiple name="skills[]" style="width: 100%">'+reqoption+'</select></div></div></div><div class="col-sm-2"><button type="button" class="btn btn-danger removeskill"><i class="fa fa-close"></i></button></div></div></div></div>');
+        
+      //   $('#addJobOrder .divdocreq .select2').select2();
+      // }
+      function addSkill(){
+        $('#addJobOrder .divskill').append('<div class="row form-horizontal"><div class="col-sm-5"><div class="form-group"><label class="col-sm-4 control-label">Skill Name</label><div class="col-sm-8"><select class="select2 form-control" name="skills[]" style="width: 100%">'+skilloption+'</select></div></div></div><div class="col-sm-5"><div class="form-group"><label class="col-sm-4 control-label">Proficiency</label><div class="col-sm-8"><input type="text" class="form-control" name="profs[]"></div></div></div><div class="col-sm-2"><button type="button" class="btn btn-danger removeskill"><i class="fa fa-close"></i></button></div></div></div></div>');
+
+        $('#addJobOrder .divskill .select2').select2();
+      }
+      function addFees(){
+        $('#addJobOrder .divreqfees').append('<div class="row form-horizontal"><div class="col-sm-5"><div class="form-group"><label class="col-sm-4 control-label">Fee Name</label><div class="col-sm-8"><select class="select2 form-control" name="fee[]" style="width: 100%">'+feeoption+'</select></div></div></div><div class="col-sm-5"><div class="form-group"><label class="col-sm-4 control-label">Amount</label><div class="col-sm-8"><input type="number" class="form-control" name="amount[]"></div></div></div><div class="col-sm-2"><button type="button" class="btn btn-danger removeskill"><i class="fa fa-close"></i></button></div></div></div></div>');
+
+        $('#addJobOrder .divreqfees .select2').select2();
+      }
+      $(document).on('click','#addJobOrder .removeskill',function(){
+        $(this).closest('.row').remove();
+      });
 
     });
   </script>

@@ -101,6 +101,8 @@ Route::post('/addEmployer','AdminController@addEmployer');
 
 Route::get('/Transactions/JobOrder','AdminController@TransactionsJobOrder');
 Route::get('/getAllSkills','AdminController@getAllSkills');
+Route::get('/getAllReq','AdminController@getAllReq');
+Route::get('/getAllFees','AdminController@getAllFees');
 Route::post('/addJobOrder','AdminController@addJobOrder');
 
 
