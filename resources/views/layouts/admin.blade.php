@@ -358,7 +358,7 @@
           </a>
           <ul class="treeview-menu">
             <li class="jd treeview">
-              <a class="jd"><i class="fa fa-circle-o"></i>Job Order Management <span class="pull-right-container">
+              <a href="" class="jd"><i class="fa fa-circle-o"></i>Job Order Management <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span> </a>
               <ul class="treeview-menu">
@@ -368,7 +368,7 @@
             </li>
 
             <li class="jd treeview">
-              <a class="jd"><i class="fa fa-circle-o"></i>Application Management <span class="pull-right-container">
+              <a href="" class="am"><i class="fa fa-circle-o"></i>Application Management <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span> </a>
               <ul class="treeview-menu">

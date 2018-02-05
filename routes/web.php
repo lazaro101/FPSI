@@ -98,11 +98,16 @@ Route::post('/delFees','AdminController@delFees');
 
 Route::get('/Transactions/Employer','AdminController@TransactionsEmployer');
 Route::post('/addEmployer','AdminController@addEmployer');
+Route::get('/getEmployer','AdminController@getEmployer');
+Route::post('/editEmployer','AdminController@editEmployer');
+Route::post('/delEmployer','AdminController@delEmployer');
 
 Route::get('/Transactions/JobOrder','AdminController@TransactionsJobOrder');
 Route::get('/getAllSkills','AdminController@getAllSkills');
 Route::get('/getAllReq','AdminController@getAllReq');
-Route::get('/getAllFees','AdminController@getAllFees');
+Route::get('/getFeeJob','AdminController@getFeeJob');
+Route::get('/getSymbol','AdminController@getSymbol');
+Route::get('/getJob','AdminController@getJob');
 Route::post('/addJobOrder','AdminController@addJobOrder');
 
 

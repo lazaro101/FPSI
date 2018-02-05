@@ -9,6 +9,9 @@ use App\FeeType;
 use App\JobType;
 use App\JobCategory;
 use App\Skill;
+use App\Country;
+use App\Employer;
+use App\Currency;
 
 use DB;
 
@@ -306,27 +309,90 @@ class AdminController extends Controller
     }
 
     public function TransactionsEmployer(){
-        return view('transactions.employer');
+        $empyr = Employer::where('status',0)->get();
+        $cty = Country::where('status',0)->get();
+        return view('transactions.employer',compact('empyr','cty'));
+    }
+    public function addEmployer(Request $req){
+        Employer::insert([
+            'EMPLOYERNAME' => $req->empname,
+            'LNAME' => $req->lname,
+            'FNAME' => $req->fname,
+            'MNAME' => $req->mname,
+            'EMAIL' => $req->compemadd,
+            'CONTACT' => $req->cnum,
+            'LANDLINE' => $req->lnum,
+            'COMPANYADD' => $req->compadd,
+            // 'EMPSTATUS' => $req->,
+            // 'REASONS' => $req->,
+            // 'TDATE' => $req->,
+            'COUNTRY_ID' => $req->cname,
+        ]);
+        return redirect('/Transactions/Employer');
+    }
+    public function getEmployer(Request $req){
+        $var = Employer::where('EMPLOYER_ID',$req->id)->first();
+        return response()->json($var);
+    }
+    public function editEmployer(Request $req){
+        Employer::where('EMPLOYER_ID',$req->id)->update([
+            'EMPLOYERNAME' => $req->empname,
+            'LNAME' => $req->lname,
+            'FNAME' => $req->fname,
+            'MNAME' => $req->mname,
+            'EMAIL' => $req->compemadd,
+            'CONTACT' => $req->cnum,
+            'LANDLINE' => $req->lnum,
+            'COMPANYADD' => $req->compadd,
+            // 'EMPSTATUS' => $req->,
+            // 'REASONS' => $req->,
+            // 'TDATE' => $req->,
+            'COUNTRY_ID' => $req->cname,
+        ]);
+        return redirect('/Transactions/Employer');
+    }
+    public function delEmployer(Request $req){
+        Employer::where('EMPLOYER_ID',$req->id)->update([
+            'status' => 1,
+            'TDATE' => date_format(date_create('now'),"Y-m-d"),
+            'REASONS' => $req->reason,
+        ]);
+        return redirect('/Transactions/Employer');
     }
 
     public function TransactionsJobOrder(){
         // $skills = Skill::where('status',0)->get();
+        $emplyr = Employer::where('status',0)->get();
         $jobs = Job::where('status',0)->get();
         $jobcat = JobCategory::where('status',0)->get();
-        $docreq = DB::table('genreqs_t')->where('status',0)->get();
-        return view('transactions.joborder',compact('jobs','jobcat','docreq'));
+        $docreq = DB::table('genreqs_t')->where('status',0)->where('ALLOCATION','Job')->get();
+        return view('transactions.joborder',compact('emplyr','jobs','jobcat','docreq'));
     }
     public function getAllSkills(){
-        $skill = Skill::where('status',0)->get();
+        $skill = Skill::where('status',0)->where('SKILLTYPE','Specific')->get();
         return response()->json($skill);
     }
-    public function getAllReq(){
-        $req = DB::table('genreqs_t')->where('status',0)->get();
-        return response()->json($req);
-    }
-    public function getAllFees(){
-        $fees = GenFees::where('status',0)->get();
+    // public function getAllReq(){
+    //     $req = DB::table('genreqs_t')->where('status',1)->get();
+    //     return response()->json($req);
+    // }
+    public function getFeeJob(Request $req){
+        // $fees = GenFees::where('status',0)->get();
+        $jtid = Job::where('JOB_ID',$req->jobid)->first();
+        $fees = FeeType::where('JOBTYPE_ID',$jtid->JOBTYPE_ID)->get(); 
+        
+        die();
         return response()->json($fees);
+    }
+    public function getSymbol(Request $req){
+        $var = Employer::where('EMPLOYER_ID',$req->emplid)->first();
+        $var1 = $var->country->COUNTRY_ID;
+        $cur = Currency::where('COUNTRY_ID',$var1)->first();
+        return response()->json($cur->SYMBOL);
+    }
+    public function getJob(Request $req){
+        $var = Job::where('CATEGORY_ID',$req->ctgryid)->get();
+        return response()->json($var);
     }
 
     public function TransactionsInitialInterview(){
