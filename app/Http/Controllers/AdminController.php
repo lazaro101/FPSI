@@ -395,7 +395,19 @@ class AdminController extends Controller
         return response()->json($var);
     }
 
+    public function TransactionsApplicantMatching(){
+        return view('transactions.applicantmatching');
+    }
+
     public function TransactionsInitialInterview(){
         return view('transactions.initialinterview');
+    }
+
+    public function TransactionsFinalInterview(){
+        return view('transactions.finalinterview');
+    }
+
+    public function TransactionsDocumentsCollection(){
+        return view('transactions.documentscollection');
     }
 }

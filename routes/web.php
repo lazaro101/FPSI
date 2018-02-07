@@ -95,7 +95,6 @@ Route::post('/editFees','AdminController@editFees');
 Route::post('/delFees','AdminController@delFees');
 
 
-
 Route::get('/Transactions/Employer','AdminController@TransactionsEmployer');
 Route::post('/addEmployer','AdminController@addEmployer');
 Route::get('/getEmployer','AdminController@getEmployer');
@@ -112,3 +111,12 @@ Route::post('/addJobOrder','AdminController@addJobOrder');
 
 
 Route::get('/Transactions/InitialInterview','AdminController@TransactionsInitialInterview');
+
+Route::get('/Transactions/ApplicantMatching','AdminController@TransactionsApplicantMatching');
+
+Route::get('/Transactions/InitialInterview','AdminController@TransactionsInitialInterview');
+
+Route::get('/Transactions/FinalInterview','AdminController@TransactionsFinalInterview');
+
+Route::get('/Transactions/DocumentsCollection','AdminController@TransactionsDocumentsCollection');
+

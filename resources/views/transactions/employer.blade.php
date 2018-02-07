@@ -91,6 +91,7 @@
                
                 <div class="form-group">
                   <label>Foreign Principal</label>
+
                 </div>
                 <div class="form-horizontal">
                   <div class="form-group">
@@ -165,7 +166,7 @@
                 </div>
                
                 <div class="form-group">
-                  <label>Foreign Principal</label>
+
                 </div>
                 <div class="form-horizontal">
                   <div class="form-group">
