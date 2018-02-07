@@ -4,6 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Job;
+use App\GenFees;
+use App\FeeType;
+use App\JobType;
+use App\JobCategory;
+use App\Skill;
+use App\Country;
+use App\Employer;
+use App\Currency;
+
 use DB;
 
 class AdminController extends Controller
@@ -60,12 +69,14 @@ class AdminController extends Controller
     	$cid = DB::table('country_t')->insertGetId([
     		'COUNTRYNAME' => $req->countryname
     	]);
-    	foreach ($req->req as $val) {
-    		DB::table('countryreqs_t')->insert([
-    			'COUNTRY_ID' => $cid,
-    			'REQ_ID' => $val
-    		]);
-    	}
+        if (isset($req->req)) {
+            foreach ($req->req as $val) {
+                DB::table('countryreqs_t')->insert([
+                    'COUNTRY_ID' => $cid,
+                    'REQ_ID' => $val
+                ]);
+            }
+        }
     	return redirect('/Maintenance/Country');
     }
     public function getCountry(Request $req){
@@ -96,13 +107,15 @@ class AdminController extends Controller
     }
 
     public function MaintenanceCurrency(){
-    	$cur = DB::table('currency_t')->where('status',0)->get();
-    	return view('maintenance.currency',['cur' => $cur]);
+    	$cur = DB::table('currency_t as c')->where('c.status',0)->join('country_t as ct','ct.COUNTRY_ID','=','c.COUNTRY_ID')->get();
+        $cty = DB::table('country_t')->where('status',0)->get();
+    	return view('maintenance.currency',['cur' => $cur, 'cty' => $cty]);
     }
     public function addCurrency(Request $req){
     	DB::table('currency_t')->insert([
     		'CURRENCYNAME' => $req->currency,
-    		'SYMBOL' => $req->symbol,
+            'SYMBOL' => $req->symbol,
+    		'COUNTRY_ID' => $req->country,
     	]);
     	return redirect('/Maintenance/Currency');
     }
@@ -221,7 +234,6 @@ class AdminController extends Controller
 
     public function MaintenanceJob(){
         $jobs = Job::get();
-
         return view('maintenance.job', compact('jobs'));
     }
 
@@ -256,15 +268,131 @@ class AdminController extends Controller
     }
 
     public function MaintenanceFees(){
-        return view('maintenance.fees');
+        $fees = GenFees::where('status',0)->get();
+        $jtype = JobType::where('status',0)->get();
+        return view('maintenance.fees',compact('jtype','fees'));
+    }
+    public function addFees(Request $req){
+        $fid = GenFees::insertGetId([
+            'FEENAME' => $req->feename,
+        ]);
+        foreach ($req->jtype as $key => $value) {
+            FeeType::insert([
+                'FEE_ID' => $fid,
+                'JOBTYPE_ID' => $value,
+            ]);
+        }
+
+        return redirect('/Maintenance/Fees');
+    }
+    public function getFees(Request $req){
+        $var = GenFees::find($req->id);
+        $var1 = FeeType::where('FEE_ID',$req->id)->get();
+        return response()->json([$var,$var1]);
+    }
+    public function editFees(Request $req){
+        GenFees::where('FEE_ID',$req->id)->update([
+            'FEENAME' => $req->feename,
+        ]);
+        FeeType::where('FEE_ID',$req->id)->delete();
+        foreach ($req->jtype as $key => $value) {
+            FeeType::insert([
+                'FEE_ID' => $req->id,
+                'JOBTYPE_ID' => $value,
+            ]);
+        }
+        return redirect('/Maintenance/Fees');
+    }
+    public function delFees(Request $req){
+        GenFees::where('FEE_ID',$req->id)->update([ 'status' => 1 ]);
+        return redirect('/Maintenance/Fees');
     }
 
     public function TransactionsEmployer(){
-        return view('transactions.employer');
+        $empyr = Employer::where('status',0)->get();
+        $cty = Country::where('status',0)->get();
+        return view('transactions.employer',compact('empyr','cty'));
+    }
+    public function addEmployer(Request $req){
+        Employer::insert([
+            'EMPLOYERNAME' => $req->empname,
+            'LNAME' => $req->lname,
+            'FNAME' => $req->fname,
+            'MNAME' => $req->mname,
+            'EMAIL' => $req->compemadd,
+            'CONTACT' => $req->cnum,
+            'LANDLINE' => $req->lnum,
+            'COMPANYADD' => $req->compadd,
+            // 'EMPSTATUS' => $req->,
+            // 'REASONS' => $req->,
+            // 'TDATE' => $req->,
+            'COUNTRY_ID' => $req->cname,
+        ]);
+        return redirect('/Transactions/Employer');
+    }
+    public function getEmployer(Request $req){
+        $var = Employer::where('EMPLOYER_ID',$req->id)->first();
+        return response()->json($var);
+    }
+    public function editEmployer(Request $req){
+        Employer::where('EMPLOYER_ID',$req->id)->update([
+            'EMPLOYERNAME' => $req->empname,
+            'LNAME' => $req->lname,
+            'FNAME' => $req->fname,
+            'MNAME' => $req->mname,
+            'EMAIL' => $req->compemadd,
+            'CONTACT' => $req->cnum,
+            'LANDLINE' => $req->lnum,
+            'COMPANYADD' => $req->compadd,
+            // 'EMPSTATUS' => $req->,
+            // 'REASONS' => $req->,
+            // 'TDATE' => $req->,
+            'COUNTRY_ID' => $req->cname,
+        ]);
+        return redirect('/Transactions/Employer');
+    }
+    public function delEmployer(Request $req){
+        Employer::where('EMPLOYER_ID',$req->id)->update([
+            'status' => 1,
+            'TDATE' => date_format(date_create('now'),"Y-m-d"),
+            'REASONS' => $req->reason,
+        ]);
+        return redirect('/Transactions/Employer');
     }
 
     public function TransactionsJobOrder(){
-        return view('transactions.joborder');
+        // $skills = Skill::where('status',0)->get();
+        $emplyr = Employer::where('status',0)->get();
+        $jobs = Job::where('status',0)->get();
+        $jobcat = JobCategory::where('status',0)->get();
+        $docreq = DB::table('genreqs_t')->where('status',0)->where('ALLOCATION','Job')->get();
+        return view('transactions.joborder',compact('emplyr','jobs','jobcat','docreq'));
+    }
+    public function getAllSkills(){
+        $skill = Skill::where('status',0)->where('SKILLTYPE','Specific')->get();
+        return response()->json($skill);
+    }
+    // public function getAllReq(){
+    //     $req = DB::table('genreqs_t')->where('status',1)->get();
+    //     return response()->json($req);
+    // }
+    public function getFeeJob(Request $req){
+        // $fees = GenFees::where('status',0)->get();
+        $jtid = Job::where('JOB_ID',$req->jobid)->first();
+        $fees = FeeType::where('JOBTYPE_ID',$jtid->JOBTYPE_ID)->get(); 
+        
+        die();
+        return response()->json($fees);
+    }
+    public function getSymbol(Request $req){
+        $var = Employer::where('EMPLOYER_ID',$req->emplid)->first();
+        $var1 = $var->country->COUNTRY_ID;
+        $cur = Currency::where('COUNTRY_ID',$var1)->first();
+        return response()->json($cur->SYMBOL);
+    }
+    public function getJob(Request $req){
+        $var = Job::where('CATEGORY_ID',$req->ctgryid)->get();
+        return response()->json($var);
     }
 
     public function TransactionsApplicantMatching(){

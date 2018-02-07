@@ -13,4 +13,9 @@ class JobType extends Model
     public function job() {
     	return $this->hasMany('App\Job', 'CATEGORY_ID');
     }
+
+    public function jobtype() {
+    	return $this->hasMany('App\FeeType', 'JOBTYPE_ID');
+    }
+
 }

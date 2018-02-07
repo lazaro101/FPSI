@@ -36,6 +36,23 @@
                       <th width="100px">Actions</th>
                     </tr>
                   </thead>
+                  <tbody>
+                    @foreach($fees as $fee)
+                    <tr>
+                      <td>{{$fee->FEENAME}}</td>
+                      <td>
+                        @foreach($fee->jobtype as $type)
+                        {{$type->feetype->TYPENAME}} 
+                          @if(!$loop->remaining == 0) {{','}} @endif
+                        @endforeach
+                      </td>
+                      <td>
+                        <button class='btn btn-info edit' id='btnUpdate' value="{{$fee->FEE_ID}}"><i class='fa fa-pencil'></i></button>
+                        <button class='btn btn-danger del' id='btnRemove' value="{{$fee->FEE_ID}}"><i class='fa fa-trash'></i></button>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
                 </table>
               </div>
             </div> 
@@ -59,14 +76,16 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label>Fee Name</label>
-                  <input type="text" class="form-control" name="">
+                  <input type="text" class="form-control" name="feename">
                 </div>
                 <div class="form-group">
-                  <div class="Checkbox">
-                  <label>For Job Type</label> <br>
-                  <input type="Checkbox"  name=""> Job Type 1 
-                  <input type="Checkbox"  name=""> Job Type 2 <br>
-                  </div>   
+                  <label>For Job Type</label>
+                  @php $jtype1 = $jtype @endphp
+                  @foreach($jtype as $jt)
+                  <div class="checkbox">
+                    <label><input type="checkbox" name="jtype[]" value="{{$jt->JOBTYPE_ID}}">{{$jt->TYPENAME}}</label>
+                  </div>
+                  @endforeach
                 </div>
               </div>
               <div class="modal-footer">
@@ -93,16 +112,17 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label>Fee Name</label>
-                  <input type="text" class="form-control" name="">
+                  <input type="text" class="form-control" name="feename">
                 </div>
-              </div>
               <div class="form-group">
-                  <div class="Checkbox">
-                  <label>For Job Type</label> <br>
-                  <input type="Checkbox"  name=""> Job Type 1 
-                  <input type="Checkbox"  name=""> Job Type 2 <br>
-                  </div>   
+                <label>For Job Type</label>
+                @foreach($jtype1 as $jt)
+                <div class="checkbox">
+                  <label><input type="checkbox" name="jtype[]" value="{{$jt->JOBTYPE_ID}}">{{$jt->TYPENAME}}</label>
                 </div>
+                @endforeach
+              </div>
+              </div>
               <div class="modal-footer">
                 <button type="submit" class="btn btn-success">Save</button>
                 <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -150,6 +170,32 @@
       $('.sidebar-menu .mntc').trigger('click');
       $('.sidebar-menu .jd').trigger('click');
       $('.sidebar-menu li.fes').addClass('active');
+
+      $('.edit').click(function(){
+        $('#edit form .checkbox input').prop('checked',false);
+        $.ajax
+        ({
+          url: '/getFees',
+          type:'get',
+          dataType : 'json',
+          data: { id : $(this).val() },
+          success:function(response) {
+            $('#edit form input[name=id]').val(response[0].FEE_ID);
+            $('#edit form input[name=feename]').val(response[0].FEENAME);
+            response[1].forEach(function(data) { 
+              $('#edit form input[type=checkbox][value='+data.JOBTYPE_ID+']').prop('checked',true);
+            });
+          },
+          complete:function(){
+            $('#edit').modal();
+          }
+        });
+      });
+
+      $('.del').click(function(){ 
+        $('#del form input[name=id]').val($(this).val());
+        $('#del').modal();
+      });
     });
   </script>
   @endsection

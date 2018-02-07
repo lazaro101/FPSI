@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/Ionicons/css/ionicons.min.css') }}">
   <!-- jvectormap -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/jvectormap/jquery-jvectormap.css') }}">
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/select2/dist/css/select2.css') }}">
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/AdminLTE.min.css') }}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -30,8 +33,7 @@
   <![endif]-->
 
   <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -244,14 +246,14 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="/AdminLTE/dist/img/avatar2.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">Aubrey Vidanes</span>
+              <span class="hidden-xs">UserName</span>
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">
                 <img src="/AdminLTE/dist/img/avatar2.png" class="img-circle" alt="User Image">
 
                 <p>
-                  Aubrey Vidanes - Web Developer
+                  UserName - Web Developer
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -273,7 +275,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -296,7 +298,7 @@
           <img src="/AdminLTE/dist/img/avatar2.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Aubrey Vidanes</p>
+          <p>UserName</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -331,7 +333,7 @@
             <li class="bnk"><a href="/Maintenance/Banks"><i class="fa fa-circle-o"></i>Banks</a></li>
             <li class="abnk"><a href="/Maintenance/AcceptedBanks"><i class="fa fa-circle-o"></i>Accepted Banks</a></li>
             <li class="jd treeview">
-              <a class="jd"><i class="fa fa-circle-o"></i>Job Details <span class="pull-right-container">
+              <a class="jd" href=""><i class="fa fa-circle-o"></i>Job Details <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span> </a>
               <ul class="treeview-menu">
@@ -356,7 +358,7 @@
           </a>
           <ul class="treeview-menu">
             <li class="jd treeview">
-              <a class="jd"><i class="fa fa-circle-o"></i>Job Order Management <span class="pull-right-container">
+              <a href="" class="jd"><i class="fa fa-circle-o"></i>Job Order Management <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span> </a>
               <ul class="treeview-menu">
@@ -366,7 +368,7 @@
             </li>
 
             <li class="jd treeview">
-              <a class="jd"><i class="fa fa-circle-o"></i>Application Management <span class="pull-right-container">
+              <a href="" class="am"><i class="fa fa-circle-o"></i>Application Management <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span> </a>
               <ul class="treeview-menu">
@@ -450,6 +452,9 @@
 <!-- DataTables -->
 <script src="{{ asset('AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+
+<script src="{{ asset('AdminLTE/bower_components/select2/dist/js/select2.js') }}"></script>
+<script src="{{ asset('AdminLTE/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 
 @yield('script')
 
