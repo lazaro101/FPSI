@@ -109,6 +109,7 @@ Route::get('/getSymbol','AdminController@getSymbol');
 Route::get('/getJob','AdminController@getJob');
 Route::post('/addJobOrder','AdminController@addJobOrder');
 
+Route::get('/Transactions/Applicant','AdminController@TransactionsApplicant');
 
 Route::get('/Transactions/InitialInterview','AdminController@TransactionsInitialInterview');
 

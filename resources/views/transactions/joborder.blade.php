@@ -137,7 +137,7 @@
                       <div class="col-sm-8">
                         <div class="input-group">
                           <input type="number" name="" class="form-control">
-                          <span class="input-group-addon">lb</span>
+                          <span class="input-group-addon">kg</span>
                         </div>
                       </div>
                     </div>

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title','Documents Collection')
+@section('title','Applicant')
 
 @section('content')
 
@@ -23,14 +23,16 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Documents Collection</h3>
+              <h3 class="box-title">Applicant</h3>
             </div>
             <div class="box-body">
+              <button class="btn btn-primary" data-toggle="modal" data-target="#addApplicant" style="padding: 10px; width: 150px;"><strong>NEW APPLICANT</strong>  <span class="fa fa-plus"></span></button>
               <div class="content">
                 <table class="table table-hover" id="example1">
                   <thead>
                     <tr>
                       <th>Applicant Name</th>
+                      <th>Position</th>
                       <th width="100px">Actions</th>
                     </tr>
                   </thead>
@@ -52,7 +54,7 @@
     $(document).ready(function(){
       $('.sidebar-menu .trnsc').trigger('click');
       $('.sidebar-menu .jd').trigger('click');
-      $('.sidebar-menu li.docu').addClass('active');
+      $('.sidebar-menu li.app').addClass('active');
     });
   </script>
   @endsection

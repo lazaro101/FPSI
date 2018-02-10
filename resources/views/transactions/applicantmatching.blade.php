@@ -60,7 +60,7 @@
                   <thead>
                     <tr>
                       <th>Applicant Name</th>
-                      <th>Match Result</th>
+                      <th>Match Percentage</th>
                       <th width="100px">Actions</th>
                     </tr>
                   </thead>
