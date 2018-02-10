@@ -81,6 +81,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $('.sidebar-menu .trnsc').trigger('click');
+      $('.sidebar-menu .jd').trigger('click');
       $('.sidebar-menu li.appmat').addClass('active');
     });
   </script>
