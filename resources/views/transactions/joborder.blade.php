@@ -51,7 +51,7 @@
   </div>
 
       <div class="modal fade bs-example-modal-lg" id="addJobOrder">
-        <form method="post" action="/editFees">
+        <form method="post">
           {{csrf_field()}}
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -104,8 +104,8 @@
                     <div class="form-group">
                       <label class="col-sm-5 control-label">Gender Specification</label>
                       <div class="checkbox col-sm-7">
-                        <label><input type="checkbox" name="gender" value="1">Male</label> &nbsp;
-                        <label><input type="checkbox" name="gender" value="2">Female</label> 
+                        <label><input type="checkbox" name="gender[]" value="1">Male</label> &nbsp;
+                        <label><input type="checkbox" name="gender[]" value="2">Female</label> 
                       </div> 
                     </div>
                     <div class="form-group">
@@ -225,7 +225,7 @@
       var symbol = "Nan";
 
       $('button.addJobOrder').click(function(){
-        $('#addJobOrder form').trigger('reset');
+        $('#addJobOrder form').trigger('reset').attr('action','/addJobOrder');
         $('#addJobOrder .divskill').empty();
         $('#addJobOrder .divreqfees').empty();
         $('.select2').select2();

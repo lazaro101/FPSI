@@ -137,7 +137,7 @@
               <p>Are you sure you want to delete?</p>
             </div>
             <div class="modal-footer">
-              <form method="post" action="/delSKills">
+              <form method="post" action="/delSkills">
                 {{csrf_field()}}
                 <input type="hidden" name="id" value="">
                 <button type="submit" class="btn btn-outline">Yes</button>

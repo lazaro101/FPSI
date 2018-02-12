@@ -115,6 +115,25 @@ class AdminController extends Controller
         $var = Job::where('CATEGORY_ID',$req->ctgryid)->get();
         return response()->json($var);
     }
+    public function addJobOrder(Request $req){
+        $gen = 0;
+        foreach ($req->gender as $key => $value) {
+            $gen += 1;
+        }
+        $joid = JobOrder::insert([
+            'EMPLOYER_ID' => $req->employer ,
+            'CATEGORY_ID' => $req->jobcat ,
+            'JOB_ID' => $req->job ,
+            'REQAPP' => $req->numemp ,
+            'SALARY' => $req->salary ,
+            'GENDER' => $gen ,
+            'HEIGHTREQ' => $req->height ,
+            'WEIGHTREQ' => $req->weight ,
+            'CNTRCTSTART' => date_format(date_create($req->contract),"Y-m-d"),
+        ]);
+
+        return redirect('/Transactions/JobOrder');
+    }
 
     public function TransactionsApplicant(){
         return view('transactions.applicant');
