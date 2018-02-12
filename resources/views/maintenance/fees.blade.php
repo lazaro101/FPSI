@@ -41,8 +41,8 @@
                     <tr>
                       <td>{{$fee->FEENAME}}</td>
                       <td>
-                        @foreach($fee->jobtype as $type)
-                        {{$type->feetype->TYPENAME}} 
+                        @foreach($fee->feetype as $type)
+                        {{$type->jobtype->TYPENAME}} 
                           @if(!$loop->remaining == 0) {{','}} @endif
                         @endforeach
                       </td>

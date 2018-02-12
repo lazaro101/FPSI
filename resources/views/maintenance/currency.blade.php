@@ -104,12 +104,12 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Currency</h4>
+                <h4 class="modal-title">Edit Currency</h4>
               </div>
               <div class="modal-body">
                 <div class="form-group">
                   <label>Country</label>
-                  <select class="form-control" placeholder="Input something.." name="">
+                  <select class="form-control" placeholder="Input something.." name="country">
                     @foreach($cty1 as $cty)
                     <option value="{{$cty->COUNTRY_ID}}">{{$cty->COUNTRYNAME}}</option>
                     @endforeach
@@ -179,6 +179,7 @@
             $('#edit form input[name=id]').val(response.CURRENCY_ID);
             $('#edit form input[name=currency]').val(response.CURRENCYNAME);
             $('#edit form input[name=symbol]').val(response.SYMBOL);
+            $('#edit form select[name=country]').val(response.COUNTRY_ID);
           },
           complete:function(){
             $('#edit').modal();

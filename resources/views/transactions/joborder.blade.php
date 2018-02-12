@@ -94,7 +94,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker">
+                        <input type="text" class="form-control pull-right" id="datepicker" name="contract">
                       </div>
                       <!-- /.input group -->
                     </div>
@@ -104,21 +104,21 @@
                     <div class="form-group">
                       <label class="col-sm-5 control-label">Gender Specification</label>
                       <div class="checkbox col-sm-7">
-                        <label><input type="checkbox" name="gender" value="male">Male</label> &nbsp;
-                        <label><input type="checkbox" name="gender" value="female">Female</label> 
+                        <label><input type="checkbox" name="gender" value="1">Male</label> &nbsp;
+                        <label><input type="checkbox" name="gender" value="2">Female</label> 
                       </div> 
                     </div>
                     <div class="form-group">
                       <label class="col-sm-4 control-label">No. of Employees</label>
                       <div class="col-sm-8">
-                        <input type="number" name="" class="form-control">
+                        <input type="number" name="numemp" class="form-control">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-4 control-label">Salary</label>
                       <div class="col-sm-8">
                         <div class="input-group">
-                          <input type="number" name="" class="form-control"> 
+                          <input type="number" name="salary" class="form-control"> 
                           <span class="input-group-addon symbl">Nan</span>
                         </div>
                       </div>
@@ -127,7 +127,7 @@
                       <label class="col-sm-4 control-label">Height</label>
                       <div class="col-sm-8">
                         <div class="input-group">
-                          <input type="number" name="" class="form-control">
+                          <input type="number" name="height" class="form-control">
                           <span class="input-group-addon">cm</span>
                         </div>
                       </div>
@@ -136,7 +136,7 @@
                       <label class="col-sm-4 control-label">Weight</label>
                       <div class="col-sm-8">
                         <div class="input-group">
-                          <input type="number" name="" class="form-control">
+                          <input type="number" name="weight" class="form-control">
                           <span class="input-group-addon">kg</span>
                         </div>
                       </div>
@@ -172,7 +172,7 @@
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Requirement Name</label>
                         <div class="col-sm-8">
-                          <select class="select2 form-control" multiple name="skills[]" style="width: 100%">
+                          <select class="select2 form-control" multiple name="docreq[]" style="width: 100%">
                             @foreach($docreq as $req)
                             <option value="{{$req->REQ_ID }}">{{$req->REQNAME}}</option>
                             @endforeach
@@ -217,85 +217,49 @@
       $('.sidebar-menu .jd').trigger('click');
       $('.sidebar-menu li.jor').addClass('active');
 
-      $('.select2').select2();
-      $('.select2.emplsel').select2({
-        placeholder: "Select Employer",
-        allowClear: true
-      });
-      $('.select2.jobsel').select2({
-        placeholder: "Select Job",
-        allowClear: true
-      });
-      $('.select2.ctgrysel').select2({
-        placeholder: "Select Category",
-        allowClear: true
-      });
-      
       $('#datepicker').datepicker();
 
       var skilloption = "";
       var reqoption = "";
       var feeoption = "";
       var symbol = "Nan";
-      $.ajax
-        ({
-          url: '/getAllSkills',
-          type:'get',
-          dataType : 'json',
-          success:function(response) {
-            response.forEach(function(data){
-              skilloption += '<option value='+data.SKILL_ID+'>'+data.SKILLNAME+'</option>';
-            });
-          }
-        });
-      $.ajax
-        ({
-          url: '/getAllReq',
-          type:'get',
-          dataType : 'json',
-          success:function(response) {
-            response.forEach(function(data){
-              reqoption += '<option value='+data.REQ_ID+'>'+data.REQNAME+'</option>';
-            });
-          }
-        });
 
       $('button.addJobOrder').click(function(){
+        $('#addJobOrder form').trigger('reset');
         $('#addJobOrder .divskill').empty();
         $('#addJobOrder .divreqfees').empty();
-        addSkill();
-        // addFees();
+        $('.select2').select2();
+        $('.select2.emplsel').select2({
+          placeholder: "Select Employer",
+          allowClear: true
+        });
+        $('.select2.jobsel').select2({
+          placeholder: "Select Job",
+          allowClear: true
+        });
+        $('.select2.ctgrysel').select2({
+          placeholder: "Select Category",
+          allowClear: true
+        });
+       
       });
       $('#addJobOrder .addskill').click(function(){
         addSkill();
       });
       $('#addJobOrder .addfees').click(function(){
-        $.ajax
-        ({
-          url: '/getFeeJob',
-          type:'get',
-          data: { jobid : $('#addJobOrder .jobsel').select2('val') },
-          dataType : 'json',
-          success:function(response) {
-            response.forEach(function(data){
-              feeoption += '<option value="'+data.FEE_ID+'">'+data.FEENAME+'</option>';
-            });
-          }
-        }); 
-        // addFees();
-        alert(feeoption);
+        addFees();
       });
       function addSkill(){
-        $('#addJobOrder .divskill').append('<div class="row form-horizontal"><div class="col-sm-5"><div class="form-group"><label class="col-sm-4 control-label">Skill Name</label><div class="col-sm-8"><select class="select2 form-control" name="skills[]" style="width: 100%">'+skilloption+'</select></div></div></div><div class="col-sm-5"><div class="form-group"><label class="col-sm-4 control-label">Proficiency</label><div class="col-sm-8"><select class="form-control" name="prof[]"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div></div></div><div class="col-sm-2"><button type="button" class="btn btn-danger removeskill"><i class="fa fa-close"></i></button></div></div></div></div>');
+        $('#addJobOrder .divskill').append('<div class="row form-horizontal"><div class="col-sm-5"><div class="form-group"><label class="col-sm-4 control-label">Skill Name</label><div class="col-sm-8"><select class="select2 form-control" name="skills[]" style="width: 100%"><option></option>'+skilloption+'</select></div></div></div><div class="col-sm-5"><div class="form-group"><label class="col-sm-4 control-label">Proficiency</label><div class="col-sm-8"><select class="form-control" name="prof[]"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div></div></div><div class="col-sm-2"><button type="button" class="btn btn-danger removerow"><i class="fa fa-close"></i></button></div></div></div></div>');
 
-        $('#addJobOrder .divskill .select2').select2();
+        $('#addJobOrder .divskill .select2').select2({placeholder:'Select Skill'});
       }
       function addFees(){
-        $('#addJobOrder .divreqfees').append('<div class="row form-horizontal"><div class="col-sm-5"><div class="form-group"><label class="col-sm-4 control-label">Fee Name</label><div class="col-sm-8"><select class="select2 form-control" name="fee[]" style="width: 100%">'+feeoption+'</select></div></div></div><div class="col-sm-5"><div class="form-group"><label class="col-sm-4 control-label">Amount</label><div class="col-sm-8"><div class="input-group"><input type="number" name="amount[]" class="form-control"> <span class="input-group-addon symbl">'+symbol+'</span></div></div></div></div><div class="col-sm-2"><button type="button" class="btn btn-danger removeskill"><i class="fa fa-close"></i></button></div></div></div></div>');
+        $('#addJobOrder .divreqfees').append('<div class="row form-horizontal"><div class="col-sm-5"><div class="form-group"><label class="col-sm-4 control-label">Fee Name</label><div class="col-sm-8"><select class="select2 form-control" name="fee[]" style="width: 100%"><option></option>'+feeoption+'</select></div></div></div><div class="col-sm-5"><div class="form-group"><label class="col-sm-4 control-label">Amount</label><div class="col-sm-8"><div class="input-group"><input type="number" name="amount[]" class="form-control"> <span class="input-group-addon symbl">'+symbol+'</span></div></div></div></div><div class="col-sm-2"><button type="button" class="btn btn-danger removerow"><i class="fa fa-close"></i></button></div></div></div></div>');
 
-        $('#addJobOrder .divreqfees .select2').select2();
+        $('#addJobOrder .divreqfees .select2').select2({placeholder:'Select Fee'});
       }
-      $(document).on('click','#addJobOrder .removeskill',function(){
+      $(document).on('click','#addJobOrder .removerow',function(){
         $(this).closest('.row').remove();
       });
 
@@ -331,6 +295,25 @@
           placeholder: "Select Job",
           allowClear: true
         });
+      });
+      $('#addJobOrder .jobsel').change(function(){
+        $.ajax
+        ({
+          url: '/getSkillFee',
+          type: 'get',
+          data: { jid : $(this).val() },
+          dataType : 'json',
+          success:function(response) {
+            skilloption = "", feeoption = "";
+            response[0].forEach(function(data){
+              skilloption += '<option value='+data.SKILL_ID+'>'+data.SKILLNAME+'</option>';
+            });
+            response[1].forEach(function(data){
+              feeoption += '<option value='+data.FEE_ID+'>'+data.FEENAME+'</option>';
+            });
+          }
+        }); 
+        // console.log(skilloption);
       });
 
     });

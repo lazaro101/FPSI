@@ -14,7 +14,7 @@ class JobType extends Model
     	return $this->hasMany('App\Job', 'CATEGORY_ID');
     }
 
-    public function jobtype() {
+    public function feetype() {
     	return $this->hasMany('App\FeeType', 'JOBTYPE_ID');
     }
 

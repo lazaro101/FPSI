@@ -20,5 +20,9 @@ class Job extends Model
 
     public function specificskill() {
     	return $this->hasMany('App\SpecificSkill', 'Job_id');
+    } 
+
+    public function joborder() {
+        return $this->hasMany('App\JobOrder', 'JOB_ID');
     }
 }
