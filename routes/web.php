@@ -106,6 +106,7 @@ Route::get('/getSkillFee','AdminController@getSkillFee');
 Route::get('/getSymbol','AdminController@getSymbol');
 Route::get('/getJob','AdminController@getJob');
 Route::post('/addJobOrder','AdminController@addJobOrder');
+Route::get('/getJobOrder','AdminController@getJobOrder');
 
 Route::get('/Transactions/Applicant','AdminController@TransactionsApplicant');
 

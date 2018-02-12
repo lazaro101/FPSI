@@ -89,12 +89,11 @@ class AdminController extends Controller
     }
 
     public function TransactionsJobOrder(){
-        // $skills = Skill::where('status',0)->get();
-        $emplyr = Employer::where('status',0)->get();
-        $jobs = Job::where('status',0)->get();
+        $joborder = JobOrder::where('status',0)->get();
+        $emplyr = Employer::where('status',0)->get(); 
         $jobcat = JobCategory::where('status',0)->get();
         $docreq = GenReqs::where('status',0)->where('ALLOCATION','Job')->get();
-        return view('transactions.joborder',compact('emplyr','jobs','jobcat','docreq'));
+        return view('transactions.joborder',compact('emplyr','jobs','jobcat','docreq','joborder'));
     }
     public function getSkillFee(Request $req){
         $sp = SpecificSkill::where('JOB_ID',$req->jid)->select('SKILL_ID')->get();
@@ -118,9 +117,9 @@ class AdminController extends Controller
     public function addJobOrder(Request $req){
         $gen = 0;
         foreach ($req->gender as $key => $value) {
-            $gen += 1;
+            $gen += $value;
         }
-        $joid = JobOrder::insert([
+        $joid = JobOrder::insertGetId([
             'EMPLOYER_ID' => $req->employer ,
             'CATEGORY_ID' => $req->jobcat ,
             'JOB_ID' => $req->job ,
@@ -131,8 +130,35 @@ class AdminController extends Controller
             'WEIGHTREQ' => $req->weight ,
             'CNTRCTSTART' => date_format(date_create($req->contract),"Y-m-d"),
         ]);
+        foreach ($req->docreq as $key => $value) {
+            JobDocs::insert([
+                'JORDER_ID' => $joid,
+                'REQ_ID' => $value
+            ]);
+        }
+        foreach ($req->skills as $key => $value) {
+            JobSkills::insert([
+                'JORDER_ID' => $joid,
+                'PROFLEVEL' => $req->prof[$key],
+                'SKILL_ID' => $value,
+            ]);
+        }
+        foreach ($req->fee as $key => $value) {
+            JobFees::insert([
+                'JORDER_ID' => $joid,
+                'FEE_ID' => $value,
+                'AMOUNT' => $req->amount[$key]
+            ]);
+        }
 
         return redirect('/Transactions/JobOrder');
+    }
+    public function getJobOrder(Request $req){
+        $jorder = JobOrder::where('JORDER_ID',$req->joid)->first();
+        $docreq = JobDocs::where('JORDER_ID',$req->joid)->get();
+        $skills = JobSkills::where('JORDER_ID',$req->joid)->get();
+        $fees = JobFees::where('JORDER_ID',$req->joid)->get();
+        return response()->json([$jorder,$docreq,$skills,$fees]);
     }
 
     public function TransactionsApplicant(){

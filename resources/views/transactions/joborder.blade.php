@@ -39,6 +39,34 @@
                       <th width="100px">Actions</th>
                     </tr>
                   </thead>
+                  <tbody>
+                    @foreach($joborder as $jord)
+                    <tr>
+                      <td>{{$jord->employer->EMPLOYERNAME}}</td>
+                      <td>{{$jord->job->JOBNAME}}</td>
+                      <td>
+                        @foreach($jord->jobskills as $skill)
+                        {{$skill->genskills->SKILLNAME}} 
+                          @if(!$loop->remaining == 0) {{','}} @endif
+                        @endforeach
+                      </td>
+                      <td>
+                        @foreach($jord->jobdocs as $doc)
+                        {{$doc->GenReqs->REQNAME}} 
+                          @if(!$loop->remaining == 0) {{','}} @endif
+                        @endforeach</td>
+                      <td>
+                        @foreach($jord->jobfees as $fee)
+                        {{$fee->genfees->FEENAME}} 
+                          @if(!$loop->remaining == 0) {{','}} @endif
+                        @endforeach</td>
+                      <td>
+                        <button type="button" class="btn btn-info edit" value="{{$jord->JORDER_ID}}"><i class="fa fa-pencil"></i></button>
+                        <button type="button" class="btn btn-danger del" value="{{$jord->JORDER_ID}}"><i class="fa fa-trash"></i></button>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
                 </table>
               </div>
             </div> 
@@ -53,6 +81,7 @@
       <div class="modal fade bs-example-modal-lg" id="addJobOrder">
         <form method="post">
           {{csrf_field()}}
+          <input type="hidden" name="id">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
@@ -83,7 +112,7 @@
                     </div>
                     <div class="form-group">
                       <label>Job Name</label> 
-                      <select class="select2 form-control jobsel" name="jobname" style="width: 100%">
+                      <select class="select2 form-control jobsel" name="job" style="width: 100%">
                         <option></option>
                       </select>
                     </div>
@@ -172,7 +201,7 @@
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Requirement Name</label>
                         <div class="col-sm-8">
-                          <select class="select2 form-control" multiple name="docreq[]" style="width: 100%">
+                          <select class="select2 form-control docreq" multiple name="docreq[]" style="width: 100%">
                             @foreach($docreq as $req)
                             <option value="{{$req->REQ_ID }}">{{$req->REQNAME}}</option>
                             @endforeach
@@ -223,7 +252,69 @@
       var reqoption = "";
       var feeoption = "";
       var symbol = "Nan";
+    
 
+      $('.edit').click(function(){
+        $('#addJobOrder form').trigger('reset').attr('action','/addJobOrder');
+        $('#addJobOrder .divskill').empty();
+        $('#addJobOrder .divreqfees').empty();
+        $('.select2').select2();
+
+        $.ajax
+        ({
+          url: '/getJobOrder',
+          type:'get',
+          data: { joid : $(this).val() },
+          dataType : 'json',
+          success:function(response) {
+            $('#addJobOrder .emplsel').val(response[0].EMPLOYER_ID).trigger('change').select2({
+              placeholder: "Select Employer",
+              allowClear: true
+            });
+            $('#addJobOrder .ctgrysel').val(response[0].CATEGORY_ID).trigger('change').select2({
+              placeholder: "Select Category",
+              allowClear: true
+            });
+            setTimeout(function(){ 
+              $('#addJobOrder .jobsel').val(response[0].JOB_ID).trigger('change').select2({
+                placeholder: "Select Job",
+                allowClear: true
+              }); 
+            }, 1000);
+            $('#datepicker').datepicker('setDate',new Date(response[0].CNTRCTSTART));
+            if (response[0].GENDER == 1) {
+              $('#addJobOrder input[name="gender[]"][value='+1+']').prop('checked',true);
+            } else if (response[0].GENDER == 2) {
+              $('#addJobOrder input[name="gender[]"][value='+2+']').prop('checked',true);
+            } else {
+              $('#addJobOrder input[name="gender[]"]').prop('checked',true);
+            }
+            $('#addJobOrder input[name=numemp]').val(response[0].REQAPP);
+            $('#addJobOrder input[name=salary]').val(response[0].SALARY);
+            $('#addJobOrder input[name=height]').val(response[0].HEIGHTREQ);
+            $('#addJobOrder input[name=weight]').val(response[0].WEIGHTREQ);
+            var reqid = [] ;
+            response[1].forEach(function(data){
+              reqid.push(data.REQ_ID);
+            });
+            $('#addJobOrder .docreq').val(reqid).trigger('change');
+              response[2].forEach(function(data){
+                addSkill();
+                // $('.divskill select[name="skills[]"]').last().val(data.SKILL_ID).trigger('change');
+                // $('.divskill select[name="prof[]"]').last().val(data.PROFLEVEL).trigger('change');
+              });
+              response[3].forEach(function(data){
+                addFees();
+                // $('.divreqfees select[name="fee[]"]').last().val(data.FEE_ID).trigger('change');
+                // $('.divreqfees input[name="amount[]"]').last().val(data.AMOUNT);
+              });
+          },
+          complete:function(){
+            $('#addJobOrder').modal();
+          }
+        }); 
+
+      });
       $('button.addJobOrder').click(function(){
         $('#addJobOrder form').trigger('reset').attr('action','/addJobOrder');
         $('#addJobOrder .divskill').empty();

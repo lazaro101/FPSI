@@ -455,6 +455,7 @@
 
 <script src="{{ asset('AdminLTE/bower_components/select2/dist/js/select2.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+<script src="{{ asset('validator/dist/validator.min.js') }}"></script>
 
 @yield('script')
 
