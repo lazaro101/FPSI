@@ -13,7 +13,7 @@ class FeeType extends Model
     	return $this->belongsTo('App\GenFees', 'FEE_ID');
     }
 
-    public function feetype(){
+    public function jobtype(){
     	return $this->belongsTo('App\JobType', 'JOBTYPE_ID');
     }
 }

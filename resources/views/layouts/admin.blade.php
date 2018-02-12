@@ -372,7 +372,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </span> </a>
               <ul class="treeview-menu">
-                <li class=""><a href="/Transactions/Applicant"><i class="fa fa-circle-o"></i>Applicant</a></li>
+                <li class="app"><a href="/Transactions/Applicant"><i class="fa fa-circle-o"></i>Applicant</a></li>
                 <li class="appmat"><a href="/Transactions/ApplicantMatching"><i class="fa fa-circle-o"></i>Applicant Matching</a></li>
                 <li class="intin"><a href="/Transactions/InitialInterview"><i class="fa fa-circle-o"></i>Initial Interview</a></li>
                 <li class="finin"><a href="/Transactions/FinalInterview"><i class="fa fa-circle-o"></i>Final Interview</a></li>

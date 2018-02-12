@@ -14,6 +14,6 @@ class SpecificSkill extends Model
     }
 
     public function skill() {
-    	return $this->belongsTo('App\Skill', 'Skill_id');
+    	return $this->belongsTo('App\GenSkills', 'Skill_id');
     }
 }

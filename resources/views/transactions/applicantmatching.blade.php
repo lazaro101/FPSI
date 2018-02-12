@@ -60,7 +60,7 @@
                   <thead>
                     <tr>
                       <th>Applicant Name</th>
-                      <th>Match Result</th>
+                      <th>Match Percentage</th>
                       <th width="100px">Actions</th>
                     </tr>
                   </thead>
@@ -81,6 +81,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $('.sidebar-menu .trnsc').trigger('click');
+      $('.sidebar-menu .jd').trigger('click');
       $('.sidebar-menu li.appmat').addClass('active');
     });
   </script>

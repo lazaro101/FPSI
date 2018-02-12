@@ -4,10 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\JobCategory;
-use App\JobType;
-use App\Skill;
+use App\Banks;
+use App\BanksAllowed;
+use App\Country;
+use App\CountryReqs;
+use App\Currency;
+use App\Employer;
+use App\FeeType;
+use App\GenFees;
+use App\GenReqs;
+use App\GenSkills;
 use App\Job;
+use App\JobCategory;
+use App\JobDocs;
+use App\JobFees;
+use App\JobOrder;
+use App\JobSkills;
+use App\JobType;
 use App\SpecificSkill;
 use Response;
 
@@ -26,7 +39,7 @@ class JSONController extends Controller
     }
 
     public function getSkillSpecificAll() {
-    	$skill = Skill::where('SKILLTYPE', 'Specific')->get();
+    	$skill = GenSkills::where('SKILLTYPE', 'Specific')->get();
 
     	return Response::json($skill);
     }

@@ -51,6 +51,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $('.sidebar-menu .trnsc').trigger('click');
+      $('.sidebar-menu .jd').trigger('click');
       $('.sidebar-menu li.docu').addClass('active');
     });
   </script>

@@ -13,4 +13,7 @@ class JobCategory extends Model
     public function job() {
     	return $this->hasMany('App\Job', 'CATEGORY_ID');
     }
+    public function joborder() {
+    	return $this->hasMany('App\JobOrder', 'CATEGORY_ID');
+    }
 }
