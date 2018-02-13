@@ -247,7 +247,7 @@
       $('.sidebar-menu li.jor').addClass('active');
 
       $('#datepicker').datepicker();
-
+      alert($('form').attr('action'));
       var skilloption = "";
       var reqoption = "";
       var feeoption = "";
@@ -255,7 +255,7 @@
     
 
       $('.edit').click(function(){
-        $('#addJobOrder form').trigger('reset').attr('action','/addJobOrder');
+        $('#addJobOrder form').trigger('reset').attr('action','/editJobOrder');
         $('#addJobOrder .divskill').empty();
         $('#addJobOrder .divreqfees').empty();
         $('.select2').select2();
@@ -267,6 +267,7 @@
           data: { joid : $(this).val() },
           dataType : 'json',
           success:function(response) {
+            $('#addJobOrder input[name=id]').val(response[0].JORDER_ID);
             $('#addJobOrder .emplsel').val(response[0].EMPLOYER_ID).trigger('change').select2({
               placeholder: "Select Employer",
               allowClear: true

@@ -153,6 +153,48 @@ class AdminController extends Controller
 
         return redirect('/Transactions/JobOrder');
     }
+    public function editJobOrder(Request $req){
+        $gen = 0;
+        foreach ($req->gender as $key => $value) {
+            $gen += $value;
+        }
+        JobOrder::where('JORDER_ID',$req->id)->update([
+            'EMPLOYER_ID' => $req->employer ,
+            'CATEGORY_ID' => $req->jobcat ,
+            'JOB_ID' => $req->job ,
+            'REQAPP' => $req->numemp ,
+            'SALARY' => $req->salary ,
+            'GENDER' => $gen ,
+            'HEIGHTREQ' => $req->height ,
+            'WEIGHTREQ' => $req->weight ,
+            'CNTRCTSTART' => date_format(date_create($req->contract),"Y-m-d"),
+        ]);
+        JobDocs::where('JORDER_ID',$req->id)->delete();
+        foreach ($req->docreq as $key => $value) {
+            JobDocs::insert([
+                'JORDER_ID' => $req->id,
+                'REQ_ID' => $value
+            ]);
+        }
+        JobSkills::where('JORDER_ID',$req->id)->delete();
+        foreach ($req->skills as $key => $value) {
+            JobSkills::insert([
+                'JORDER_ID' => $req->id,
+                'PROFLEVEL' => $req->prof[$key],
+                'SKILL_ID' => $value,
+            ]);
+        }
+        JobFees::where('JORDER_ID',$req->id)->delete();
+        foreach ($req->fee as $key => $value) {
+            JobFees::insert([
+                'JORDER_ID' => $req->id,
+                'FEE_ID' => $value,
+                'AMOUNT' => $req->amount[$key]
+            ]);
+        }
+
+        return redirect('/Transactions/JobOrder');
+    }
     public function getJobOrder(Request $req){
         $jorder = JobOrder::where('JORDER_ID',$req->joid)->first();
         $docreq = JobDocs::where('JORDER_ID',$req->joid)->get();
