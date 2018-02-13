@@ -4,17 +4,11 @@
 
 @section('content')
 
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+  <div class="content-wrapper"> 
     <section class="content-header">
       <h1>
-        Transactions
-        <!-- <small>Control panel</small> -->
-      </h1>
-    <!--   <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol> -->
+        Transactions 
+      </h1> 
     </section>
 
     <section class="content">
@@ -69,23 +63,70 @@
                     </div>
 
                     <div class="form-group">
-                  <label>Name</label>
+                      <label>Name</label>
+                    </div>
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label></label>
+                        <div class="col-xs-4">
+                          <input type="text" class="form-control" placeholder="Last Name" name="">
+                        </div>
+                        <div class="col-xs-4">
+                          <input type="text" class="form-control" placeholder="First Name" name="">
+                        </div>
+                        <div class="col-xs-4">
+                          <input type="text" class="form-control" placeholder="Middle Name" name="">
+                        </div>
+                      </div> 
+                    </div>
 
-                </div>
-                <div class="form-horizontal">
-                  <div class="form-group">
-                    <label></label>
-                    <div class="col-xs-4">
-                      <input type="text" class="form-control" placeholder="Last Name" name="">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">Gender</label>
+                        <div class="radio col-xs-9">
+                          <label><input type="radio" name="gender" value="">Male</label>&nbsp;
+                          <label><input type="radio" name="gender" value="">Female</label> 
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">Contact No.</label>
+                        <div class="col-xs-9">
+                          <input type="number" class="form-control" name="">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">Birth Date</label>
+                        <div class="col-xs-9">
+                          <input type="number" class="form-control" name="">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">Citizenship</label>
+                        <div class="col-xs-9">
+                          <input type="text" class="form-control" name="">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">Civil Status</label>
+                        <div class="col-xs-9">
+                          <input type="number" class="form-control" name="">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">Height</label>
+                        <div class="col-xs-9">
+                          <input type="number" class="form-control" name="">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-xs-3">Weight</label>
+                        <div class="col-xs-9">
+                          <input type="number" class="form-control" name="">
+                        </div>
+                      </div>
+
                     </div>
-                    <div class="col-xs-4">
-                      <input type="text" class="form-control" placeholder="First Name" name="">
-                    </div>
-                    <div class="col-xs-4">
-                      <input type="text" class="form-control" placeholder="Middle Name" name="">
-                    </div>
-                  </div> 
-                </div>
+
                   </div>
                 </div>
                      

@@ -208,7 +208,9 @@ class AdminController extends Controller
     }
 
     public function TransactionsApplicantMatching(){
-        return view('transactions.applicantmatching');
+        $employer = Employer::where('status',0)->get();
+        $job = Job::where('status',0)->get();
+        return view('transactions.applicantmatching',compact('employer','job'));
     }
 
     public function TransactionsInitialInterview(){
