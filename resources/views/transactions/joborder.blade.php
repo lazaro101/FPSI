@@ -280,7 +280,19 @@
                 placeholder: "Select Job",
                 allowClear: true
               }); 
-            }, 1000);
+              setTimeout(function(){ 
+                response[2].forEach(function(data){
+                  addSkill();
+                  $('.divskill select[name="skills[]"]').last().val(data.SKILL_ID).trigger('change');
+                  $('.divskill select[name="prof[]"]').last().val(data.PROFLEVEL).trigger('change');
+                });
+                response[3].forEach(function(data){
+                  addFees();
+                  $('.divreqfees select[name="fee[]"]').last().val(data.FEE_ID).trigger('change');
+                  $('.divreqfees input[name="amount[]"]').last().val(data.AMOUNT);
+                });
+              }, 1500);
+            }, 1500);
             $('#datepicker').datepicker('setDate',new Date(response[0].CNTRCTSTART));
             if (response[0].GENDER == 1) {
               $('#addJobOrder input[name="gender[]"][value='+1+']').prop('checked',true);
@@ -298,16 +310,6 @@
               reqid.push(data.REQ_ID);
             });
             $('#addJobOrder .docreq').val(reqid).trigger('change');
-              response[2].forEach(function(data){
-                addSkill();
-                // $('.divskill select[name="skills[]"]').last().val(data.SKILL_ID).trigger('change');
-                // $('.divskill select[name="prof[]"]').last().val(data.PROFLEVEL).trigger('change');
-              });
-              response[3].forEach(function(data){
-                addFees();
-                // $('.divreqfees select[name="fee[]"]').last().val(data.FEE_ID).trigger('change');
-                // $('.divreqfees input[name="amount[]"]').last().val(data.AMOUNT);
-              });
           },
           complete:function(){
             $('#addJobOrder').modal();
