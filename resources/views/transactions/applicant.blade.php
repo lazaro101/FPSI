@@ -4,17 +4,11 @@
 
 @section('content')
 
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+  <div class="content-wrapper"> 
     <section class="content-header">
       <h1>
-        Transactions
-        <!-- <small>Control panel</small> -->
-      </h1>
-    <!--   <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol> -->
+        Transactions 
+      </h1> 
     </section>
 
     <section class="content">
@@ -290,6 +284,7 @@
                         <input type="text" class="form-control" name="">
                     </div>
 
+
                     <div class="col-md-1">
                         <label>Address</label>
                     </div>
@@ -455,6 +450,7 @@
                 <div class="row">
                     <div class="col-sm-2 col-sm-offset-5">
                     <button type="button" class="btn btn-success"><i class="fa fa-plus"></i> ADD</button>
+
                   </div>
                 </div>
             </div>

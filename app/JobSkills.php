@@ -14,6 +14,6 @@ class JobSkills extends Model
     }
 
     public function genskills() {
-    	return $this->hasMany('App\GenSkills', 'SKILL_ID');
+    	return $this->belongsTo('App\GenSkills', 'SKILL_ID');
     }
 }

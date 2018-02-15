@@ -19,4 +19,14 @@ class JobOrder extends Model
     public function jobdocs() {
     	return $this->hasMany('App\JobDocs', 'JORDER_ID');
     }
+
+    public function employer(){
+        return $this->belongsTo('App\Employer','EMPLOYER_ID');
+    }
+    public function job(){
+        return $this->belongsTo('App\Job','JOB_ID');
+    }
+    public function jobcategory(){
+        return $this->belongsTo('App\JobCategory','CATEGORY_ID');
+    }
 }

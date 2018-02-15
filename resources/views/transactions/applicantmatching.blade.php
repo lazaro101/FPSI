@@ -4,17 +4,11 @@
 
 @section('content')
 
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+  <div class="content-wrapper"> 
     <section class="content-header">
       <h1>
-        Transactions
-        <!-- <small>Control panel</small> -->
-      </h1>
-    <!--   <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol> -->
+        Transactions 
+      </h1> 
     </section>
 
     <section class="content">
@@ -29,31 +23,32 @@
             
 
             <div class="box-body">
-              <div class="form-horizontal">
-                  <div class="form-group">
-                    
-                    <div class="col-xs-4">
-                      <label>Employer</label>
-                    <select class="form-control" placeholder="Input something.." name="">
-                      <option value="">1</option>
-                      <option value="">2</option>
-                      <option value="">3</option>
+              <div class="row">
+                <div class="form-group">
+                  <div class="col-xs-4">
+                    <label>Employer</label>
+                    <select class="form-control select2" placeholder="Input something.." name="">
+                      <option></option> 
+                      @foreach($employer as $emp)
+                      <option value="{{$emp->EMPLOYER_ID}}">{{$emp->EMPLOYERNAME}}</option>
+                      @endforeach
                     </select>
-                    </div>
-                    <div class="col-xs-4">
+                  </div>
+                  <div class="col-xs-4">
                     <label>Job Name</label>
-                    <select class="form-control" placeholder="Input something.." name="">
-                      <option value="">1</option>
-                      <option value="">2</option>
-                      <option value="">3</option>
+                    <select class="form-control select2" placeholder="Input something.." name="">
+                      <option></option>
+                      @foreach($job as $job)
+                      <option value="{{$job->JOB_ID}}">{{$job->JOBNAME}}</option>
+                      @endforeach
                     </select>
-                    </div>
-
-                    <div class="col-xs-4">
-                    <button class="btn btn-primary" style="padding: 7px; width: 80px;"><strong>FILTER</strong><span class="fa fa-filter"></span></button>
-                    </div>
-                  </div> 
-            </div>
+                  </div>
+                  <div class="col-xs-2">
+                    <label>&nbsp;</label> 
+                    <button class="btn btn-primary form-control"><strong>FILTER</strong><span class="fa fa-filter"></span></button>
+                  </div>
+                </div> 
+              </div>
 
               <div class="content">
                 <table class="table table-hover" id="example1">
@@ -83,6 +78,7 @@
       $('.sidebar-menu .trnsc').trigger('click');
       $('.sidebar-menu .jd').trigger('click');
       $('.sidebar-menu li.appmat').addClass('active');
+      $('.select2').select2({placeholder:'Select...'});
     });
   </script>
   @endsection
