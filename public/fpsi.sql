@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2018 at 04:05 PM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 7.0.8
+-- Generation Time: Feb 12, 2018 at 10:58 AM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -193,7 +195,13 @@ CREATE TABLE `banksallowed_t` (
 --
 
 INSERT INTO `banksallowed_t` (`COUNTRY_ID`, `BANK_ID`) VALUES
-(7, 4);
+(7, 4),
+(9, 1),
+(9, 2),
+(9, 4),
+(8, 1),
+(8, 2),
+(8, 4);
 
 -- --------------------------------------------------------
 
@@ -214,7 +222,8 @@ CREATE TABLE `banks_t` (
 INSERT INTO `banks_t` (`BANK_ID`, `BANKNAME`, `status`) VALUES
 (1, 'Metrobank', 0),
 (2, 'BPI', 0),
-(4, 'BDO', 0);
+(4, 'BDO', 0),
+(5, 'asdasd', 1);
 
 -- --------------------------------------------------------
 
@@ -233,7 +242,8 @@ CREATE TABLE `countryreqs_t` (
 
 INSERT INTO `countryreqs_t` (`COUNTRY_ID`, `REQ_ID`) VALUES
 (7, 22),
-(8, 22);
+(8, 22),
+(9, 22);
 
 -- --------------------------------------------------------
 
@@ -253,7 +263,9 @@ CREATE TABLE `country_t` (
 
 INSERT INTO `country_t` (`COUNTRY_ID`, `COUNTRYNAME`, `status`) VALUES
 (7, 'Japan', 0),
-(8, 'United States of America', 0);
+(8, 'United States of America', 0),
+(9, 'Philippines', 0),
+(10, 'sample', 1);
 
 -- --------------------------------------------------------
 
@@ -274,10 +286,10 @@ CREATE TABLE `currency_t` (
 --
 
 INSERT INTO `currency_t` (`CURRENCY_ID`, `CURRENCYNAME`, `SYMBOL`, `status`, `COUNTRY_ID`) VALUES
-(1, 'Philippine Peso', 'PHP', 0, NULL),
-(3, 'United States Dollar', 'USD', 0, NULL),
-(4, 'Japan Yen', 'JPY', 0, NULL),
-(5, 'Hong Kong Dollar', 'HKD', 0, NULL);
+(6, 'Yen', 'JPN', 0, 7),
+(7, 'Philippine Peso', 'Php', 0, 9),
+(8, 'Us', 'Dlr', 0, 8),
+(9, 'asdasd', 'sad', 1, 8);
 
 -- --------------------------------------------------------
 
@@ -298,8 +310,17 @@ CREATE TABLE `employer_t` (
   `EMPSTATUS` varchar(30) DEFAULT NULL,
   `REASONS` varchar(100) DEFAULT NULL,
   `TDATE` date DEFAULT NULL,
-  `COUNTRY_ID` int(11) DEFAULT NULL
+  `COUNTRY_ID` int(11) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employer_t`
+--
+
+INSERT INTO `employer_t` (`EMPLOYER_ID`, `EMPLOYERNAME`, `LNAME`, `FNAME`, `MNAME`, `EMAIL`, `CONTACT`, `LANDLINE`, `COMPANYADD`, `EMPSTATUS`, `REASONS`, `TDATE`, `COUNTRY_ID`, `status`) VALUES
+(1, 'USA Employer', 'qwe', 'asd', 'dsa', 'tre', 'asd', 'zxc', 'asd', NULL, NULL, NULL, 8, 0),
+(2, 'asd', 'asd', 'asd', 'asd', 'ads', 'asd', 'dsa', 'asd', NULL, 'noen', '2018-02-12', 7, 1);
 
 -- --------------------------------------------------------
 
@@ -337,6 +358,18 @@ CREATE TABLE `feetype_t` (
   `JOBTYPE_ID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `feetype_t`
+--
+
+INSERT INTO `feetype_t` (`FEE_ID`, `JOBTYPE_ID`) VALUES
+(1, 2),
+(2, 3),
+(3, 2),
+(3, 3),
+(4, 2),
+(4, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -350,6 +383,16 @@ CREATE TABLE `genfees_t` (
   `NOOFPAYMENTS` int(11) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `genfees_t`
+--
+
+INSERT INTO `genfees_t` (`FEE_ID`, `FEENAME`, `PAYMENTTYPE`, `NOOFPAYMENTS`, `status`) VALUES
+(1, 'Fee1', NULL, NULL, 0),
+(2, 'Fee2', NULL, NULL, 0),
+(3, 'Fee3', NULL, NULL, 0),
+(4, 'sample', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -420,7 +463,8 @@ INSERT INTO `genskills_t` (`SKILL_ID`, `SKILLNAME`, `SKILLTYPE`, `status`) VALUE
 (7, 'Leadership', 'General', 0),
 (8, 'Logical Thinking', 'General', 0),
 (9, 'Listening', 'General', 0),
-(10, 'Programming (PHP)', 'Specific', 0);
+(10, 'Programming (PHP)', 'Specific', 0),
+(11, 'aa', 'General', 1);
 
 -- --------------------------------------------------------
 
@@ -443,7 +487,8 @@ INSERT INTO `jobcategory_t` (`CATEGORY_ID`, `CATEGORYNAME`, `status`) VALUES
 (2, 'Engineering', 0),
 (3, 'Human Resource', 0),
 (4, 'Health Care / Medical', 0),
-(5, 'Hospitality', 0);
+(5, 'Hospitality', 0),
+(6, 'aa', 1);
 
 -- --------------------------------------------------------
 
@@ -453,11 +498,35 @@ INSERT INTO `jobcategory_t` (`CATEGORY_ID`, `CATEGORYNAME`, `status`) VALUES
 
 CREATE TABLE `jobdocs_t` (
   `JORDER_ID` int(11) DEFAULT NULL,
-  `EMPLOYER_ID` int(11) DEFAULT NULL,
-  `CATEGORY_ID` int(11) DEFAULT NULL,
-  `JOB_ID` int(11) DEFAULT NULL,
   `REQ_ID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jobdocs_t`
+--
+
+INSERT INTO `jobdocs_t` (`JORDER_ID`, `REQ_ID`) VALUES
+(1, 12),
+(1, 12),
+(1, 14),
+(1, 16),
+(1, 12),
+(1, 14),
+(1, 16),
+(1, 13),
+(1, 15),
+(1, 13),
+(1, 15),
+(6, 12),
+(6, 13),
+(6, 14),
+(6, 15),
+(6, 16),
+(7, 12),
+(7, 13),
+(7, 14),
+(7, 15),
+(7, 16);
 
 -- --------------------------------------------------------
 
@@ -467,7 +536,6 @@ CREATE TABLE `jobdocs_t` (
 
 CREATE TABLE `jobfees_t` (
   `JORDER_ID` int(11) NOT NULL,
-  `EMPLOYER_ID` int(11) NOT NULL,
   `FEE_ID` int(11) NOT NULL,
   `AMOUNT` int(11) DEFAULT NULL,
   `JFTYPE` varchar(30) DEFAULT NULL
@@ -486,15 +554,29 @@ CREATE TABLE `joborder_t` (
   `JOB_ID` int(11) DEFAULT NULL,
   `REQAPP` int(11) DEFAULT NULL,
   `SALARY` int(11) DEFAULT NULL,
-  `GENDER` varchar(30) DEFAULT NULL,
+  `GENDER` int(1) DEFAULT NULL,
   `HEIGHTREQ` varchar(10) DEFAULT NULL,
   `WEIGHTREQ` varchar(10) DEFAULT NULL,
   `CNTRCTSTART` date DEFAULT NULL,
   `CNTRCTEND` date DEFAULT NULL,
   `CNTRCTSTAT` varchar(30) DEFAULT NULL,
   `MIN` varchar(50) DEFAULT NULL,
-  `MAX` varchar(50) DEFAULT NULL
+  `MAX` varchar(50) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `joborder_t`
+--
+
+INSERT INTO `joborder_t` (`JORDER_ID`, `EMPLOYER_ID`, `CATEGORY_ID`, `JOB_ID`, `REQAPP`, `SALARY`, `GENDER`, `HEIGHTREQ`, `WEIGHTREQ`, `CNTRCTSTART`, `CNTRCTEND`, `CNTRCTSTAT`, `MIN`, `MAX`, `status`) VALUES
+(1, 1, 1, 2, 12, 3, 2, '5', '6', '2018-02-22', NULL, NULL, NULL, NULL, 0),
+(2, 1, 1, 2, 12, 3, 3, '5', '6', '2018-02-28', NULL, NULL, NULL, NULL, 0),
+(3, 1, 1, 2, 12, 3, 2, '5', '6', '2018-02-22', NULL, NULL, NULL, NULL, 0),
+(4, 1, 1, 2, 12, 32, 3, '42', '123', '2018-02-28', NULL, NULL, NULL, NULL, 0),
+(5, 1, 1, 2, 12, 32, 3, '42', '123', '2018-02-28', NULL, NULL, NULL, NULL, 0),
+(6, 1, 1, 2, 12, 3, 2, '5', '6', '2018-02-22', NULL, NULL, NULL, NULL, 0),
+(7, 1, 1, 2, 12, 3, 3, '5', '6', '2018-02-22', NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -504,12 +586,23 @@ CREATE TABLE `joborder_t` (
 
 CREATE TABLE `jobskills_t` (
   `JORDER_ID` int(11) DEFAULT NULL,
-  `EMPLOYER_ID` int(11) DEFAULT NULL,
-  `CATEGORY_ID` int(11) DEFAULT NULL,
-  `JOB_ID` int(11) DEFAULT NULL,
   `SKILL_ID` int(11) DEFAULT NULL,
   `PROFLEVEL` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jobskills_t`
+--
+
+INSERT INTO `jobskills_t` (`JORDER_ID`, `SKILL_ID`, `PROFLEVEL`) VALUES
+(1, 1, 2),
+(1, 2, 4),
+(1, 3, 1),
+(1, 7, 1),
+(1, 7, 1),
+(1, 7, 1),
+(6, 2, 4),
+(7, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -529,7 +622,8 @@ CREATE TABLE `jobtype_t` (
 
 INSERT INTO `jobtype_t` (`JOBTYPE_ID`, `TYPENAME`, `status`) VALUES
 (2, 'Skilled', 0),
-(3, 'Vulnerable', 0);
+(3, 'Vulnerable', 0),
+(4, 'aa', 1);
 
 -- --------------------------------------------------------
 
@@ -626,6 +720,7 @@ CREATE TABLE `specskills_t` (
 --
 
 INSERT INTO `specskills_t` (`Job_id`, `Skill_id`) VALUES
+(2, 2),
 (2, 10);
 
 -- --------------------------------------------------------
@@ -802,16 +897,13 @@ ALTER TABLE `jobcategory_t`
 --
 ALTER TABLE `jobdocs_t`
   ADD KEY `JORDER_ID` (`JORDER_ID`),
-  ADD KEY `EMPLOYER_ID` (`EMPLOYER_ID`),
-  ADD KEY `CATEGORY_ID` (`CATEGORY_ID`,`JOB_ID`),
   ADD KEY `REQ_ID` (`REQ_ID`);
 
 --
 -- Indexes for table `jobfees_t`
 --
 ALTER TABLE `jobfees_t`
-  ADD PRIMARY KEY (`JORDER_ID`,`EMPLOYER_ID`,`FEE_ID`),
-  ADD KEY `EMPLOYER_ID` (`EMPLOYER_ID`),
+  ADD KEY `JORDER_ID` (`JORDER_ID`),
   ADD KEY `FEE_ID` (`FEE_ID`);
 
 --
@@ -827,8 +919,6 @@ ALTER TABLE `joborder_t`
 --
 ALTER TABLE `jobskills_t`
   ADD KEY `JORDER_ID` (`JORDER_ID`),
-  ADD KEY `EMPLOYER_ID` (`EMPLOYER_ID`),
-  ADD KEY `CATEGORY_ID` (`CATEGORY_ID`,`JOB_ID`),
   ADD KEY `SKILL_ID` (`SKILL_ID`);
 
 --
@@ -896,72 +986,86 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `banks_t`
 --
 ALTER TABLE `banks_t`
-  MODIFY `BANK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `BANK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `country_t`
 --
 ALTER TABLE `country_t`
-  MODIFY `COUNTRY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `COUNTRY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `currency_t`
 --
 ALTER TABLE `currency_t`
-  MODIFY `CURRENCY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `CURRENCY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `employer_t`
 --
 ALTER TABLE `employer_t`
-  MODIFY `EMPLOYER_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `EMPLOYER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `emp_t`
 --
 ALTER TABLE `emp_t`
   MODIFY `EMP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `genfees_t`
 --
 ALTER TABLE `genfees_t`
-  MODIFY `FEE_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `FEE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `genreqs_t`
 --
 ALTER TABLE `genreqs_t`
   MODIFY `REQ_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
 --
 -- AUTO_INCREMENT for table `genskills_t`
 --
 ALTER TABLE `genskills_t`
-  MODIFY `SKILL_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `SKILL_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT for table `jobcategory_t`
 --
 ALTER TABLE `jobcategory_t`
-  MODIFY `CATEGORY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `CATEGORY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `joborder_t`
 --
 ALTER TABLE `joborder_t`
-  MODIFY `JORDER_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `JORDER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `jobtype_t`
 --
 ALTER TABLE `jobtype_t`
-  MODIFY `JOBTYPE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `JOBTYPE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `job_t`
 --
 ALTER TABLE `job_t`
   MODIFY `JOB_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `logs_t`
 --
 ALTER TABLE `logs_t`
   MODIFY `LOG_ID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- Constraints for dumped tables
 --
@@ -1031,7 +1135,8 @@ ALTER TABLE `appworkex_t`
 -- Constraints for table `banksallowed_t`
 --
 ALTER TABLE `banksallowed_t`
-  ADD CONSTRAINT `banksallowed_t_ibfk_1` FOREIGN KEY (`COUNTRY_ID`) REFERENCES `country_t` (`COUNTRY_ID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `banksallowed_t_ibfk_1` FOREIGN KEY (`COUNTRY_ID`) REFERENCES `country_t` (`COUNTRY_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `banksallowed_t_ibfk_2` FOREIGN KEY (`BANK_ID`) REFERENCES `banks_t` (`BANK_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `countryreqs_t`
@@ -1064,17 +1169,14 @@ ALTER TABLE `feetype_t`
 --
 ALTER TABLE `jobdocs_t`
   ADD CONSTRAINT `jobdocs_t_ibfk_1` FOREIGN KEY (`JORDER_ID`) REFERENCES `joborder_t` (`JORDER_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `jobdocs_t_ibfk_2` FOREIGN KEY (`EMPLOYER_ID`) REFERENCES `employer_t` (`EMPLOYER_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `jobdocs_t_ibfk_3` FOREIGN KEY (`CATEGORY_ID`,`JOB_ID`) REFERENCES `job_t` (`CATEGORY_ID`, `JOB_ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `jobdocs_t_ibfk_4` FOREIGN KEY (`REQ_ID`) REFERENCES `genreqs_t` (`REQ_ID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `jobfees_t`
 --
 ALTER TABLE `jobfees_t`
-  ADD CONSTRAINT `jobfees_t_ibfk_1` FOREIGN KEY (`JORDER_ID`) REFERENCES `joborder_t` (`JORDER_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `jobfees_t_ibfk_2` FOREIGN KEY (`EMPLOYER_ID`) REFERENCES `employer_t` (`EMPLOYER_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `jobfees_t_ibfk_3` FOREIGN KEY (`FEE_ID`) REFERENCES `genfees_t` (`FEE_ID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `jobfees_t_ibfk_1` FOREIGN KEY (`JORDER_ID`) REFERENCES `joborder_t` (`JORDER_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `jobfees_t_ibfk_2` FOREIGN KEY (`FEE_ID`) REFERENCES `genfees_t` (`FEE_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `joborder_t`
@@ -1088,8 +1190,6 @@ ALTER TABLE `joborder_t`
 --
 ALTER TABLE `jobskills_t`
   ADD CONSTRAINT `jobskills_t_ibfk_1` FOREIGN KEY (`JORDER_ID`) REFERENCES `joborder_t` (`JORDER_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `jobskills_t_ibfk_2` FOREIGN KEY (`EMPLOYER_ID`) REFERENCES `employer_t` (`EMPLOYER_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `jobskills_t_ibfk_3` FOREIGN KEY (`CATEGORY_ID`,`JOB_ID`) REFERENCES `job_t` (`CATEGORY_ID`, `JOB_ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `jobskills_t_ibfk_4` FOREIGN KEY (`SKILL_ID`) REFERENCES `genskills_t` (`SKILL_ID`) ON DELETE CASCADE;
 
 --
@@ -1132,6 +1232,7 @@ ALTER TABLE `receipts_t`
 ALTER TABLE `specskills_t`
   ADD CONSTRAINT `specskills_t_ibfk_1` FOREIGN KEY (`Job_id`) REFERENCES `job_t` (`JOB_ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `specskills_t_ibfk_2` FOREIGN KEY (`Skill_id`) REFERENCES `genskills_t` (`SKILL_ID`) ON DELETE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

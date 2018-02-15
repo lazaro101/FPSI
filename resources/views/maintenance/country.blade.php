@@ -71,7 +71,8 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label>Country Name</label>
-                  <input type="text" class="form-control" name="countryname">
+                  <input type="text" class="form-control" name="countryname" required>
+                  <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
                   <label>Country Requirements</label>
@@ -161,7 +162,15 @@
     $(document).ready(function(){
       $('.sidebar-menu .mntc').trigger('click');
       $('.sidebar-menu li.cty').addClass('active'); 
-
+// var $form = $("form"),
+//   $successMsg = $(".alert");
+// $form.validator().on("submit", function(e){
+//   if(!e.isDefaultPrevented()){
+//     e.preventDefault();
+//     // $successMsg.show();
+//     $(this).submit();
+//   }
+// });
       $('.edit').click(function(){
         $('#edit form .checkbox input').prop('checked',false);
         $.ajax
