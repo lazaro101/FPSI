@@ -4,6 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\App;
+use App\AppAddress;
+use App\AppChildren;
+use App\AppContact;
+use App\AppDoc;
+use App\AppPersonal;
+use App\AppSchool;
+use App\AppSkills;
+use App\AppWorkEx;
 use App\Banks;
 use App\BanksAllowed;
 use App\Country;
@@ -205,6 +214,92 @@ class AdminController extends Controller
 
     public function TransactionsApplicant(){
         return view('transactions.applicant');
+    }
+    public function getSkillGeneralAll(){
+        $var = GenSkills::where('SKILLTYPE', 'General')->where('status',0)->get();
+        return response()->json($var);
+    }
+    public function addApplicant(Request $req){
+        $appid = App::insertGetId([
+            'LNAME' => $req->lname ,
+            'FNAME' => $req->fname ,
+            'MNAME' => $req->mname ,
+            'POSITION' => $req->position ,
+            'GENDER' => $req->gender ,
+            'CIVILSTAT' => $req->civilstatus ,
+            'CONTACT' => $req->cnum ,
+            // 'CITIZENSHIP' => $req-> ,
+            'BIRTHDATE' => date_format(date_create($req->birthdate),'Y-m-d') ,
+            'AGE' => date_diff(date_create(date_format(date_create($req->birthdate),'Y-m-d')), date_create('now'))->y ,
+            'AHEIGHT' => $req->height ,
+            'AWEIGHT' => $req->weight ,
+            // 'APPSTATUS' => $req-> ,
+        ]);
+
+        if (isset($req->schname)) {
+            foreach ($req->schname as $key => $value) {
+                AppSchool::insert([
+                    'APP_ID' => $appid ,
+                    'SCHOOLNAME' => $value ,
+                    'SCHOOLTYPE' => $req->schlevel[$key] ,
+                    'DEGREE' => $req->schdegree[$key] ,
+                    // 'YRSTART' => $req->schdegree[$key] ,
+                    // 'YREND' => $req->schdegree[$key] ,
+                ]);
+            }
+        }
+        if (isset($req->sklname)) {
+            foreach ($req->sklname as $key => $value) {
+                AppSkills::insert([
+                    'APP_ID' => $appid ,
+                    'SKILL_ID' => $value ,
+                    'PROFICIENCY' => $req->prof[$key] ,
+                ]);
+            }
+        }
+        if (isset($req->empl)) {
+            foreach ($req->empl as $key => $value) {
+                AppWorkEx::insert([
+                    'APP_ID' => $appid ,
+                    'COMPANY' => $value ,
+                    'COMPANYADD' => $req->empladd[$key] ,
+                    'POSITION' => $req->emplpos[$key] , 
+                ]);
+            }
+        }
+        AppPersonal::insert([
+            'APP_ID' => $appid,
+            'NAMEOFFATHER' => $req->fathername ,
+            'FAGE' => $req->fatherage ,
+            'FOCCUPATION' => $req->fatheroccu ,
+            'NAMEOFMOTHER' => $req->mothername ,
+            'MAGE' => $req->motherage ,
+            'MOCCUPATION' => $req->motheroccu ,
+            'NAMEOFSPOUSE' => $req->spousename ,
+            'SAGE' => $req->spouseage ,
+            'SOCCUPATION' => $req->spouseoccu ,
+        ]);
+        if (isset($req->chrnname)) {
+            foreach ($req->chrnname as $key => $value) {
+                AppChildren::insert([
+                    'APP_ID' => $appid ,
+                    'CHILDNAME' => $value ,
+                    'AGE' => date_diff(date_create(date_format(date_create($req->chrnage[$key]),'Y-m-d')), date_create('now'))->y ,
+                    'BIRTHDATE' => date_format(date_create($req->chrnbday[$key]),'Y-m-d') , 
+                ]);
+            }
+        }
+        if (isset($req->emrname)) {
+            foreach ($req->emrname as $key => $value) {
+                AppContact::insert([
+                    'APP_ID' => $appid ,
+                    'CONTACTNAME' => $value , 
+                    'CONTACTNUM' => $req->emrcontact[$key] , 
+                ]);
+            }
+        }
+
+        return redirect('/Transactions/Applicant');
     }
 
     public function TransactionsApplicantMatching(){

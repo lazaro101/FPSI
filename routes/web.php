@@ -110,6 +110,8 @@ Route::post('/editJobOrder','AdminController@editJobOrder');
 Route::get('/getJobOrder','AdminController@getJobOrder');
 
 Route::get('/Transactions/Applicant','AdminController@TransactionsApplicant');
+Route::get('/getSkillGeneralAll','AdminController@getSkillGeneralAll');
+Route::post('/addApplicant','AdminController@addApplicant');
 
 Route::get('/Transactions/InitialInterview','AdminController@TransactionsInitialInterview');
 

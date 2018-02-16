@@ -160,7 +160,60 @@
                     EDUCATIONAL BACKGROUND
                 </div>
                 <div class="panel-body">
-                    <div id="divEduc"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <th style="display: none">DATA</th>
+                                    <th style="width: 30%">Name of School</th>
+                                    <th style="width: 20%">School Level</th>
+                                    <th style="width: 20%">Inclusive Year</th>
+                                    <th style="width: 20%">Degree</th>
+                                    <th style="width: 10%">Action</th>
+                                </thead>
+                                <tbody id="listEdu"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group"> 
+                        <div class="col-md-2">
+                            <label>Name of School</label>
+                        </div> 
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="school">
+                        </div> 
+                    </div>
+                    <div class="form-group"> 
+                        <div class="col-md-2">
+                            <label>School Level</label>
+                        </div> 
+                        <div class="col-md-4">
+                            <select class="form-control" id="level"> 
+                                <option value="Elementary">Elementary</option>
+                                <option value="Secondary">Secondary</option>
+                                <option value="Tertiary">Tertiary</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Inclusive Year</label>
+                        </div> 
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right daterange" id="incyear">
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="form-group"> 
+                        <div class="col-md-2">
+                            <label>Degree</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="degree">
+                        </div>
+                    </div>
 
                     <div class="form-group"> 
                         <div class="col-sm-2 col-sm-offset-5">
@@ -175,7 +228,41 @@
                     SKILLS
                 </div>
                 <div class="panel-body">
-                    <div id="divSkills"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <th style="display: none;">ID</th>
+                                    <th style="width: 50%">Skill</th>
+                                    <th style="width: 30%">Proficiency</th>
+                                    <th style="width: 20%">Action</th>
+                                </thead>
+                                <tbody id="listSkills"> 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group"> 
+                        <div class="col-md-2">
+                            <label>Skill Name</label>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" id="sklname">
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Proficiency</label>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" id="prof"> 
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group"> 
                         <div class="col-sm-2 col-sm-offset-5">
                             <button type="button" class="btn btn-success addskills"><i class="fa fa-plus"></i> ADD</button>
@@ -189,7 +276,53 @@
                         EMPLOYMENT HISTORY (MOST RECENT POSITION FIRST)
                     </div>
                     <div class="panel-body">
-                        <div id="divEmpHist"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <th style="display: none"></th>
+                                        <th style="width: 30%">Employer Name</th>
+                                        <th style="width: 30%">Address</th>
+                                        <th style="width: 20%">Employment Date</th>
+                                        <th style="width: 10%">Position</th>
+                                        <th style="width: 10%">Action</th>
+                                    </thead>
+                                    <tbody id="listEmphist"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group"> 
+                            <div class="col-md-2">
+                                <label>Name of Employer</label>
+                            </div><div class="col-md-4">
+                                <input type="text" class="form-control" id="empl">
+                            </div>
+                            <div class="col-md-1">
+                                <label>Address</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="empladd">
+                            </div> 
+                        </div>
+                        <div class="form-group"> 
+                            <div class="col-md-2">
+                                <label>Date of Employment</label>
+                            </div> 
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right daterange" id="empldate">
+                                </div>
+                            </div> 
+                            <div class="col-md-1">
+                                <label>Position</label>
+                            </div> 
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="emplpos">
+                            </div>
+                        </div>
                         <div class="form-group"> 
                             <div class="col-sm-2 col-sm-offset-5">
                                 <button type="button" class="btn btn-success addemphist"><i class="fa fa-plus"></i> ADD</button>
@@ -277,7 +410,38 @@
                                 <label>Children (From eldest to youngest)</label>
                             </div> 
                         </div>
-                        <div id="divChild"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <th style="display: none;">DATA</th>
+                                        <th style="width: 40%">Name</th>
+                                        <th style="width: 40%">Birthdate</th>
+                                        <th style="width: 20%">Action</th>
+                                    </thead>
+                                    <tbody id="listChild"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group"> 
+                            <div class="col-md-2">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="chrnname">
+                            </div>
+                            <div class="col-md-1">
+                                <label>Birthdate</label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right datepicker" id="chrnbday">
+                                </div>
+                            </div> 
+                        </div>
 
                         <div class="form-group"> 
                             <div class="col-sm-2 col-sm-offset-5">
@@ -293,7 +457,33 @@
                         PERSONS TO BE CONTACTED IN CASE OF EMERGENCY
                     </div>
                     <div class="panel-body">
-                        <div id="divConper"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <th style="display: none"></th>
+                                        <th>Name</th>
+                                        <th>Contact</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tbody id="listConper"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group"> 
+                            <div class="col-md-2">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="emrname">
+                            </div>
+                            <div class="col-md-2">
+                                <label>Contact Number</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" id="emrcontact">
+                            </div> 
+                        </div>
                         <div class="form-group"> 
                             <div class="col-sm-2 col-sm-offset-5">
                                 <button type="button" class="btn btn-success addconper"><i class="fa fa-plus"></i> ADD</button>
@@ -328,6 +518,7 @@
             defaultViewDate: { year: new Date().getFullYear()-20, month: 01, day: 01}
         });
         $('#reservation').daterangepicker(); 
+        $('.daterange').daterangepicker(); 
     // Date range picker with time picker
     // $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' });
     // //Date range as a button
@@ -348,51 +539,91 @@
     //     $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
     //   }
     // );
+        $.ajax
+        ({
+          url: '/getSkillGeneralAll',
+          type:'get', 
+          dataType : 'json',
+          success:function(response) {
+            response.forEach(function(data){
+                $('#sklname').append('<option value="'+data.SKILL_ID+'">'+data.SKILLNAME+'</option>');
+            }); 
+          }
+        }); 
+
         $('.addApplicant').click(function(){
             $('#addApplicant form').trigger('reset').attr('action','/addApplicant');
-            $('#divEduc, #divEmpHist, #divSkills, #divChild, #divConper').empty();
-            addEdbg();
-            addEmpHist();
-            addSkills();
-            addChild();
-            addConper();
+            $('#listEdu, #listEmphist, #listSkills, #listChild, #listConper').empty();
+        });
+
+        $('.addskills').click(function(){
+            var row = 
+            "<tr>"+
+                "<td style='display: none;'><input type='hidden' name='sklname[]' value='"+$('#sklname').val()+"'><input type='hidden' name='prof[]' value='"+$('#prof').val()+"'></td>"+
+                "<td>"+$('#sklname').children('option:selected').text()+"</td>"+
+                "<td>"+$('#prof').val()+"</td>"+
+                "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
+            "</tr>";
+            $('#listSkills').append(row);
         });
         $('.addedbg').click(function(){
-            addEdbg();
-        });
-        function addEdbg(){
-            $('#divEduc').append('<div class="field"><div class="form-group"> <div class="col-md-2"><label>Name of School</label></div> <div class="col-md-6"><input type="text" class="form-control" name="scname[]"></div> </div><div class="form-group"> <div class="col-md-2"><label>School Level</label></div> <div class="col-md-4"><select class="form-control" name="sclevel[]"> <option value="">Elementary</option><option value="">Secondary</option><option value="">Tertiary</option></select></div><div class="col-md-2"><label>Inclusive Year</label></div> <div class="col-md-4"><div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right incyear" name="incyr[]"></div></div> </div><div class="form-group"> <div class="col-md-2"><label>Degree</label></div><div class="col-md-8"><input type="text" class="form-control" name="degree[]"></div> <div class="col-md-2"><button type="button" class="btn btn-danger remove"><i class="fa fa-remove"></i> Remove</button></div></div></div>');
-            $('.incyear').daterangepicker(); 
-        } 
-        $('.addskills').click(function(){
-            addSkills();
-        });
-        function addSkills(){
-            $('#divSkills').append('<div class="field"><div class="form-group"> <div class="col-md-2"><label>Skill Name</label></div><div class="col-md-4"><select class="form-control" name="sklname[]"> <option>Option...</option></select></div><div class="col-md-2"><label>Proficiency</label></div><div class="col-md-2"><select class="form-control" name="prof[]"> <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div><div class="col-md-2"><button type="button" class="btn btn-danger remove"><i class="fa fa-remove"></i></button></div></div></div>'); 
-        }
+            var row = 
+            "<tr>"+
+                "<td style='display: none;'>"+
+                    '<input type="hidden" name="schname[]" value="'+$('#school').val()+'"><input type="hidden" name="schlevel[]" value="'+$('#level').val()+'"><input type="hidden" name="schyear[]" value="'+$('#incyear').val()+'"><input type="hidden" name="schdegree[]" value="'+$('#degree').val()+'">'
+                +"</td>"+
+                "<td>"+$('#school').val()+"</td>"+
+                "<td>"+$('#level').val()+"</td>"+
+                "<td>"+$('#incyear').val()+"</td>"+
+                "<td>"+$('#degree').val()+"</td>"+
+                "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
+            "</tr>";
+            $('#listEdu').append(row);
+        }); 
         $('.addemphist').click(function(){
-            addEmpHist();
+            var row = 
+            "<tr>"+
+                "<td style='display: none;'>"+
+                    '<input type="hidden" name="employer[]" value="'+$('#empl').val()+'"><input type="hidden" name="empladd[]" value="'+$('#empladd').val()+'"><input type="hidden" name="empldate[]" value="'+$('#empldate').val()+'"><input type="hidden" name="emplpos[]" value="'+$('#emplpos').val()+'">'
+                +"</td>"+
+                "<td>"+$('#empl').val()+"</td>"+
+                "<td>"+$('#empladd').val()+"</td>"+
+                "<td>"+$('#empldate').val()+"</td>"+
+                "<td>"+$('#emplpos').val()+"</td>"+
+                "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
+            "</tr>";
+            $('#listEmphist').append(row);
         });
-        function addEmpHist(){
-            $('#divEmpHist').append('<div class="field"><div class="form-group"> <div class="col-md-2"><label>Name of Employer</label></div><div class="col-md-4"><input type="text" class="form-control" name="employer[]"></div><div class="col-md-1"><label>Address</label></div><div class="col-md-4"><input type="text" class="form-control" name="empladd[]"></div> </div><div class="form-group"> <div class="col-md-2"><label>Date of Employment</label></div> <div class="col-md-4"><div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right year" name="empldate[]"></div></div> <div class="col-md-1"><label>Position</label></div> <div class="col-md-4"><input type="text" class="form-control" name="ehpos[]"></div> <div class="col-md-1"><button type="button" class="btn btn-danger remove"><i class="fa fa-remove"></i></button></div></div></div>');
-            $('#divEmpHist .year').last().daterangepicker({ opens: 'right' }); 
-        }
         $('.addchild').click(function(){
-            addChild();
+            var row = 
+            "<tr>"+
+                "<td style='display: none;'>"+
+                    '<input type="hidden" name="chrnname[]" value="'+$('#chrnname').val()+'"><input type="hidden" name="chrnbday[]" value="'+$('#chrnbday').val()+'">'
+                +"</td>"+
+                "<td>"+$('#chrnname').val()+"</td>"+
+                "<td>"+$('#chrnbday').val()+"</td>"+
+                "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
+            "</tr>";
+            $('#listChild').append(row);
         });
-        function addChild(){
-            $('#divChild').append('<div class="field"><div class="form-group"> <div class="col-md-2"><label>Name</label></div><div class="col-md-4"><input type="text" class="form-control" name="chrnname"></div><div class="col-md-1"><label>Birthdate</label></div><div class="col-md-4"><div class="input-group date"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right datepicker" name="chrnbday"></div></div> <div class="col-md-1"><button type="button" class="btn btn-danger remove"><i class="fa fa-remove"></i></button></div></div></div>');
-            $('#divChild .datepicker').last().datepicker({ startView: 2 }); 
-        }
         $('.addconper').click(function(){
-            addConper();
+            var row = 
+            "<tr>"+
+                "<td style='display: none;'>"+
+                    '<input type="hidden" name="emrname[]" value="'+$('#emrname').val()+'"><input type="hidden" name="emrcontact[]" value="'+$('#emrcontact').val()+'">'
+                +"</td>"+
+                "<td>"+$('#emrname').val()+"</td>"+
+                "<td>"+$('#emrcontact').val()+"</td>"+
+                "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
+            "</tr>";
+            $('#listConper').append(row);
         });
-        function addConper(){
-            $('#divConper').append('<div class="field"><div class="form-group"> <div class="col-md-2"><label>Name</label></div><div class="col-md-4"><input type="text" class="form-control" name="emrname"></div><div class="col-md-2"><label>Contact Number</label></div><div class="col-md-3"><input type="text" class="form-control" name="emrcontact"></div> <div class="col-md-1"><button type="button" class="btn btn-danger remove"><i class="fa fa-remove"></i></button></div></div></div>'); 
-        }
-
+        // function addEmpHist(){
+        //     $('#divEmpHist').append('<div class="field"></div>');
+        //     $('#divEmpHist .year').last().daterangepicker({ opens: 'right' }); 
+        // } 
         $(document).on('click','#addApplicant .remove',function(){
-            $(this).closest('.field').remove();
+            $(this).closest('tr').remove();
         });
 
     });
