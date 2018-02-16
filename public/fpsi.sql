@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2018 at 10:58 AM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.1
+-- Generation Time: Feb 16, 2018 at 05:46 PM
+-- Server version: 10.1.19-MariaDB
+-- PHP Version: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -29,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `appaddress_t` (
-  `APP_ID` char(10) NOT NULL,
+  `APP_ID` int(11) NOT NULL,
   `ADDRSS` varchar(100) NOT NULL,
   `ADDCAT` varchar(10) NOT NULL,
   `PHONENUM1` varchar(30) DEFAULT NULL,
@@ -43,7 +41,7 @@ CREATE TABLE `appaddress_t` (
 --
 
 CREATE TABLE `appchildren_t` (
-  `APP_ID` char(10) NOT NULL,
+  `APP_ID` int(11) NOT NULL,
   `CHILDNAME` varchar(100) DEFAULT NULL,
   `AGE` int(11) DEFAULT NULL,
   `BIRTHDATE` date DEFAULT NULL
@@ -56,7 +54,7 @@ CREATE TABLE `appchildren_t` (
 --
 
 CREATE TABLE `appcontact_t` (
-  `APP_ID` char(10) NOT NULL,
+  `APP_ID` int(11) NOT NULL,
   `CONTACTNAME` varchar(100) DEFAULT NULL,
   `CONTACTNUM` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -68,8 +66,8 @@ CREATE TABLE `appcontact_t` (
 --
 
 CREATE TABLE `appdoc_t` (
-  `APP_NO` char(10) NOT NULL,
-  `APP_ID` char(10) NOT NULL,
+  `APP_NO` int(11) NOT NULL,
+  `APP_ID` int(11) NOT NULL,
   `REQ_ID` int(11) DEFAULT NULL,
   `DOCSTAT` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -81,8 +79,8 @@ CREATE TABLE `appdoc_t` (
 --
 
 CREATE TABLE `applications_t` (
-  `APP_NO` char(10) NOT NULL,
-  `APP_ID` char(10) NOT NULL,
+  `APP_NO` int(11) NOT NULL,
+  `APP_ID` int(11) NOT NULL,
   `JORDER_ID` int(11) DEFAULT NULL,
   `EMPLOYER_ID` int(11) DEFAULT NULL,
   `CATEGORY_ID` int(11) DEFAULT NULL,
@@ -100,7 +98,7 @@ CREATE TABLE `applications_t` (
 --
 
 CREATE TABLE `apppersonal_t` (
-  `APP_ID` char(10) NOT NULL,
+  `APP_ID` int(11) NOT NULL,
   `NAMEOFFATHER` varchar(100) DEFAULT NULL,
   `FAGE` varchar(30) DEFAULT NULL,
   `FOCCUPATION` varchar(100) DEFAULT NULL,
@@ -119,7 +117,7 @@ CREATE TABLE `apppersonal_t` (
 --
 
 CREATE TABLE `appschool_t` (
-  `APP_ID` char(10) NOT NULL,
+  `APP_ID` int(11) NOT NULL,
   `SCHOOLNAME` varchar(100) NOT NULL,
   `SCHOOLTYPE` varchar(30) NOT NULL,
   `YRSTART` year(4) NOT NULL,
@@ -134,7 +132,7 @@ CREATE TABLE `appschool_t` (
 --
 
 CREATE TABLE `appskills_t` (
-  `APP_ID` char(10) NOT NULL,
+  `APP_ID` int(11) NOT NULL,
   `SKILL_ID` int(11) DEFAULT NULL,
   `PROFICIENCY` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -146,7 +144,7 @@ CREATE TABLE `appskills_t` (
 --
 
 CREATE TABLE `appworkex_t` (
-  `APP_ID` char(10) NOT NULL,
+  `APP_ID` int(11) NOT NULL,
   `COMPANY` varchar(100) NOT NULL,
   `COMPANYADD` varchar(100) NOT NULL,
   `POSITION` varchar(100) NOT NULL,
@@ -163,7 +161,7 @@ CREATE TABLE `appworkex_t` (
 --
 
 CREATE TABLE `app_t` (
-  `APP_ID` char(10) NOT NULL,
+  `APP_ID` int(11) NOT NULL,
   `LNAME` varchar(30) NOT NULL,
   `FNAME` varchar(30) NOT NULL,
   `MNAME` varchar(30) DEFAULT NULL,
@@ -265,7 +263,8 @@ INSERT INTO `country_t` (`COUNTRY_ID`, `COUNTRYNAME`, `status`) VALUES
 (7, 'Japan', 0),
 (8, 'United States of America', 0),
 (9, 'Philippines', 0),
-(10, 'sample', 1);
+(10, 'sample', 1),
+(11, 'kj', 0);
 
 -- --------------------------------------------------------
 
@@ -507,26 +506,8 @@ CREATE TABLE `jobdocs_t` (
 
 INSERT INTO `jobdocs_t` (`JORDER_ID`, `REQ_ID`) VALUES
 (1, 12),
-(1, 12),
-(1, 14),
-(1, 16),
-(1, 12),
-(1, 14),
-(1, 16),
 (1, 13),
-(1, 15),
-(1, 13),
-(1, 15),
-(6, 12),
-(6, 13),
-(6, 14),
-(6, 15),
-(6, 16),
-(7, 12),
-(7, 13),
-(7, 14),
-(7, 15),
-(7, 16);
+(2, 15);
 
 -- --------------------------------------------------------
 
@@ -540,6 +521,14 @@ CREATE TABLE `jobfees_t` (
   `AMOUNT` int(11) DEFAULT NULL,
   `JFTYPE` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jobfees_t`
+--
+
+INSERT INTO `jobfees_t` (`JORDER_ID`, `FEE_ID`, `AMOUNT`, `JFTYPE`) VALUES
+(1, 3, 12434, NULL),
+(2, 1, 119, NULL);
 
 -- --------------------------------------------------------
 
@@ -570,13 +559,8 @@ CREATE TABLE `joborder_t` (
 --
 
 INSERT INTO `joborder_t` (`JORDER_ID`, `EMPLOYER_ID`, `CATEGORY_ID`, `JOB_ID`, `REQAPP`, `SALARY`, `GENDER`, `HEIGHTREQ`, `WEIGHTREQ`, `CNTRCTSTART`, `CNTRCTEND`, `CNTRCTSTAT`, `MIN`, `MAX`, `status`) VALUES
-(1, 1, 1, 2, 12, 3, 2, '5', '6', '2018-02-22', NULL, NULL, NULL, NULL, 0),
-(2, 1, 1, 2, 12, 3, 3, '5', '6', '2018-02-28', NULL, NULL, NULL, NULL, 0),
-(3, 1, 1, 2, 12, 3, 2, '5', '6', '2018-02-22', NULL, NULL, NULL, NULL, 0),
-(4, 1, 1, 2, 12, 32, 3, '42', '123', '2018-02-28', NULL, NULL, NULL, NULL, 0),
-(5, 1, 1, 2, 12, 32, 3, '42', '123', '2018-02-28', NULL, NULL, NULL, NULL, 0),
-(6, 1, 1, 2, 12, 3, 2, '5', '6', '2018-02-22', NULL, NULL, NULL, NULL, 0),
-(7, 1, 1, 2, 12, 3, 3, '5', '6', '2018-02-22', NULL, NULL, NULL, NULL, 0);
+(1, 1, 1, 2, 123, 123, 1, '234', '345', '2018-02-28', NULL, NULL, NULL, NULL, 0),
+(2, 1, 1, 2, 12, 23, 2, '34', '45', '2018-02-28', NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -595,14 +579,8 @@ CREATE TABLE `jobskills_t` (
 --
 
 INSERT INTO `jobskills_t` (`JORDER_ID`, `SKILL_ID`, `PROFLEVEL`) VALUES
-(1, 1, 2),
-(1, 2, 4),
-(1, 3, 1),
-(1, 7, 1),
-(1, 7, 1),
-(1, 7, 1),
-(6, 2, 4),
-(7, 7, 1);
+(1, 7, 4),
+(2, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -666,8 +644,8 @@ CREATE TABLE `logs_t` (
 --
 
 CREATE TABLE `payables_t` (
-  `APP_NO` char(10) NOT NULL,
-  `APP_ID` char(10) NOT NULL,
+  `APP_NO` int(11) NOT NULL,
+  `APP_ID` int(11) NOT NULL,
   `FEE_ID` int(11) DEFAULT NULL,
   `FEESTATUS` varchar(30) NOT NULL,
   `DATEPAID` date DEFAULT NULL,
@@ -697,7 +675,7 @@ CREATE TABLE `placementfee_t` (
 
 CREATE TABLE `receipts_t` (
   `PAY_ID` char(6) NOT NULL,
-  `APP_ID` char(10) NOT NULL,
+  `APP_ID` int(11) NOT NULL,
   `AMOUNT` int(11) DEFAULT NULL,
   `PAYMENT` int(11) DEFAULT NULL,
   `CHNGE` int(11) DEFAULT NULL,
@@ -983,89 +961,135 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `appaddress_t`
+--
+ALTER TABLE `appaddress_t`
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `appchildren_t`
+--
+ALTER TABLE `appchildren_t`
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `appcontact_t`
+--
+ALTER TABLE `appcontact_t`
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `appdoc_t`
+--
+ALTER TABLE `appdoc_t`
+  MODIFY `APP_NO` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `applications_t`
+--
+ALTER TABLE `applications_t`
+  MODIFY `APP_NO` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `apppersonal_t`
+--
+ALTER TABLE `apppersonal_t`
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `appschool_t`
+--
+ALTER TABLE `appschool_t`
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `appskills_t`
+--
+ALTER TABLE `appskills_t`
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `appworkex_t`
+--
+ALTER TABLE `appworkex_t`
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `app_t`
+--
+ALTER TABLE `app_t`
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `banks_t`
 --
 ALTER TABLE `banks_t`
   MODIFY `BANK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `country_t`
 --
 ALTER TABLE `country_t`
-  MODIFY `COUNTRY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
+  MODIFY `COUNTRY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `currency_t`
 --
 ALTER TABLE `currency_t`
   MODIFY `CURRENCY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
 --
 -- AUTO_INCREMENT for table `employer_t`
 --
 ALTER TABLE `employer_t`
   MODIFY `EMPLOYER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `emp_t`
 --
 ALTER TABLE `emp_t`
   MODIFY `EMP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `genfees_t`
 --
 ALTER TABLE `genfees_t`
   MODIFY `FEE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `genreqs_t`
 --
 ALTER TABLE `genreqs_t`
   MODIFY `REQ_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
 --
 -- AUTO_INCREMENT for table `genskills_t`
 --
 ALTER TABLE `genskills_t`
   MODIFY `SKILL_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
 --
 -- AUTO_INCREMENT for table `jobcategory_t`
 --
 ALTER TABLE `jobcategory_t`
   MODIFY `CATEGORY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
 --
 -- AUTO_INCREMENT for table `joborder_t`
 --
 ALTER TABLE `joborder_t`
-  MODIFY `JORDER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
+  MODIFY `JORDER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `jobtype_t`
 --
 ALTER TABLE `jobtype_t`
   MODIFY `JOBTYPE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `job_t`
 --
 ALTER TABLE `job_t`
   MODIFY `JOB_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `logs_t`
 --
 ALTER TABLE `logs_t`
   MODIFY `LOG_ID` int(11) NOT NULL AUTO_INCREMENT;
-
+--
+-- AUTO_INCREMENT for table `payables_t`
+--
+ALTER TABLE `payables_t`
+  MODIFY `APP_NO` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `receipts_t`
+--
+ALTER TABLE `receipts_t`
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- Constraints for dumped tables
 --
@@ -1074,62 +1098,72 @@ ALTER TABLE `users`
 -- Constraints for table `appaddress_t`
 --
 ALTER TABLE `appaddress_t`
-  ADD CONSTRAINT `appaddress_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `appaddress_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appaddress_t_ibfk_2` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appaddress_t_ibfk_3` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `appchildren_t`
 --
 ALTER TABLE `appchildren_t`
-  ADD CONSTRAINT `appchildren_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE;
-
---
--- Constraints for table `appcontact_t`
---
-ALTER TABLE `appcontact_t`
-  ADD CONSTRAINT `appcontact_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `appchildren_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appchildren_t_ibfk_2` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appchildren_t_ibfk_3` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `appdoc_t`
 --
 ALTER TABLE `appdoc_t`
-  ADD CONSTRAINT `appdoc_t_ibfk_1` FOREIGN KEY (`APP_NO`) REFERENCES `applications_t` (`APP_NO`) ON DELETE CASCADE,
-  ADD CONSTRAINT `appdoc_t_ibfk_2` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `appdoc_t_ibfk_3` FOREIGN KEY (`REQ_ID`) REFERENCES `genreqs_t` (`REQ_ID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `appdoc_t_ibfk_3` FOREIGN KEY (`REQ_ID`) REFERENCES `genreqs_t` (`REQ_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `appdoc_t_ibfk_4` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appdoc_t_ibfk_5` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appdoc_t_ibfk_6` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appdoc_t_ibfk_7` FOREIGN KEY (`APP_NO`) REFERENCES `applications_t` (`APP_NO`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `applications_t`
 --
 ALTER TABLE `applications_t`
-  ADD CONSTRAINT `applications_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `applications_t_ibfk_2` FOREIGN KEY (`JORDER_ID`) REFERENCES `joborder_t` (`JORDER_ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `applications_t_ibfk_3` FOREIGN KEY (`EMPLOYER_ID`) REFERENCES `employer_t` (`EMPLOYER_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `applications_t_ibfk_4` FOREIGN KEY (`CATEGORY_ID`,`JOB_ID`) REFERENCES `job_t` (`CATEGORY_ID`, `JOB_ID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `applications_t_ibfk_4` FOREIGN KEY (`CATEGORY_ID`,`JOB_ID`) REFERENCES `job_t` (`CATEGORY_ID`, `JOB_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `applications_t_ibfk_5` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `applications_t_ibfk_6` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `applications_t_ibfk_7` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `apppersonal_t`
 --
 ALTER TABLE `apppersonal_t`
-  ADD CONSTRAINT `apppersonal_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `apppersonal_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `apppersonal_t_ibfk_2` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `apppersonal_t_ibfk_3` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `appschool_t`
 --
 ALTER TABLE `appschool_t`
-  ADD CONSTRAINT `appschool_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `appschool_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appschool_t_ibfk_2` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appschool_t_ibfk_3` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `appskills_t`
 --
 ALTER TABLE `appskills_t`
-  ADD CONSTRAINT `appskills_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `appskills_t_ibfk_2` FOREIGN KEY (`SKILL_ID`) REFERENCES `genskills_t` (`SKILL_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `appskills_t_ibfk_3` FOREIGN KEY (`SKILL_ID`) REFERENCES `genskills_t` (`SKILL_ID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `appskills_t_ibfk_3` FOREIGN KEY (`SKILL_ID`) REFERENCES `genskills_t` (`SKILL_ID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `appskills_t_ibfk_4` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appskills_t_ibfk_5` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appskills_t_ibfk_6` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `appworkex_t`
 --
 ALTER TABLE `appworkex_t`
-  ADD CONSTRAINT `appworkex_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `appworkex_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appworkex_t_ibfk_2` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `appworkex_t_ibfk_3` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `banksallowed_t`
@@ -1209,10 +1243,10 @@ ALTER TABLE `logs_t`
 -- Constraints for table `payables_t`
 --
 ALTER TABLE `payables_t`
-  ADD CONSTRAINT `payables_t_ibfk_1` FOREIGN KEY (`APP_NO`) REFERENCES `applications_t` (`APP_NO`) ON DELETE CASCADE,
-  ADD CONSTRAINT `payables_t_ibfk_2` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `payables_t_ibfk_3` FOREIGN KEY (`FEE_ID`) REFERENCES `genfees_t` (`FEE_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `payables_t_ibfk_4` FOREIGN KEY (`PAY_ID`) REFERENCES `receipts_t` (`PAY_ID`);
+  ADD CONSTRAINT `payables_t_ibfk_4` FOREIGN KEY (`PAY_ID`) REFERENCES `receipts_t` (`PAY_ID`),
+  ADD CONSTRAINT `payables_t_ibfk_5` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `payables_t_ibfk_6` FOREIGN KEY (`APP_NO`) REFERENCES `applications_t` (`APP_NO`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `placementfee_t`
@@ -1224,7 +1258,7 @@ ALTER TABLE `placementfee_t`
 -- Constraints for table `receipts_t`
 --
 ALTER TABLE `receipts_t`
-  ADD CONSTRAINT `receipts_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`);
+  ADD CONSTRAINT `receipts_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `specskills_t`
@@ -1232,7 +1266,6 @@ ALTER TABLE `receipts_t`
 ALTER TABLE `specskills_t`
   ADD CONSTRAINT `specskills_t_ibfk_1` FOREIGN KEY (`Job_id`) REFERENCES `job_t` (`JOB_ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `specskills_t_ibfk_2` FOREIGN KEY (`Skill_id`) REFERENCES `genskills_t` (`SKILL_ID`) ON DELETE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
