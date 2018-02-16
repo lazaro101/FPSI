@@ -247,15 +247,15 @@
       $('.sidebar-menu li.jor').addClass('active');
 
       $('#datepicker').datepicker();
-      alert($('form').attr('action'));
+
       var skilloption = "";
       var reqoption = "";
       var feeoption = "";
       var symbol = "Nan";
     
-
       $('.edit').click(function(){
         $('#addJobOrder form').trigger('reset').attr('action','/editJobOrder');
+        $('#addJobOrder .modal-title').text('Edit Job Order');
         $('#addJobOrder .divskill').empty();
         $('#addJobOrder .divreqfees').empty();
         $('.select2').select2();
@@ -320,6 +320,8 @@
       });
       $('button.addJobOrder').click(function(){
         $('#addJobOrder form').trigger('reset').attr('action','/addJobOrder');
+        $('#addJobOrder .modal-title').text('Create Job Order');
+        $('#addJobOrder .symbl').text('Nan');
         $('#addJobOrder .divskill').empty();
         $('#addJobOrder .divreqfees').empty();
         $('.select2').select2();
@@ -365,7 +367,7 @@
           data: { emplid : $(this).val() },
           dataType : 'json',
           success:function(response) {
-            $('#addJobOrder .symbl').html(response);
+            $('#addJobOrder .symbl').text(response);
             symbol = response;
           }
         }); 
