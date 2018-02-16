@@ -244,8 +244,8 @@
                     </div>
                     
                     <div class="col-md-4">
-                        <select class="form-control">
-                            <option>Option...</option>
+                        <select class="form-control" id="slctSkill">
+                            
                         </select>
                     </div>
                     <div class="col-md-2">
@@ -253,16 +253,33 @@
                     </div>
                     
                     <div class="col-md-2">
-                        <select class="form-control">
-                            <option>Option...</option>
+                        <select class="form-control" id="slctSkillProficiency">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="form-group">
+                <table style="width: 100%;" class="table-bordered table-striped">
+                    <thead>
+                        <th style="display: none;">ID</th>
+                        <th style="text-align: center;">SKILL</th>
+                        <th style="text-align: center;">PROFICIENCY</th>
+                        <th style="text-align: center;">ACTION</th>
+                    </thead>
+                    <tbody id="skill-list">
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group">
                 <div class="row">
                     <div class="col-sm-2 col-sm-offset-5">
-                    <button type="button" class="btn btn-success"><i class="fa fa-plus"></i> ADD</button>
+                    <button type="button" class="btn btn-success" id="btnAddSkilll"><i class="fa fa-plus"></i> ADD</button>
                   </div>
                 </div>
             </div>
@@ -531,6 +548,37 @@
         $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
       }
     )
+    });
+
+    $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: "/json/skillgeneral/all",
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+
+                $.each(data, function(index, value) {
+                    $('#slctSkill').append("<option value='"+value.SKILL_ID+"'>"+value.SKILLNAME+"</option>");
+                });
+            } 
+        });
+    });
+
+    $('#btnAddSkilll').click(function() {
+        var row = 
+            "<tr>"+
+                "<td style='display: none;'>"+$('#slctSkill').val()+"</td>"+
+                "<td>"+$('#slctSkill').children('option:selected').text()+"</td>"+
+                "<td>"+$('#slctSkillProficiency').val()+"</td>"+
+                "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs' id='btnRemoveSkill' style='width:22px;height:22px;'>-</button></td>"+
+            "</tr>";
+
+        $('#skill-list').append(row);
+    });
+
+    $('#skill-list').on('click', '#btnRemoveSkill', function() {
+        $(this).parents('tr').remove();
     });
   </script>
   @endsection
