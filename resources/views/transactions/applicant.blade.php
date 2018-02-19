@@ -30,6 +30,18 @@
                       <th width="100px">Actions</th>
                     </tr>
                   </thead>
+                  <tbody>
+                      @foreach($app as $app)
+                      <tr>
+                          <td>{{$app->FNAME.' '.$app->MNAME.' '.$app->LNAME}}</td>
+                          <td>{{$app->POSITION}}</td>
+                          <td>
+                              <button type="button" class="btn btn-info edit" value="{{$app->APP_ID}}"><i class="fa fa-pencil"></i></button>
+                              <button type="button" class="btn btn-danger del" value="{{$app->APP_ID}}"><i class="fa fa-trash"></i></button>
+                          </td>
+                      </tr>
+                      @endforeach
+                  </tbody>
                 </table>
               </div>
             </div> 
@@ -44,6 +56,7 @@
     <div class="modal fade bs-example-modal-lg" id="addApplicant">
         <form method="post" class="form-horizontal">
           {{csrf_field()}}
+          <input type="hidden" name="id">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
@@ -200,11 +213,11 @@
                         <div class="col-md-4">
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                  <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right daterange" id="incyear">
-                            </div>
-                        </div> 
+                                <input type="text" class="form-control" id="incyear">
+                            </div> 
+                        </div>  
                     </div>
                     <div class="form-group"> 
                         <div class="col-md-2">
@@ -311,9 +324,9 @@
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
+                                      <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right daterange" id="empldate">
+                                    <input type="text" class="form-control" id="empldate">
                                 </div>
                             </div> 
                             <div class="col-md-1">
@@ -503,13 +516,35 @@
     </form>
 </div>
 
+      <div class="modal modal-warning fade in" id="del">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span></button>
+              <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want to delete?</p>
+            </div>
+            <div class="modal-footer">
+              <form method="post" action="/delApplicant">
+                {{csrf_field()}}
+                <input type="hidden" name="id">
+                <button type="submit" class="btn btn-outline">Yes</button>
+                <button type="button" class="btn btn-outline" data-dismiss="modal">No</button>
+              </form>
+            </div>
+          </div> 
+        </div> 
+      </div>
   @endsection
 
   @section('script')
   <script type="text/javascript">
     $(document).ready(function(){
         $('.sidebar-menu .trnsc').trigger('click');
-        $('.sidebar-menu .jd').trigger('click');
+        $('.sidebar-menu .am').trigger('click');
         $('.sidebar-menu li.app').addClass('active');
  
         $('.datepicker').datepicker({
@@ -519,26 +554,11 @@
         });
         $('#reservation').daterangepicker(); 
         $('.daterange').daterangepicker(); 
-    // Date range picker with time picker
-    // $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' });
-    // //Date range as a button
-    // $('#daterange-btn').daterangepicker(
-    //   {
-    //     ranges   : {
-    //       'Today'       : [moment(), moment()],
-    //       'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-    //       'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-    //       'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-    //       'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-    //       'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-    //     },
-    //     startDate: moment().subtract(29, 'days'),
-    //     endDate  : moment()
-    //   },
-    //   function (start, end) {
-    //     $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-    //   }
-    // );
+ 
+        $('#incyear').inputmask({"mask": "9999 - 9999"});
+        $('#empldate').inputmask({"mask": "99/9999 - 99/9999"});
+        // $('input[name=cnum]').inputmask({"mask": "9999-999-9999"});
+
         $.ajax
         ({
           url: '/getSkillGeneralAll',
@@ -551,6 +571,108 @@
           }
         }); 
 
+        $('.edit').click(function(){
+            $('#addApplicant form').trigger('reset').attr('action','/editApplicant');
+            $('#listEdu, #listEmphist, #listSkills, #listChild, #listConper').empty();
+            $.ajax
+            ({
+              url: '/getApplicant',
+              type:'get', 
+              data: { id : $(this).val() },
+              dataType : 'json',
+              success:function(response) {
+                $('input[name=id]').val(response[0].APP_ID);
+                $('select[name=position]').val(response[0].POSITION).trigger('change');
+                $('input[name=fname]').val(response[0].FNAME);
+                $('input[name=lname]').val(response[0].LNAME); 
+                $('input[name=mname]').val(response[0].MNAME);
+                $('input[name=gender][value='+response[0].GENDER+']').prop("checked", true);
+                $('input[name=height]').val(response[0].AHEIGHT);
+                $('input[name=weight]').val(response[0].AWEIGHT);
+                $('input[name=cnum]').val(response[0].CONTACT);
+                // $('input[name=cadd]').val(response[1].MNAME);
+                // $('input[name=padd]').val(response[1].MNAME);
+                $('input[name=fathername]').val(response[6].NAMEOFFATHER);
+                $('input[name=fatheroccu]').val(response[6].FOCCUPATION);
+                $('input[name=fatherage]').val(response[6].FAGE);
+                $('input[name=mothername]').val(response[6].NAMEOFMOTHER);
+                $('input[name=motheroccu]').val(response[6].MOCCUPATION);
+                $('input[name=motherage]').val(response[6].MAGE);
+                $('input[name=spouseoccu]').val(response[6].SOCCUPATION);
+                $('input[name=spousename]').val(response[6].NAMEOFSPOUSE);
+                $('input[name=spouseage]').val(response[6].SAGE);
+                response[1].forEach(function(data){
+                    var row = "<tr>"+
+                        "<td style='display: none;'>"+
+                            '<input type="hidden" name="schname[]" value="'+data.SCHOOLNAME+'"><input type="hidden" name="schlevel[]" value="'+data.SCHOOLNAME+'"><input type="hidden" name="schyear[]" value="'+data.YRSTART+' - '+data.YREND+'"><input type="hidden" name="schdegree[]" value="'+data.DEGREE+'">'
+                        +"</td>"+
+                        "<td>"+data.SCHOOLNAME+"</td>"+
+                        "<td>"+data.SCHOOLTYPE+"</td>"+
+                        "<td>"+data.YRSTART+' - '+data.YREND+"</td>"+
+                        "<td>"+data.DEGREE+"</td>"+
+                        "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
+                    "</tr>";
+                    $('#listEdu').append(row);
+                });
+                response[2].forEach(function(data){
+                    var row = 
+                    "<tr>"+
+                        "<td style='display: none;'><input type='hidden' name='sklname[]' value='"+data.SKILL_ID+"'><input type='hidden' name='prof[]' value='"+data.PROFICIENCY+"'></td>"+
+                        "<td>"+data.SKILLNAME+"</td>"+
+                        "<td>"+data.PROFICIENCY+"</td>"+
+                        "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
+                    "</tr>";
+                    $('#listSkills').append(row);
+                });
+                response[3].forEach(function(data){
+                    var row = 
+                    "<tr>"+
+                        "<td style='display: none;'>"+
+                            '<input type="hidden" name="employer[]" value="'+data.COMPANY+'"><input type="hidden" name="empladd[]" value="'+data.COMPANYADD+'"><input type="hidden" name="empldate[]" value="'+data.MONTHSTART+'/'+data.YEARSTART+' - '+data.MONTHEND+'/'+data.YEAREND+'"><input type="hidden" name="emplpos[]" value="'+data.POSITION+'">'
+                        +"</td>"+
+                        "<td>"+data.COMPANY+"</td>"+
+                        "<td>"+data.COMPANYADD+"</td>"+
+                        "<td>"+data.MONTHSTART+'/'+data.YEARSTART+' - '+data.MONTHEND+'/'+data.YEAREND+"</td>"+
+                        "<td>"+data.POSITION+"</td>"+
+                        "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
+                    "</tr>";
+                    $('#listEmphist').append(row);
+                }); 
+                response[4].forEach(function(data){
+                    var row = 
+                    "<tr>"+
+                        "<td style='display: none;'>"+
+                            '<input type="hidden" name="chrnname[]" value="'+data.CHILDNAME+'"><input type="hidden" name="chrnbday[]" value="'+data.BIRTHDATE+'">'
+                        +"</td>"+
+                        "<td>"+data.CHILDNAME+"</td>"+
+                        "<td>"+moment(data.BIRTHDATE).format("MM/DD/YYYY")+"</td>"+
+                        "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
+                    "</tr>";
+                    $('#listChild').append(row);
+                });
+                response[5].forEach(function(data){
+                    var row = 
+                    "<tr>"+
+                        "<td style='display: none;'>"+
+                            '<input type="hidden" name="emrname[]" value="'+data.CONTACTNAME+'"><input type="hidden" name="emrcontact[]" value="'+data.CONTACTNUM+'">'
+                        +"</td>"+
+                        "<td>"+data.CONTACTNAME+"</td>"+
+                        "<td>"+data.CONTACTNUM+"</td>"+
+                        "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
+                    "</tr>";
+                    $('#listConper').append(row);
+                });
+              },
+              complete:function(){
+                $('#addApplicant').modal();
+              }
+            }); 
+
+        });
+          $('.del').click(function(){
+            $('#del form input[name=id]').val($(this).val());
+            $('#del').modal();
+          });
         $('.addApplicant').click(function(){
             $('#addApplicant form').trigger('reset').attr('action','/addApplicant');
             $('#listEdu, #listEmphist, #listSkills, #listChild, #listConper').empty();
@@ -565,6 +687,7 @@
                 "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
             "</tr>";
             $('#listSkills').append(row);
+            $('#sklname, #prof').val('');
         });
         $('.addedbg').click(function(){
             var row = 
@@ -579,6 +702,7 @@
                 "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
             "</tr>";
             $('#listEdu').append(row);
+            $('#school, #degree, #incyear, #level').val('');
         }); 
         $('.addemphist').click(function(){
             var row = 
@@ -593,6 +717,7 @@
                 "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
             "</tr>";
             $('#listEmphist').append(row);
+            $('#empl, #empladd, #empldate, #emplpos').val('');
         });
         $('.addchild').click(function(){
             var row = 
@@ -605,6 +730,8 @@
                 "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
             "</tr>";
             $('#listChild').append(row);
+            $('#chrnname').val('');
+            $('#chrnbday').datepicker('setDate',null);
         });
         $('.addconper').click(function(){
             var row = 
@@ -617,11 +744,9 @@
                 "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
             "</tr>";
             $('#listConper').append(row);
+            $('#emrname, #emrcontact').val('');
         });
-        // function addEmpHist(){
-        //     $('#divEmpHist').append('<div class="field"></div>');
-        //     $('#divEmpHist .year').last().daterangepicker({ opens: 'right' }); 
-        // } 
+
         $(document).on('click','#addApplicant .remove',function(){
             $(this).closest('tr').remove();
         });
