@@ -111,6 +111,11 @@ Route::post('/editJobOrder','AdminController@editJobOrder');
 Route::get('/getJobOrder','AdminController@getJobOrder');
 
 Route::get('/Transactions/Applicant','AdminController@TransactionsApplicant');
+Route::get('/getSkillGeneralAll','AdminController@getSkillGeneralAll');
+Route::post('/addApplicant','AdminController@addApplicant');
+Route::post('/editApplicant','AdminController@editApplicant');
+Route::post('/delApplicant','AdminController@deleteApplicant');
+Route::get('/getApplicant','AdminController@getApplicant');
 
 Route::get('/Transactions/InitialInterview','AdminController@TransactionsInitialInterview');
 
