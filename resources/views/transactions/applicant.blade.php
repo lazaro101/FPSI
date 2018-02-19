@@ -344,6 +344,7 @@
                     </div>
                 </div>
 
+
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         FAMILY BACKGROUND
@@ -751,6 +752,37 @@
             $(this).closest('tr').remove();
         });
 
+    });
+
+    $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: "/json/skillgeneral/all",
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+
+                $.each(data, function(index, value) {
+                    $('#slctSkill').append("<option value='"+value.SKILL_ID+"'>"+value.SKILLNAME+"</option>");
+                });
+            } 
+        });
+    });
+
+    $('#btnAddSkilll').click(function() {
+        var row = 
+            "<tr>"+
+                "<td style='display: none;'>"+$('#slctSkill').val()+"</td>"+
+                "<td>"+$('#slctSkill').children('option:selected').text()+"</td>"+
+                "<td>"+$('#slctSkillProficiency').val()+"</td>"+
+                "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs' id='btnRemoveSkill' style='width:22px;height:22px;'>-</button></td>"+
+            "</tr>";
+
+        $('#skill-list').append(row);
+    });
+
+    $('#skill-list').on('click', '#btnRemoveSkill', function() {
+        $(this).parents('tr').remove();
     });
   </script>
   @endsection

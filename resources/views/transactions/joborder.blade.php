@@ -322,7 +322,9 @@
         $('#addJobOrder form').trigger('reset').attr('action','/addJobOrder');
         $('#addJobOrder .modal-title').text('Create Job Order');
         $('#addJobOrder .symbl').text('Nan');
+
         $('#addJobOrder .divskill').empty();
+
         $('#addJobOrder .divreqfees').empty();
         $('.select2').select2();
         $('.select2.emplsel').select2({

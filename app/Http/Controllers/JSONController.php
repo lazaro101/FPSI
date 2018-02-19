@@ -44,6 +44,13 @@ class JSONController extends Controller
     	return Response::json($skill);
     }
 
+    public function getSkillGeneralAll() {
+        $skill = GenSkills::where('SKILLTYPE', 'General')->get();
+
+        return Response::json($skill);
+    }
+
+
 
     public function getJobOne(Request $request) {
         $job = Job::find($request->job);

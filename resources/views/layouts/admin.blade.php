@@ -445,12 +445,14 @@
 <script src="{{ asset('AdminLTE/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 <script src="{{ asset('validator/dist/validator.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/fullcalendar/dist/fullcalendar.js') }}"></script>
+
 <script src="{{ asset('AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script> 
 
 <script src="{{ asset('AdminLTE/bower_components/inputmask/dist/jquery.inputmask.bundle.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/inputmask/dist/inputmask/phone-codes/phone.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/inputmask/dist/inputmask/phone-codes/phone-be.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/inputmask/dist/inputmask/phone-codes/phone-ru.js') }}"></script>
+
 
 @yield('script')
 
