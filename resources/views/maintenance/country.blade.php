@@ -26,7 +26,7 @@
               <h3 class="box-title">Country</h3>
             </div>
             <div class="box-body">
-              <button class="btn btn-primary" data-toggle="modal" data-target="#addCountry" style="padding: 10px; width: 100px;"><strong>ADD</strong>  <span class="fa fa-plus"></span></button>
+              <button class="btn btn-primary" id="add" style="padding: 10px; width: 100px;"><strong>ADD</strong>  <span class="fa fa-plus"></span></button>
               <div class="content">
                 <table class="table table-hover" id="example1">
                   <thead>
@@ -71,8 +71,7 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label>Country Name</label>
-                  <input type="text" class="form-control" name="countryname" required>
-                  <div class="help-block with-errors"></div>
+                  <input type="text" class="form-control" name="countryname">
                 </div>
                 <div class="form-group">
                   <label>Country Requirements</label>
@@ -162,15 +161,19 @@
     $(document).ready(function(){
       $('.sidebar-menu .mntc').trigger('click');
       $('.sidebar-menu li.cty').addClass('active'); 
-// var $form = $("form"),
-//   $successMsg = $(".alert");
-// $form.validator().on("submit", function(e){
-//   if(!e.isDefaultPrevented()){
-//     e.preventDefault();
-//     // $successMsg.show();
-//     $(this).submit();
-//   }
-// });
+
+      $('#addCountry form').validate({
+        rules: {
+          countryname : {
+            required : true,
+          }
+        }
+      });
+
+      $('#add').click(function(){
+        $('#addCountry form').trigger('reset');
+        $('#addCountry').modal();
+      });
       $('.edit').click(function(){
         $('#edit form .checkbox input').prop('checked',false);
         $.ajax

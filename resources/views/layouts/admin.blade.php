@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/fullcalendar/dist/fullcalendar.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
 
+  <link rel="stylesheet" href="{{ asset('validator/demo/css/screen.css') }}">
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -443,7 +445,6 @@
 
 <script src="{{ asset('AdminLTE/bower_components/select2/dist/js/select2.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-<script src="{{ asset('validator/dist/validator.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/fullcalendar/dist/fullcalendar.js') }}"></script>
 
 <script src="{{ asset('AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script> 
@@ -453,6 +454,8 @@
 <script src="{{ asset('AdminLTE/bower_components/inputmask/dist/inputmask/phone-codes/phone-be.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/inputmask/dist/inputmask/phone-codes/phone-ru.js') }}"></script>
 
+<!-- <script src="{{ asset('validator/lib/jquery.js') }}"></script> -->
+<script src="{{ asset('validator/dist/jquery.validate.js') }}"></script>
 
 @yield('script')
 

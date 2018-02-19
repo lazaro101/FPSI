@@ -1,133 +1,191 @@
-/* jshint node: true */
+/*jshint node:true*/
+module.exports = function( grunt ) {
 
-module.exports = function(grunt) {
-  "use strict";
+"use strict";
 
-  // Project configuration.
-  grunt.initConfig({
+var banner,
+	umdStart,
+	umdMiddle,
+	umdEnd,
+	umdStandardDefine,
+	umdAdditionalDefine,
+	umdLocalizationDefine;
 
-    // Metadata.
-    pkg: grunt.file.readJSON('package.json'),
-    banner: '/*!\n' +
-            ' * Validator v<%= pkg.version %> for Bootstrap 3, by @1000hz\n' +
-            ' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
-            ' * Licensed under <%= _.pluck(pkg.licenses, "url").join(", ") %>\n' +
-            ' *\n' +
-            ' * https://github.com/1000hz/bootstrap-validator\n' +
-            ' */\n\n',
+banner = "/*!\n" +
+	" * jQuery Validation Plugin v<%= pkg.version %>\n" +
+	" *\n" +
+	" * <%= pkg.homepage %>\n" +
+	" *\n" +
+	" * Copyright (c) <%= grunt.template.today('yyyy') %> <%= pkg.author.name %>\n" +
+	" * Released under the <%= _.map(pkg.licenses, 'type').join(', ') %> license\n" +
+	" */\n";
 
-    // Task configuration.
-    jshint: {
-      options: {
-        jshintrc: 'js/.jshintrc'
-      },
-      gruntfile: {
-        src: 'Gruntfile.js'
-      },
-      src: {
-        src: ['js/*.js']
-      },
-      test: {
-        src: ['js/tests/unit/*.js']
-      }
-    },
+// Define UMD wrapper variables
 
-    concat: {
-      options: {
-        banner: '<%= banner %>',
-        stripBanners: true
-      },
-      dist: {
-        src: ['js/validator.js'],
-        dest: 'dist/validator.js'
-      }
-    },
+umdStart = "(function( factory ) {\n" +
+	"\tif ( typeof define === \"function\" && define.amd ) {\n";
 
-    copy: {
-      docs: {
-        expand: true,
-        cwd: './dist',
-        src: '*',
-        dest: 'docs/dist'
-      }
-    },
+umdMiddle = "\t} else if (typeof module === \"object\" && module.exports) {\n" +
+	"\t\tmodule.exports = factory( require( \"jquery\" ) );\n" +
+	"\t} else {\n" +
+	"\t\tfactory( jQuery );\n" +
+	"\t}\n" +
+	"}(function( $ ) {\n\n";
 
-    uglify: {
-      options: {
-        banner: '<%= banner %>',
-        report: 'min'
-      },
-      min: {
-        src: ['js/validator.js'],
-        dest: 'dist/validator.min.js'
-      }
-    },
+umdEnd = "return $;" +
+	"\n}));";
 
-    qunit: {
-      options: {
-        inject: 'js/tests/unit/phantom.js'
-      },
-      files: ['js/tests/*.html']
-    },
+umdStandardDefine = "\t\tdefine( [\"jquery\"], factory );\n";
+umdAdditionalDefine = "\t\tdefine( [\"jquery\", \"./jquery.validate\"], factory );\n";
+umdLocalizationDefine = "\t\tdefine( [\"jquery\", \"../jquery.validate\"], factory );\n";
 
-    watch: {
-      src: {
-        files: '<%= jshint.src.src %>',
-        tasks: ['jshint:src', 'qunit']
-      },
-      test: {
-        files: '<%= jshint.test.src %>',
-        tasks: ['jshint:test', 'qunit']
-      }
-    },
+grunt.initConfig( {
+	pkg: grunt.file.readJSON( "package.json" ),
+	concat: {
 
-    jekyll: {
-      docs: {}
-    },
+		// Used to copy to dist folder
+		dist: {
+			options: {
+				banner: banner +
+					umdStart +
+					umdStandardDefine +
+					umdMiddle,
+				footer: umdEnd
+			},
+			files: {
+				"dist/jquery.validate.js": [ "src/core.js", "src/*.js" ]
+			}
+		},
+		extra: {
+			options: {
+				banner: banner +
+					umdStart +
+					umdAdditionalDefine +
+					umdMiddle,
+				footer: umdEnd
+			},
+			files: {
+				"dist/additional-methods.js": [ "src/additional/additional.js", "src/additional/*.js" ]
+			}
+		}
+	},
+	uglify: {
+		options: {
+			preserveComments: false,
+			banner: "/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - " +
+				"<%= grunt.template.today('m/d/yyyy') %>\n" +
+				" * <%= pkg.homepage %>\n" +
+				" * Copyright (c) <%= grunt.template.today('yyyy') %> <%= pkg.author.name %>;" +
+				" Licensed <%= _.map(pkg.licenses, 'type').join(', ') %> */\n"
+		},
+		dist: {
+			files: {
+				"dist/additional-methods.min.js": "dist/additional-methods.js",
+				"dist/jquery.validate.min.js": "dist/jquery.validate.js"
+			}
+		},
+		all: {
+			expand: true,
+			cwd: "dist/localization",
+			src: "**/*.js",
+			dest: "dist/localization",
+			ext: ".min.js"
+		}
+	},
+	compress: {
+		dist: {
+			options: {
+				mode: "zip",
+				level: 1,
+				archive: "dist/<%= pkg.name %>-<%= pkg.version %>.zip",
+				pretty: true
+			},
+			src: [
+				"changelog.txt",
+				"demo/**/*.*",
+				"dist/**/*.js",
+				"Gruntfile.js",
+				"lib/**/*.*",
+				"package.json",
+				"README.md",
+				"src/**/*.*",
+				"test/**/*.*"
+			]
+		}
+	},
+	qunit: {
+		files: "test/index.html"
+	},
+	jshint: {
+		options: {
+			jshintrc: true
+		},
+		core: {
+			src: "src/**/*.js"
+		},
+		test: {
+			src: [ "test/*.js", "test/additional/*.js" ]
+		},
+		grunt: {
+			src: "Gruntfile.js"
+		}
+	},
+	watch: {
+		options: {
+			atBegin: true
+		},
+		src: {
+			files: "<%= jshint.core.src %>",
+			tasks: [
+				"concat"
+			]
+		}
+	},
+	jscs: {
+		all: [ "<%= jshint.core.src %>", "<%= jshint.test.src %>", "<%= jshint.grunt.src %>" ]
+	},
+	copy: {
+		dist: {
+			options: {
 
-    validation: {
-      options: {
-        reset: true,
-        relaxerror: [
-          "Bad value X-UA-Compatible for attribute http-equiv on element meta.",
-          "Element img is missing required attribute src."
-        ]
-      },
-      files: {
-        src: ["_gh_pages/**/*.html"]
-      }
-    }
-  });
+				// Append UMD wrapper
+				process: function( content ) {
+					return umdStart + umdLocalizationDefine + umdMiddle + content + umdEnd;
+				}
+			},
+			src: "src/localization/*",
+			dest: "dist/localization",
+			expand: true,
+			flatten: true,
+			filter: "isFile"
+		}
+	},
+	replace: {
+		dist: {
+			src: "dist/**/*.min.js",
+			overwrite: true,
+			replacements: [
+				{
+					from: "./jquery.validate",
+					to: "./jquery.validate.min"
+				}
+			]
+		}
+	}
+} );
 
+grunt.loadNpmTasks( "grunt-contrib-jshint" );
+grunt.loadNpmTasks( "grunt-contrib-qunit" );
+grunt.loadNpmTasks( "grunt-contrib-uglify" );
+grunt.loadNpmTasks( "grunt-contrib-concat" );
+grunt.loadNpmTasks( "grunt-contrib-compress" );
+grunt.loadNpmTasks( "grunt-contrib-watch" );
+grunt.loadNpmTasks( "grunt-jscs" );
+grunt.loadNpmTasks( "grunt-contrib-copy" );
+grunt.loadNpmTasks( "grunt-text-replace" );
 
-  // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-qunit');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-jekyll');
-  grunt.loadNpmTasks('grunt-html-validation');
-  grunt.loadNpmTasks('grunt-sed');
+grunt.registerTask( "default", [ "concat", "copy", "jscs", "jshint", "qunit" ] );
+grunt.registerTask( "release", [ "default", "uglify", "replace", "compress" ] );
+grunt.registerTask( "start", [ "concat", "watch" ] );
 
-  // Docs HTML validation task
-  grunt.registerTask('validate-html', ['jekyll', 'validation']);
-
-  // Test task.
-  grunt.registerTask('test', ['jshint', 'qunit']);
-
-  // Docs distribution task.
-  grunt.registerTask('dist-docs', 'copy:docs');
-
-  // Distribution task.
-  grunt.registerTask('dist', ['concat', 'uglify', 'dist-docs']);
-
-  // Default task.
-  grunt.registerTask('default', ['test', 'dist']);
-
-  // Version numbering task.
-  // grunt change-version-number --oldver=A.B.C --newver=X.Y.Z
-  // This can be overzealous, so its changes should always be manually reviewed!
-  grunt.registerTask('change-version-number', ['sed']);
 };
