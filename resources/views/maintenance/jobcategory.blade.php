@@ -4,17 +4,10 @@
 
 @section('content')
 
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+<div class="content-wrapper"> 
     <section class="content-header">
-      <h1>
-        Maintenance
-        <!-- <small>Control panel</small> -->
+      <h1> 
       </h1>
-    <!--   <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol> -->
     </section>
 
     <section class="content">
@@ -26,7 +19,7 @@
               <h3 class="box-title">Job Category</h3>
             </div>
             <div class="box-body">
-              <button class="btn btn-primary" data-toggle="modal" data-target="#addJobCategory" style="padding: 10px; width: 100px;"><strong>ADD</strong>  <span class="fa fa-plus"></span></button>
+              <button class="btn btn-primary" id="add" style="padding: 10px; width: 100px;"><strong>ADD</strong>  <span class="fa fa-plus"></span></button>
               <div class="content">
                 <table class="table table-hover" id="example1">
                   <thead>
@@ -55,8 +48,9 @@
 
   <!-- modal -->
       <div class="modal fade" id="addJobCategory">
-        <form method="post" action="/addJobCategory">
+        <form method="post">
           {{csrf_field()}}
+          <input type="hidden" name="id">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -65,36 +59,9 @@
                 <h4 class="modal-title">Add Job Category</h4>
               </div>
               <div class="modal-body">
-                <div class="form-group">
+                <div class="form-group has-feedback">
                   <label>Job Category Name</label>
                   <input type="text" class="form-control" placeholder="ex. Information Technology" name="categoryname">
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Save</button>
-                <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-        </form>
-      </div>
-
-      <div class="modal fade" id="edit">
-        <form method="post" action="/editJobCategory">
-          {{csrf_field()}}
-          <input type="hidden" name="id">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit Job Category</h4>
-              </div>
-              <div class="modal-body">
-                <div class="form-group">
-                  <label>Job Category Name</label>
-                  <input type="text" class="form-control" placeholder="ex. Metrobank" name="categoryname">
                 </div>
               </div>
               <div class="modal-footer">
@@ -144,7 +111,26 @@
       $('.sidebar-menu .jd').trigger('click');
       $('.sidebar-menu li.jbc').addClass('active'); 
 
+      $('#addJobCategory form').validate({
+        rules: {
+          categoryname: {
+            required: true,
+            maxlength: 30
+          },
+        },
+      });
+
+      $('#add').click(function(){
+        $('#addJobCategory form').trigger('reset').attr('action','/addJobCategory');
+        clearform();
+        $('#addJobCategory .modal-title').text('Add Job Category');
+        $('#addJobCategory').modal();
+      });
+
       $('.edit').click(function(){
+        $('#addJobCategory form').trigger('reset').attr('action','/editJobCategory');
+        clearform();
+        $('#addJobCategory .modal-title').text('Edit Job Category');
         $.ajax
         ({
           url: '/getJobCategory',
@@ -152,11 +138,11 @@
           dataType : 'json',
           data: { id : $(this).val() },
           success:function(response) {
-            $('#edit form input[name=id]').val(response.CATEGORY_ID);
-            $('#edit form input[name=categoryname]').val(response.CATEGORYNAME);
+            $('#addJobCategory form input[name=id]').val(response.CATEGORY_ID);
+            $('#addJobCategory form input[name=categoryname]').val(response.CATEGORYNAME);
           },
           complete:function(){
-            $('#edit').modal();
+            $('#addJobCategory').modal();
           }
         });
       });

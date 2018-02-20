@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/fullcalendar/dist/fullcalendar.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
 
-  <link rel="stylesheet" href="{{ asset('validator/demo/css/screen.css') }}">
+  <!-- <link rel="stylesheet" href="{{ asset('validator/demo/css/screen.css') }}"> -->
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -457,12 +457,51 @@
 <!-- <script src="{{ asset('validator/lib/jquery.js') }}"></script> -->
 <script src="{{ asset('validator/dist/jquery.validate.js') }}"></script>
 
-@yield('script')
-
 <script type="text/javascript">
   $(document).ready(function(){
     $('#example1').DataTable();
+
+    $.validator.setDefaults({
+      onfocusout: true,
+      // errorClass: 'help-block',
+      highlight: function(element){
+        $(element)
+          .closest('.form-group')
+          .addClass('has-error');
+        $(element).closest('.form-group').find('span').remove();
+        $(element).closest('.form-group.has-feedback').append('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+      },
+      unhighlight: function(element){
+        $(element)
+          .closest('.form-group')
+          .removeClass('has-error');
+        $(element).closest('.form-group').find('span').remove();
+        $(element).closest('.form-group').addClass('has-success');
+        $(element).closest('.form-group.has-feedback').append('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
+      },
+      errorPlacement: function(error, element){
+        if (element.prop('type') == 'checkbox') {
+          element.closest('.form-group').last('.checkbox').append(error);
+        } else {
+          if (element.prop('id') == 'datepicker') {
+            element.closest('.form-group').append(error);
+          } else {
+            error.insertAfter(element);
+          }
+        }
+      }
+    });
   });
+
+  function clearform(){
+    $('.form-group').each(function () { $(this).removeClass('has-success'); });
+    $('.form-group').each(function () { $(this).removeClass('has-error'); });
+    $('.form-group').each(function () { $(this).find('span').remove(); });
+    $('form').validate().resetForm();
+  }
 </script>
+
+@yield('script')
+
 </body>
 </html>

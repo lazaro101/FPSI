@@ -59,8 +59,9 @@
       
   <!-- modal -->
       <div class="modal fade" id="addCountry">
-        <form method="post" action="/addCountry">
+        <form method="post">
           {{csrf_field()}}
+          <input type="hidden" name="id">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -69,7 +70,7 @@
                 <h4 class="modal-title">Add Country</h4>
               </div>
               <div class="modal-body">
-                <div class="form-group">
+                <div class="form-group has-feedback">
                   <label>Country Name</label>
                   <input type="text" class="form-control" name="countryname">
                 </div>
@@ -89,40 +90,6 @@
               <!-- /.modal-content -->
             </div>
             <!-- /.modal-dialog -->
-          </div>
-        </form>
-      </div>
-
-      <div class="modal fade" id="edit">
-        <form method="post" action="/editCountry">
-          <input type="hidden" name="id">
-          {{csrf_field()}}
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit Country</h4>
-              </div>
-              <div class="modal-body">
-                <div class="form-group">
-                  <label>Country Name</label>
-                  <input type="text" class="form-control" name="countryname">
-                </div>
-                <div class="form-group">
-                  <label>Country Requirements</label>
-                  @foreach($genreq as $req)
-                  <div class="checkbox">
-                    <label><input type="checkbox" name="req[]" value="{{$req->REQ_ID}}">{{$req->REQNAME}}</label>
-                  </div>
-                  @endforeach
-                </div>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-success">Save</button>
-                  <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-              </div> 
-            </div> 
           </div>
         </form>
       </div>
@@ -166,15 +133,23 @@
         rules: {
           countryname : {
             required : true,
-          }
-        }
+            minlength: 5,
+            maxlength: 30
+          },
+        },
       });
 
       $('#add').click(function(){
-        $('#addCountry form').trigger('reset');
+        $('#addCountry form').trigger('reset').attr('action','/addCountry');
+        clearform();
+        $('#addCountry .modal-title').text('Add Country');
         $('#addCountry').modal();
       });
+
       $('.edit').click(function(){
+        $('#addCountry form').trigger('reset').attr('action','/editCountry');
+        clearform();
+        $('#addCountry .modal-title').text('Edit Country');
         $('#edit form .checkbox input').prop('checked',false);
         $.ajax
         ({
@@ -183,14 +158,14 @@
           dataType : 'json',
           data: { id : $(this).val() },
           success:function(response) {
-            $('#edit form input[name=id]').val(response[0].COUNTRY_ID);
-            $('#edit form input[name=countryname]').val(response[0].COUNTRYNAME);
+            $('#addCountry form input[name=id]').val(response[0].COUNTRY_ID);
+            $('#addCountry form input[name=countryname]').val(response[0].COUNTRYNAME);
             response[1].forEach(function(data) { 
-              $('#edit form .checkbox input[value='+data.REQ_ID+']').prop('checked',true);
+              $('#addCountry form .checkbox input[value='+data.REQ_ID+']').prop('checked',true);
             });
           },
           complete:function(){
-            $('#edit').modal();
+            $('#addCountry').modal();
           }
         });
       });

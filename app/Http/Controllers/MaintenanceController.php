@@ -220,11 +220,11 @@ class MaintenanceController extends Controller
     	$country = Country::where('status',0)->get();
     	$banks = DB::table('banks_t')->where('status',0)->get();
     	$accbanks = DB::table('banksallowed_t as bt')->join('country_t as ct','ct.COUNTRY_ID','=','bt.COUNTRY_ID')->select(DB::raw('count(ct.COUNTRY_ID) as bank, ct.COUNTRY_ID, ct.COUNTRYNAME'))->groupby('COUNTRYNAME','COUNTRY_ID')->get();
-    	return view('maintenance.acceptedbanks',['cnt' => $country, 'bnk' => $banks, 'acbnk' => $accbanks]);
+    	return view('maintenance.acceptedbanks',compact('country','banks','accbanks'));
     }
     public function addAccBanks(Request $req){
     	foreach ($req->bank as $bnk) {
-    		DB::table('banksallowed_t')->insert([
+    		BanksAllowed::insert([
     			'COUNTRY_ID' => $req->country,
     			'BANK_ID' => $bnk
     		]);
@@ -237,7 +237,14 @@ class MaintenanceController extends Controller
     	return response()->json($var);
     }
     public function editAccBanks(Request $req){
-
+        BanksAllowed::where('COUNTRY_ID',$req->country)->delete();
+        foreach ($req->bank as $bnk) {
+            BanksAllowed::insert([
+                'COUNTRY_ID' => $req->country,
+                'BANK_ID' => $bnk
+            ]);
+        }
+        return redirect('/Maintenance/AcceptedBanks');
     }
     public function delAccBanks(Request $req){
     	DB::table('banksallowed_t')->where('COUNTRY_ID',$req->id)->delete();

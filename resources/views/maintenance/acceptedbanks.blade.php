@@ -20,7 +20,7 @@
               <h3 class="box-title">Acccepted Banks</h3>
             </div>
             <div class="box-body">
-              <button class="btn btn-primary" data-toggle="modal" data-target="#addAccBanks" style="padding: 10px; width: 100px;"><strong>ADD</strong>  <span class="fa fa-plus"></span></button>
+              <button class="btn btn-primary" id="add" style="padding: 10px; width: 100px;"><strong>ADD</strong>  <span class="fa fa-plus"></span></button>
               <div class="content">
                 <table class="table table-hover" id="example1">
                   <thead>
@@ -32,7 +32,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($acbnk as $acbnk)
+                    @foreach($accbanks as $acbnk)
                     <tr>
                       <td>{{$acbnk->COUNTRY_ID}}</td>
                       <td>{{$acbnk->COUNTRYNAME}}</td>
@@ -50,10 +50,10 @@
           </div>
         </div>
       </div>
-      @php $cnt1 = $cnt; $bnk1 = $bnk @endphp
+
   <!-- modal -->
       <div class="modal fade" id="addAccBanks">
-        <form method="post" action="/addAccBanks">
+        <form method="post">
           {{csrf_field()}}
           <div class="modal-dialog">
             <div class="modal-content">
@@ -66,55 +66,18 @@
                 <div class="form-group">
                 	<label>Country</label>
                   	<select class="form-control" placeholder="Input something.." name="country">
-	                    @foreach($cnt as $cnt)
+	                    @foreach($country as $cnt)
 	                    <option value="{{$cnt->COUNTRY_ID}}">{{$cnt->COUNTRYNAME}}</option>
 	                    @endforeach
                   	</select>
                 </div>
 				        <div class="form-group">
 	                <label>Bank Name</label>
-	                @foreach($bnk as $bnk)
+	                @foreach($banks as $bnk)
 	                <div class="checkbox">
                   		<label><input type="checkbox" name="bank[]" value="{{$bnk->BANK_ID}}">{{$bnk->BANKNAME}}</label>
                   	</div>
-                	@endforeach
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Save</button>
-                <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div> 
-          </div>
-        </form>
-      </div>
-
-      <div class="modal fade" id="edit">
-        <form method="post" action="/editAccBanks">
-          {{csrf_field()}}
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit Accepted Bank</h4>
-              </div>
-              <div class="modal-body">
-                <div class="form-group">
-                  <label>Country</label>
-                    <select class="form-control" placeholder="Input something.." name="country">
-                      @foreach($cnt1 as $cnt)
-                      <option value="{{$cnt->COUNTRY_ID}}">{{$cnt->COUNTRYNAME}}</option>
-                      @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                  <label>Bank Name</label>
-                  @foreach($bnk1 as $bnk)
-                  <div class="checkbox">
-                      <label><input type="checkbox" name="bank[]" value="{{$bnk->BANK_ID}}">{{$bnk->BANKNAME}}</label>
-                    </div>
-                  @endforeach
+                	@endforeach 
                 </div>
               </div>
               <div class="modal-footer">
@@ -161,7 +124,30 @@
       $('.sidebar-menu .mntc').trigger('click');
       $('.sidebar-menu li.abnk').addClass('active'); 
 
+      $('#addAccBanks form').validate({
+        rules: {
+          'bank[]': {
+            required: true,
+          },
+        },
+        messages: {
+          'bank[]': {
+            required: 'Check atleast one',           
+          }
+        }
+      });
+
+      $('#add').click(function(){
+        $('#addAccBanks form').trigger('reset').attr('action','/addAccBanks');
+        clearform();
+        $('#addAccBanks .modal-title').text('Add Accepted Bank');
+        $('#addAccBanks').modal();
+      });
+
       $('.edit').click(function(){
+        $('#addAccBanks form').trigger('reset').attr('action','/editAccBanks');
+        clearform();
+        $('#addAccBanks .modal-title').text('Edit Accepted Bank');
         $.ajax
         ({
           url: '/getAccBanks',
@@ -169,13 +155,13 @@
           dataType : 'json',
           data: { id : $(this).val() },
           success:function(response) {
-            $('#edit form select[name=country]').val(response.COUNTRY_ID);
+            $('#addAccBanks form select[name=country]').val(response[0].COUNTRY_ID);
             response.forEach(function(data) { 
-              $('#edit form .checkbox input[value='+data.BANK_ID+']').prop('checked',true);
+              $('#addAccBanks form .checkbox input[value='+data.BANK_ID+']').prop('checked',true);
             });
           },
           complete:function(){
-            $('#edit').modal();
+            $('#addAccBanks').modal();
           }
         });
       });
