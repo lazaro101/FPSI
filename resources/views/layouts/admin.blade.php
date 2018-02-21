@@ -5,24 +5,38 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>FPSI | @yield('title')</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/font-awesome/css/font-awesome.min.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/Ionicons/css/ionicons.min.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/jvectormap/jquery-jvectormap.css') }}">
+
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/select2/dist/css/select2.css') }}">
-  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}">
-
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/select2-theme/dist/select2-bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/AdminLTE.min.css') }}">
-
   <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/skins/_all-skins.min.css') }}">
 
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/fullcalendar/dist/fullcalendar.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/fullcalendar/dist/fullcalendar.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/fullcalendar/dist/fullcalendar.print.min.css') }}" media="print">
 
   <!-- <link rel="stylesheet" href="{{ asset('validator/demo/css/screen.css') }}"> -->
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  
+  <style type="text/css">
+  .has-error .select2-container--default .select2-selection--single,
+  .has-error .select2-selection .select2-selection--single {
+    border: 1px solid #d60505 !important;
+    border-radius: 0;
+    padding: 6px 12px;
+    height: 34px;
+  }
+  </style>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -414,15 +428,14 @@
   <div class="control-sidebar-bg"></div>
 
 </div>
-<!-- ./wrapper -->
 
-<script src="{{ asset('AdminLTE/bower_components/moment/moment.js') }}"></script>
 <!-- jQuery 3 -->
-<script src="{{ asset('AdminLTE/bower_components/jquery/dist/jquery.js') }}"></script>
-<!-- Bootstrap 3.3.7 -->
+<script src="{{ asset('AdminLTE/bower_components/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<!-- FastClick -->
+<script src="{{ asset('AdminLTE/bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
+
 <script src="{{ asset('AdminLTE/bower_components/fastclick/lib/fastclick.js') }}"></script>
+<script src="{{ asset('AdminLTE/bower_components/moment/moment.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
 <!-- Sparkline -->
@@ -432,29 +445,28 @@
 <script src="{{ asset('AdminLTE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
 <!-- SlimScroll -->
 <script src="{{ asset('AdminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/bower_components/fastclick/lib/fastclick.js') }}"></script>
 <!-- ChartJS -->
 <script src="{{ asset('AdminLTE/bower_components/Chart.js/Chart.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('AdminLTE/dist/js/pages/dashboard2.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('AdminLTE/dist/js/demo.js') }}"></script>
-
 <!-- DataTables -->
 <script src="{{ asset('AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-
 <script src="{{ asset('AdminLTE/bower_components/select2/dist/js/select2.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-<script src="{{ asset('AdminLTE/bower_components/fullcalendar/dist/fullcalendar.js') }}"></script>
-
 <script src="{{ asset('AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script> 
-
+<!-- Fullcalendar -->
+<script src="{{ asset('AdminLTE/bower_components/fullcalendar/dist/fullcalendar.min.js') }}"></script> 
+<!-- <script src="{{ asset('AdminLTE/bower_components/fullcalendar/dist/locale-all.js') }}"></script>  -->
+<!-- InputMask -->
 <script src="{{ asset('AdminLTE/bower_components/inputmask/dist/jquery.inputmask.bundle.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/inputmask/dist/inputmask/phone-codes/phone.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/inputmask/dist/inputmask/phone-codes/phone-be.js') }}"></script>
 <script src="{{ asset('AdminLTE/bower_components/inputmask/dist/inputmask/phone-codes/phone-ru.js') }}"></script>
-
-<!-- <script src="{{ asset('validator/lib/jquery.js') }}"></script> -->
+<!-- Jquery Validation -->
 <script src="{{ asset('validator/dist/jquery.validate.js') }}"></script>
 
 <script type="text/javascript">
@@ -462,32 +474,35 @@
     $('#example1').DataTable();
 
     $.validator.setDefaults({
-      onfocusout: true,
-      // errorClass: 'help-block',
+       onkeyup: false,
+       onclick: false,
+       onfocusout: false,
       highlight: function(element){
         $(element)
           .closest('.form-group')
           .addClass('has-error');
-        $(element).closest('.form-group').find('span').remove();
+        $(element).closest('.form-group').find('span.glyphicon').remove();
         $(element).closest('.form-group.has-feedback').append('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
       },
       unhighlight: function(element){
         $(element)
           .closest('.form-group')
           .removeClass('has-error');
-        $(element).closest('.form-group').find('span').remove();
+        $(element).closest('.form-group').find('span.glyphicon').remove();
         $(element).closest('.form-group').addClass('has-success');
         $(element).closest('.form-group.has-feedback').append('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
       },
       errorPlacement: function(error, element){
         if (element.prop('type') == 'checkbox') {
-          element.closest('.form-group').last('.checkbox').append(error);
-        } else {
-          if (element.prop('id') == 'datepicker') {
-            element.closest('.form-group').append(error);
-          } else {
-            error.insertAfter(element);
-          }
+          // element.parent().parent().parent().append(error);
+        } else if(element.hasClass('select2')) {
+          element.closest('.form-group').append(error);
+        } else if(element.hasClass('ingrp')) {
+          element.parent().parent().append(error);
+        } else if(element.prop('id') == 'datepicker') {
+          element.closest('.form-group').append(error);
+        } else { 
+            error.insertAfter(element); 
         }
       }
     });
@@ -496,7 +511,7 @@
   function clearform(){
     $('.form-group').each(function () { $(this).removeClass('has-success'); });
     $('.form-group').each(function () { $(this).removeClass('has-error'); });
-    $('.form-group').each(function () { $(this).find('span').remove(); });
+    $('.form-group').each(function () { $(this).find('span.glyphicon').remove(); });
     $('form').validate().resetForm();
   }
 </script>

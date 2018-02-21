@@ -141,7 +141,7 @@
                       <label class="col-sm-4 control-label">Salary</label>
                       <div class="col-sm-8">
                         <div class="input-group">
-                          <input type="number" name="salary" class="form-control"> 
+                          <input type="number" name="salary" class="form-control ingrp"> 
                           <span class="input-group-addon symbl">Nan</span>
                         </div>
                       </div>
@@ -150,7 +150,7 @@
                       <label class="col-sm-4 control-label">Height</label>
                       <div class="col-sm-8">
                         <div class="input-group">
-                          <input type="number" name="height" class="form-control">
+                          <input type="number" name="height" class="form-control ingrp">
                           <span class="input-group-addon">cm</span>
                         </div>
                       </div>
@@ -159,7 +159,7 @@
                       <label class="col-sm-4 control-label">Weight</label>
                       <div class="col-sm-8">
                         <div class="input-group">
-                          <input type="number" name="weight" class="form-control">
+                          <input type="number" name="weight" class="form-control ingrp">
                           <span class="input-group-addon">kg</span>
                         </div>
                       </div>
@@ -190,17 +190,17 @@
                   </div>
                 </div>
                 <div class="divdocreq">
-                  <div class="row form-horizontal">
+                  <div class="row">
                     <div class="col-sm-10 col-sm-offset-1">
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">Requirement Name</label>
-                        <div class="col-sm-8">
+                        <label class="control-label">Requirement Name</label>
+                        <!-- <div class="col-sm-8"> -->
                           <select class="select2 form-control docreq" multiple name="docreq[]" style="width: 100%">
                             @foreach($docreq as $req)
                             <option value="{{$req->REQ_ID }}">{{$req->REQNAME}}</option>
                             @endforeach
                           </select>
-                        </div>
+                        <!-- </div> -->
                       </div>
                     </div> 
                   </div>
@@ -249,15 +249,15 @@
 
       $('#addJobOrder form').validate({
         rules: {
-          // employer: {
-          //   required: true,
-          // },
-          // jobcat: {
-          //   required: true,
-          // },
-          // job: {
-          //   required: true,
-          // },
+          employer: {
+            required: true,
+          },
+          jobcat: {
+            required: true,
+          },
+          job: {
+            required: true,
+          },
           'gender[]': {
             required: true,
           },
@@ -281,6 +281,9 @@
             required: true,
             maxlength: 10,
             number: true
+          },
+          'docreq[]': {
+            required: true,
           },
         },
       });

@@ -31,4 +31,8 @@ class App extends Model
     public function appaddress() {
     	return $this->hasMany('App\AppAddress', 'APP_ID');
     }
+
+    public function job(){
+        return $this->belongsTo('App\Job','JOB_ID');
+    }
 }

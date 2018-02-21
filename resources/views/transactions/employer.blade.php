@@ -175,6 +175,9 @@
       $('.sidebar-menu li.empr').addClass('active');
 
       $('#addform form').validate({
+        groups: {
+          fullname: 'fname mname lname'
+        },
         rules: {
           empname: {
             required: true,

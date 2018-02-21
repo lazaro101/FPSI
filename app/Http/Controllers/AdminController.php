@@ -214,11 +214,8 @@ class AdminController extends Controller
 
     public function TransactionsApplicant(){
         $app = App::where('status',0)->get();
-        return view('transactions.applicant', compact('app'));
-    }
-    public function getSkillGeneralAll(){
-        $var = GenSkills::where('SKILLTYPE', 'General')->where('status',0)->get();
-        return response()->json($var);
+        $jobs = Job::where('status',0)->get();
+        return view('transactions.applicant', compact('app','jobs'));
     }
     public function getApplicant(Request $req){
         $app = App::where('APP_ID',$req->id)->first();
@@ -236,7 +233,7 @@ class AdminController extends Controller
             'LNAME' => $req->lname ,
             'FNAME' => $req->fname ,
             'MNAME' => $req->mname ,
-            'POSITION' => $req->position ,
+            'JOB_ID' => $req->position ,
             'GENDER' => $req->gender ,
             'CIVILSTAT' => $req->civilstatus ,
             'CONTACT' => $req->cnum ,
@@ -321,7 +318,7 @@ class AdminController extends Controller
             'LNAME' => $req->lname ,
             'FNAME' => $req->fname ,
             'MNAME' => $req->mname ,
-            'POSITION' => $req->position ,
+            'JOB_ID' => $req->position ,
             'GENDER' => $req->gender ,
             'CIVILSTAT' => $req->civilstatus ,
             'CONTACT' => $req->cnum ,

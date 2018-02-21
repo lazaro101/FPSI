@@ -34,7 +34,7 @@
                       @foreach($app as $app)
                       <tr>
                           <td>{{$app->FNAME.' '.$app->MNAME.' '.$app->LNAME}}</td>
-                          <td>{{$app->POSITION}}</td>
+                          <td>{{$app->job->JOBNAME}}</td>
                           <td>
                               <button type="button" class="btn btn-info edit" value="{{$app->APP_ID}}"><i class="fa fa-pencil"></i></button>
                               <button type="button" class="btn btn-danger del" value="{{$app->APP_ID}}"><i class="fa fa-trash"></i></button>
@@ -75,10 +75,11 @@
                                 <label>Position</label>
                             </div> 
                             <div class="col-md-4">
-                                <select class="form-control" name="position"> 
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
-                                    <option value="3">Option 3</option>
+                                <select class="form-control select2 position" name="position" style="width: 100%"> 
+                                    <option></option>
+                                    @foreach($jobs as $job)
+                                    <option value="{{$job->JOB_ID}}">{{$job->JOBNAME}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -215,7 +216,7 @@
                                 <div class="input-group-addon">
                                   <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control" id="incyear">
+                                <input type="text" class="form-control" id="incyear" placeholder="YYYY - YYYY">
                             </div> 
                         </div>  
                     </div>
@@ -245,7 +246,7 @@
                         <div class="col-md-12">
                             <table class="table table-condensed">
                                 <thead>
-                                    <th style="display: none;">ID</th>
+                                    <th style="display: none;">DATA</th>
                                     <th style="width: 50%">Skill</th>
                                     <th style="width: 30%">Proficiency</th>
                                     <th style="width: 20%">Action</th>
@@ -260,7 +261,8 @@
                             <label>Skill Name</label>
                         </div>
                         <div class="col-md-4">
-                            <select class="form-control" id="sklname">
+                            <select class="form-control select2" id="sklname" style="width: 100%">
+                                <option></option>
                             </select>
                         </div>
                         <div class="col-md-2">
@@ -326,7 +328,7 @@
                                     <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control" id="empldate">
+                                    <input type="text" class="form-control" id="empldate" placeholder="mm/yyyy - mm/yyyy">
                                 </div>
                             </div> 
                             <div class="col-md-1">
@@ -547,6 +549,7 @@
         $('.sidebar-menu .trnsc').trigger('click');
         $('.sidebar-menu .am').trigger('click');
         $('.sidebar-menu li.app').addClass('active');
+        $('.select2').select2({ placeholder: 'Select...' });
  
         $('.datepicker').datepicker({
             startView: 2,
@@ -558,22 +561,37 @@
  
         $('#incyear').inputmask({"mask": "9999 - 9999"});
         $('#empldate').inputmask({"mask": "99/9999 - 99/9999"});
-        // $('input[name=cnum]').inputmask({"mask": "9999-999-9999"});
+        $('input[name=cnum]').inputmask({"mask": "9999-999-9999"});
+        $('input[name=height]').inputmask('decimal', { rightAlign: false, suffix: ' cm', placeholder: '0' });
+        $('input[name=weight]').inputmask('decimal', { rightAlign: false, suffix: ' kg', placeholder: '0' });
 
-        $.ajax
-        ({
-          url: '/getSkillGeneralAll',
-          type:'get', 
-          dataType : 'json',
-          success:function(response) {
-            response.forEach(function(data){
-                $('#sklname').append('<option value="'+data.SKILL_ID+'">'+data.SKILLNAME+'</option>');
+        $('.position').on('change',function(){
+            $.ajax
+            ({
+              url: '/getSkillFee',
+              type:'get', 
+              data: { jid : $(this).val() },
+              dataType : 'json',
+              success:function(response) {
+                $('#sklname').empty();
+                $('#sklname').append('<option></option>');
+                response[0].forEach(function(data){
+                    $('#sklname').append('<option value="'+data.SKILL_ID+'">'+data.SKILLNAME+'</option>');
+                }); 
+              }
             }); 
-          }
-        }); 
+        });
 
+        $('.addApplicant').click(function(){
+            $('#addApplicant form').trigger('reset').attr('action','/addApplicant');
+            $('#addApplicant .modal-title').text('New Applicant');
+            clearform();
+            $('.select2').select2({ placeholder: 'Select...' });
+            $('#listEdu, #listEmphist, #listSkills, #listChild, #listConper').empty();
+        });
         $('.edit').click(function(){
             $('#addApplicant form').trigger('reset').attr('action','/editApplicant');
+            $('#addApplicant .modal-title').text('Edit Applicant');
             $('#listEdu, #listEmphist, #listSkills, #listChild, #listConper').empty();
             $.ajax
             ({
@@ -583,7 +601,7 @@
               dataType : 'json',
               success:function(response) {
                 $('input[name=id]').val(response[0].APP_ID);
-                $('select[name=position]').val(response[0].POSITION).trigger('change');
+                $('select[name=position]').val(response[0].JOB_ID).trigger('change');
                 $('input[name=fname]').val(response[0].FNAME);
                 $('input[name=lname]').val(response[0].LNAME); 
                 $('input[name=mname]').val(response[0].MNAME);
@@ -591,6 +609,7 @@
                 $('input[name=height]').val(response[0].AHEIGHT);
                 $('input[name=weight]').val(response[0].AWEIGHT);
                 $('input[name=cnum]').val(response[0].CONTACT);
+                $('input[name=birthdate]').datepicker('setDate',moment(response[0].BIRTHDATE).format("MM/DD/YYYY"));
                 // $('input[name=cadd]').val(response[1].MNAME);
                 // $('input[name=padd]').val(response[1].MNAME);
                 $('input[name=fathername]').val(response[6].NAMEOFFATHER);
@@ -674,10 +693,6 @@
             $('#del form input[name=id]').val($(this).val());
             $('#del').modal();
           });
-        $('.addApplicant').click(function(){
-            $('#addApplicant form').trigger('reset').attr('action','/addApplicant');
-            $('#listEdu, #listEmphist, #listSkills, #listChild, #listConper').empty();
-        });
 
         $('.addskills').click(function(){
             var row = 
@@ -688,7 +703,7 @@
                 "<td style='text-align: center;'><button type='button' class='btn btn-danger btn-xs remove'><i class='fa fa-remove'></i></button></td>"+
             "</tr>";
             $('#listSkills').append(row);
-            $('#sklname, #prof').val('');
+            // $('#sklname, #prof').val('');
         });
         $('.addedbg').click(function(){
             var row = 
