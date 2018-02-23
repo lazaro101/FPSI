@@ -3,25 +3,16 @@
 @section('title','Initial Interview')
 
 @section('content')
-
-
 <div class="wrapper">
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
         Transactions
         <small>Initial Interview</small>
       </h1>
-      <!--<ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Calendar</li>
-      </ol>-->
     </section>
 
-    <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-md-3">
@@ -99,7 +90,7 @@
       </div>
       <!-- /.row -->
     </section>
-    <!-- /.content -->
+
   </div>
   <!-- /.content-wrapper -->
 </div>
@@ -108,16 +99,11 @@
  @endsection
 
  @section('script')
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $('.sidebar-menu .trnsc').trigger('click');
-      $('.sidebar-menu .jd').trigger('click');
-      $('.sidebar-menu li.intin').addClass('active');
-      });
-  </script>
-
-  <script>
-  $(function () {
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.sidebar-menu .trnsc').trigger('click');
+    $('.sidebar-menu .am').trigger('click');
+    $('.sidebar-menu li.intin').addClass('active');
 
     /* initialize the external events
      -----------------------------------------------------------------*/
@@ -275,8 +261,9 @@
       //Remove event from text input
       $('#new-event').val('')
     })
-  })
-  </script>
+
+  });
+</script>
 
  @endsection
 

@@ -76,7 +76,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $('.sidebar-menu .trnsc').trigger('click');
-      $('.sidebar-menu .jd').trigger('click');
+      $('.sidebar-menu .am').trigger('click');
       $('.sidebar-menu li.appmat').addClass('active');
       $('.select2').select2({placeholder:'Select...'});
     });

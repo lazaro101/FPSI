@@ -19,10 +19,13 @@ class Job extends Model
     }
 
     public function specificskill() {
-    	return $this->hasMany('App\SpecificSkill', 'Job_id');
+    	return $this->hasMany('App\SpecificSkill', 'JOB_ID');
     } 
 
     public function joborder() {
         return $this->hasMany('App\JobOrder', 'JOB_ID');
+    }
+    public function app(){
+        return $this->hasMany('App\App','JOB_ID');
     }
 }

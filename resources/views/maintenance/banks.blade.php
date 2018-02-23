@@ -5,16 +5,10 @@
 @section('content')
 
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
         Maintenance
-        <!-- <small>Control panel</small> -->
       </h1>
-    <!--   <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol> -->
     </section>
 
     <section class="content">
@@ -26,7 +20,7 @@
               <h3 class="box-title">Banks</h3>
             </div>
             <div class="box-body">
-              <button class="btn btn-primary" data-toggle="modal" data-target="#addBanks" style="padding: 10px; width: 100px;"><strong>ADD</strong>  <span class="fa fa-plus"></span></button>
+              <button class="btn btn-primary" id="add" style="padding: 10px; width: 100px;"><strong>ADD</strong>  <span class="fa fa-plus"></span></button>
               <div class="content">
                 <table class="table table-hover" id="example1">
                   <thead>
@@ -54,8 +48,9 @@
       </div>
 
       <div class="modal fade" id="addBanks">
-        <form method="post" action="/addBanks">
+        <form method="post">
           {{csrf_field()}}
+          <input type="hidden" name="id">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -64,34 +59,7 @@
                 <h4 class="modal-title">Add Bank</h4>
               </div>
               <div class="modal-body">
-                <div class="form-group">
-                  <label>Bank Name</label>
-                  <input type="text" class="form-control" placeholder="ex. Metrobank" name="bankname">
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Save</button>
-                <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-        </form>
-      </div>
-
-      <div class="modal fade" id="edit">
-        <form method="post" action="/editBanks">
-          {{csrf_field()}}
-          <input type="hidden" name="id">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit Bank</h4>
-              </div>
-              <div class="modal-body">
-                <div class="form-group">
+                <div class="form-group has-feedback">
                   <label>Bank Name</label>
                   <input type="text" class="form-control" placeholder="ex. Metrobank" name="bankname">
                 </div>
@@ -141,7 +109,27 @@
       $('.sidebar-menu .mntc').trigger('click');
       $('.sidebar-menu li.bnk').addClass('active'); 
 
+      $('#addBanks form').validate({
+        rules: {
+          bankname : {
+            required : true,
+            // minlength: 5,
+            maxlength: 30
+          },
+        },
+      });
+
+      $('#add').click(function(){
+        $('#addBanks form').trigger('reset').attr('action','/addBanks');
+        clearform();
+        $('#addBanks .modal-title').text('Add Bank');
+        $('#addBanks').modal();
+      });
+
       $('.edit').click(function(){
+        $('#addBanks form').trigger('reset').attr('action','/editBanks');
+        clearform();
+        $('#addBanks .modal-title').text('Edit Bank');
         $.ajax
         ({
           url: '/getBanks',
@@ -149,11 +137,11 @@
           dataType : 'json',
           data: { id : $(this).val() },
           success:function(response) {
-            $('#edit form input[name=id]').val(response.BANK_ID);
-            $('#edit form input[name=bankname]').val(response.BANKNAME);
+            $('#addBanks form input[name=id]').val(response.BANK_ID);
+            $('#addBanks form input[name=bankname]').val(response.BANKNAME);
           },
           complete:function(){
-            $('#edit').modal();
+            $('#addBanks').modal();
           }
         });
       });

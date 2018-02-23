@@ -5,16 +5,10 @@
 @section('content')
 
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
         Transactions
-        <!-- <small>Control panel</small> -->
       </h1>
-    <!--   <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol> -->
     </section>
 
     <section class="content">
@@ -26,7 +20,7 @@
               <h3 class="box-title">Job Order</h3>
             </div>
             <div class="box-body">
-              <button class="btn btn-primary addJobOrder" data-toggle="modal" data-target="#addJobOrder" style="padding: 10px; width: 160px;"><strong>CREATE JOB ORDER</strong>  <span class="fa fa-plus"></span></button>
+              <button class="btn btn-primary" id="add" style="padding: 10px; width: 160px;"><strong>CREATE JOB ORDER</strong>  <span class="fa fa-plus"></span></button>
               <div class="content">
                 <table class="table table-hover" id="example1">
                   <thead>
@@ -116,7 +110,7 @@
                         <option></option>
                       </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group has-feedback">
                       <label>Contract Start</label>
 
                       <div class="input-group date">
@@ -147,7 +141,7 @@
                       <label class="col-sm-4 control-label">Salary</label>
                       <div class="col-sm-8">
                         <div class="input-group">
-                          <input type="number" name="salary" class="form-control"> 
+                          <input type="number" name="salary" class="form-control ingrp"> 
                           <span class="input-group-addon symbl">Nan</span>
                         </div>
                       </div>
@@ -156,7 +150,7 @@
                       <label class="col-sm-4 control-label">Height</label>
                       <div class="col-sm-8">
                         <div class="input-group">
-                          <input type="number" name="height" class="form-control">
+                          <input type="number" name="height" class="form-control ingrp">
                           <span class="input-group-addon">cm</span>
                         </div>
                       </div>
@@ -165,7 +159,7 @@
                       <label class="col-sm-4 control-label">Weight</label>
                       <div class="col-sm-8">
                         <div class="input-group">
-                          <input type="number" name="weight" class="form-control">
+                          <input type="number" name="weight" class="form-control ingrp">
                           <span class="input-group-addon">kg</span>
                         </div>
                       </div>
@@ -196,17 +190,17 @@
                   </div>
                 </div>
                 <div class="divdocreq">
-                  <div class="row form-horizontal">
+                  <div class="row">
                     <div class="col-sm-10 col-sm-offset-1">
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">Requirement Name</label>
-                        <div class="col-sm-8">
+                        <label class="control-label">Requirement Name</label>
+                        <!-- <div class="col-sm-8"> -->
                           <select class="select2 form-control docreq" multiple name="docreq[]" style="width: 100%">
                             @foreach($docreq as $req)
                             <option value="{{$req->REQ_ID }}">{{$req->REQNAME}}</option>
                             @endforeach
                           </select>
-                        </div>
+                        <!-- </div> -->
                       </div>
                     </div> 
                   </div>
@@ -252,7 +246,75 @@
       var reqoption = "";
       var feeoption = "";
       var symbol = "Nan";
-    
+
+      $('#addJobOrder form').validate({
+        rules: {
+          employer: {
+            required: true,
+          },
+          jobcat: {
+            required: true,
+          },
+          job: {
+            required: true,
+          },
+          'gender[]': {
+            required: true,
+          },
+          contract: {
+            required: true,
+          },
+          numemp: {
+            required: true,
+          },
+          salary: {
+            required: true,
+            maxlength: 10,
+            number: true
+          },
+          weight: {
+            required: true,
+            maxlength: 10,
+            number: true
+          },
+          height: {
+            required: true,
+            maxlength: 10,
+            number: true
+          },
+          'docreq[]': {
+            required: true,
+          },
+        },
+      });
+
+      $('#add').click(function(){
+        $('#addJobOrder form').trigger('reset').attr('action','/addJobOrder');
+        clearform();
+        $('#addJobOrder .modal-title').text('Add Employer');
+        $('#addJobOrder').modal();
+        $('#addJobOrder form').trigger('reset').attr('action','/addJobOrder');
+        $('#addJobOrder .modal-title').text('Create Job Order');
+        $('#addJobOrder .symbl').text('Nan');
+
+        $('#addJobOrder .divskill').empty();
+
+        $('#addJobOrder .divreqfees').empty();
+        $('.select2').select2();
+        $('.select2.emplsel').select2({
+          placeholder: "Select Employer",
+          allowClear: true
+        });
+        $('.select2.jobsel').select2({
+          placeholder: "Select Job",
+          allowClear: true
+        });
+        $('.select2.ctgrysel').select2({
+          placeholder: "Select Category",
+          allowClear: true
+        });
+      });
+
       $('.edit').click(function(){
         $('#addJobOrder form').trigger('reset').attr('action','/editJobOrder');
         $('#addJobOrder .modal-title').text('Edit Job Order');
@@ -317,29 +379,6 @@
           }
         }); 
 
-      });
-      $('button.addJobOrder').click(function(){
-        $('#addJobOrder form').trigger('reset').attr('action','/addJobOrder');
-        $('#addJobOrder .modal-title').text('Create Job Order');
-        $('#addJobOrder .symbl').text('Nan');
-
-        $('#addJobOrder .divskill').empty();
-
-        $('#addJobOrder .divreqfees').empty();
-        $('.select2').select2();
-        $('.select2.emplsel').select2({
-          placeholder: "Select Employer",
-          allowClear: true
-        });
-        $('.select2.jobsel').select2({
-          placeholder: "Select Job",
-          allowClear: true
-        });
-        $('.select2.ctgrysel').select2({
-          placeholder: "Select Category",
-          allowClear: true
-        });
-       
       });
       $('#addJobOrder .addskill').click(function(){
         addSkill();
