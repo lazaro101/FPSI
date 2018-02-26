@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2018 at 05:46 PM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Feb 26, 2018 at 03:39 AM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -47,6 +49,14 @@ CREATE TABLE `appchildren_t` (
   `BIRTHDATE` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `appchildren_t`
+--
+
+INSERT INTO `appchildren_t` (`APP_ID`, `CHILDNAME`, `AGE`, `BIRTHDATE`) VALUES
+(1, 'asd', 0, '1998-10-27'),
+(6, 'wqe', 0, '1998-10-27');
+
 -- --------------------------------------------------------
 
 --
@@ -58,6 +68,14 @@ CREATE TABLE `appcontact_t` (
   `CONTACTNAME` varchar(100) DEFAULT NULL,
   `CONTACTNUM` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appcontact_t`
+--
+
+INSERT INTO `appcontact_t` (`APP_ID`, `CONTACTNAME`, `CONTACTNUM`) VALUES
+(1, 'wqe', '123132'),
+(6, 'qwe', '213');
 
 -- --------------------------------------------------------
 
@@ -110,6 +128,15 @@ CREATE TABLE `apppersonal_t` (
   `SOCCUPATION` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `apppersonal_t`
+--
+
+INSERT INTO `apppersonal_t` (`APP_ID`, `NAMEOFFATHER`, `FAGE`, `FOCCUPATION`, `NAMEOFMOTHER`, `MAGE`, `MOCCUPATION`, `NAMEOFSPOUSE`, `SAGE`, `SOCCUPATION`) VALUES
+(1, 'father', '45', 'po', 'mother', '43', 'po', 'spouse', '42', 'po'),
+(5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 'WQE', '12', 'QWE', 'QWE', '12', 'QWE', 'QWE', '12', 'QWE');
+
 -- --------------------------------------------------------
 
 --
@@ -125,6 +152,16 @@ CREATE TABLE `appschool_t` (
   `DEGREE` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `appschool_t`
+--
+
+INSERT INTO `appschool_t` (`APP_ID`, `SCHOOLNAME`, `SCHOOLTYPE`, `YRSTART`, `YREND`, `DEGREE`) VALUES
+(4, 'sad', 'Elementary', 2019, 2019, 'wqe'),
+(5, 'sad', 'Elementary', 2019, 2019, 'wqe'),
+(1, 'asd', 'Tertiary', 2014, 2018, 'asd'),
+(6, 'qweqwe', 'qweqwe', 2019, 2018, 'qweqwe');
+
 -- --------------------------------------------------------
 
 --
@@ -136,6 +173,14 @@ CREATE TABLE `appskills_t` (
   `SKILL_ID` int(11) DEFAULT NULL,
   `PROFICIENCY` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appskills_t`
+--
+
+INSERT INTO `appskills_t` (`APP_ID`, `SKILL_ID`, `PROFICIENCY`) VALUES
+(1, 1, 1),
+(6, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -154,6 +199,13 @@ CREATE TABLE `appworkex_t` (
   `YEAREND` year(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `appworkex_t`
+--
+
+INSERT INTO `appworkex_t` (`APP_ID`, `COMPANY`, `COMPANYADD`, `POSITION`, `MONTHSTART`, `YEARSTART`, `MONTHEND`, `YEAREND`) VALUES
+(6, 'QWE', 'QWE', 'QWE', '06', 1997, '08', 2009);
+
 -- --------------------------------------------------------
 
 --
@@ -165,17 +217,26 @@ CREATE TABLE `app_t` (
   `LNAME` varchar(30) NOT NULL,
   `FNAME` varchar(30) NOT NULL,
   `MNAME` varchar(30) DEFAULT NULL,
-  `POSITION` varchar(30) DEFAULT NULL,
+  `JOB_ID` int(11) DEFAULT NULL,
   `GENDER` char(6) DEFAULT NULL,
   `CIVILSTAT` varchar(30) DEFAULT NULL,
   `CONTACT` varchar(30) NOT NULL,
-  `CITIZENSHIP` varchar(60) NOT NULL,
+  `CITIZENSHIP` varchar(60) DEFAULT NULL,
   `BIRTHDATE` date NOT NULL,
   `AGE` int(11) DEFAULT NULL,
   `AHEIGHT` varchar(10) DEFAULT NULL,
   `AWEIGHT` varchar(10) DEFAULT NULL,
-  `APPSTATUS` varchar(50) DEFAULT NULL
+  `APPSTATUS` varchar(50) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `app_t`
+--
+
+INSERT INTO `app_t` (`APP_ID`, `LNAME`, `FNAME`, `MNAME`, `JOB_ID`, `GENDER`, `CIVILSTAT`, `CONTACT`, `CITIZENSHIP`, `BIRTHDATE`, `AGE`, `AHEIGHT`, `AWEIGHT`, `APPSTATUS`, `status`) VALUES
+(1, 'last', 'first', 'middle', 2, 'Male', 'Single', '0997-549-1786', NULL, '1998-10-27', 19, '12', '12', NULL, 0),
+(6, 'asd', 'asd', 'asd', 2, 'Female', 'Single', '0975-292-9292', NULL, '2018-02-19', 0, '150 cm', '45 kg', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -193,13 +254,13 @@ CREATE TABLE `banksallowed_t` (
 --
 
 INSERT INTO `banksallowed_t` (`COUNTRY_ID`, `BANK_ID`) VALUES
-(7, 4),
-(9, 1),
-(9, 2),
-(9, 4),
 (8, 1),
 (8, 2),
-(8, 4);
+(8, 4),
+(9, 1),
+(9, 2),
+(7, 2),
+(7, 4);
 
 -- --------------------------------------------------------
 
@@ -221,7 +282,8 @@ INSERT INTO `banks_t` (`BANK_ID`, `BANKNAME`, `status`) VALUES
 (1, 'Metrobank', 0),
 (2, 'BPI', 0),
 (4, 'BDO', 0),
-(5, 'asdasd', 1);
+(5, 'asdasd', 1),
+(6, 'Sample1', 1);
 
 -- --------------------------------------------------------
 
@@ -239,9 +301,10 @@ CREATE TABLE `countryreqs_t` (
 --
 
 INSERT INTO `countryreqs_t` (`COUNTRY_ID`, `REQ_ID`) VALUES
-(7, 22),
 (8, 22),
-(9, 22);
+(9, 22),
+(7, 22),
+(15, 22);
 
 -- --------------------------------------------------------
 
@@ -264,7 +327,11 @@ INSERT INTO `country_t` (`COUNTRY_ID`, `COUNTRYNAME`, `status`) VALUES
 (8, 'United States of America', 0),
 (9, 'Philippines', 0),
 (10, 'sample', 1),
-(11, 'kj', 0);
+(11, 'kj', 1),
+(12, 'asd', 1),
+(13, 'sadsadasdads', 1),
+(14, 'assds', 1),
+(15, 'Sampleasd', 1);
 
 -- --------------------------------------------------------
 
@@ -288,7 +355,9 @@ INSERT INTO `currency_t` (`CURRENCY_ID`, `CURRENCYNAME`, `SYMBOL`, `status`, `CO
 (6, 'Yen', 'JPN', 0, 7),
 (7, 'Philippine Peso', 'Php', 0, 9),
 (8, 'Us', 'Dlr', 0, 8),
-(9, 'asdasd', 'sad', 1, 8);
+(9, 'asdasd', 'sad', 1, 8),
+(10, 'Sample', 'Sample', 1, 7),
+(11, 'Sampleasdasd', 'Sampleasd', 1, 9);
 
 -- --------------------------------------------------------
 
@@ -318,7 +387,7 @@ CREATE TABLE `employer_t` (
 --
 
 INSERT INTO `employer_t` (`EMPLOYER_ID`, `EMPLOYERNAME`, `LNAME`, `FNAME`, `MNAME`, `EMAIL`, `CONTACT`, `LANDLINE`, `COMPANYADD`, `EMPSTATUS`, `REASONS`, `TDATE`, `COUNTRY_ID`, `status`) VALUES
-(1, 'USA Employer', 'qwe', 'asd', 'dsa', 'tre', 'asd', 'zxc', 'asd', NULL, NULL, NULL, 8, 0),
+(1, 'USA Employer', 'qwe', 'asd', 'dsa', 'lolo@gmail.com', '09858585', 'zxc', 'asd', NULL, NULL, NULL, 8, 0),
 (2, 'asd', 'asd', 'asd', 'asd', 'ads', 'asd', 'dsa', 'asd', NULL, 'noen', '2018-02-12', 7, 1);
 
 -- --------------------------------------------------------
@@ -362,12 +431,14 @@ CREATE TABLE `feetype_t` (
 --
 
 INSERT INTO `feetype_t` (`FEE_ID`, `JOBTYPE_ID`) VALUES
-(1, 2),
 (2, 3),
 (3, 2),
 (3, 3),
 (4, 2),
-(4, 3);
+(4, 3),
+(1, 2),
+(5, 2),
+(5, 5);
 
 -- --------------------------------------------------------
 
@@ -391,7 +462,8 @@ INSERT INTO `genfees_t` (`FEE_ID`, `FEENAME`, `PAYMENTTYPE`, `NOOFPAYMENTS`, `st
 (1, 'Fee1', NULL, NULL, 0),
 (2, 'Fee2', NULL, NULL, 0),
 (3, 'Fee3', NULL, NULL, 0),
-(4, 'sample', NULL, NULL, 1);
+(4, 'sample', NULL, NULL, 1),
+(5, 'as', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -463,7 +535,8 @@ INSERT INTO `genskills_t` (`SKILL_ID`, `SKILLNAME`, `SKILLTYPE`, `status`) VALUE
 (8, 'Logical Thinking', 'General', 0),
 (9, 'Listening', 'General', 0),
 (10, 'Programming (PHP)', 'Specific', 0),
-(11, 'aa', 'General', 1);
+(11, 'aa', 'General', 1),
+(12, 'asas', 'General', 1);
 
 -- --------------------------------------------------------
 
@@ -487,7 +560,9 @@ INSERT INTO `jobcategory_t` (`CATEGORY_ID`, `CATEGORYNAME`, `status`) VALUES
 (3, 'Human Resource', 0),
 (4, 'Health Care / Medical', 0),
 (5, 'Hospitality', 0),
-(6, 'aa', 1);
+(6, 'aa', 1),
+(7, 'j', 1),
+(8, 'j1asd', 1);
 
 -- --------------------------------------------------------
 
@@ -600,8 +675,9 @@ CREATE TABLE `jobtype_t` (
 
 INSERT INTO `jobtype_t` (`JOBTYPE_ID`, `TYPENAME`, `status`) VALUES
 (2, 'Skilled', 0),
-(3, 'Vulnerable', 0),
-(4, 'aa', 1);
+(3, 'Vulnerable', 1),
+(4, 'aa', 1),
+(5, 'as', 0);
 
 -- --------------------------------------------------------
 
@@ -791,7 +867,8 @@ ALTER TABLE `appworkex_t`
 -- Indexes for table `app_t`
 --
 ALTER TABLE `app_t`
-  ADD PRIMARY KEY (`APP_ID`);
+  ADD PRIMARY KEY (`APP_ID`),
+  ADD KEY `JOB_ID` (`JOB_ID`);
 
 --
 -- Indexes for table `banksallowed_t`
@@ -965,131 +1042,157 @@ ALTER TABLE `users`
 --
 ALTER TABLE `appaddress_t`
   MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `appchildren_t`
 --
 ALTER TABLE `appchildren_t`
-  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `appcontact_t`
 --
 ALTER TABLE `appcontact_t`
-  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `appdoc_t`
 --
 ALTER TABLE `appdoc_t`
   MODIFY `APP_NO` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `applications_t`
 --
 ALTER TABLE `applications_t`
   MODIFY `APP_NO` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `apppersonal_t`
 --
 ALTER TABLE `apppersonal_t`
-  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `appschool_t`
 --
 ALTER TABLE `appschool_t`
-  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `appskills_t`
 --
 ALTER TABLE `appskills_t`
-  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `appworkex_t`
 --
 ALTER TABLE `appworkex_t`
-  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `app_t`
 --
 ALTER TABLE `app_t`
-  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `banks_t`
 --
 ALTER TABLE `banks_t`
-  MODIFY `BANK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `BANK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `country_t`
 --
 ALTER TABLE `country_t`
-  MODIFY `COUNTRY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `COUNTRY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
 --
 -- AUTO_INCREMENT for table `currency_t`
 --
 ALTER TABLE `currency_t`
-  MODIFY `CURRENCY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `CURRENCY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT for table `employer_t`
 --
 ALTER TABLE `employer_t`
   MODIFY `EMPLOYER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `emp_t`
 --
 ALTER TABLE `emp_t`
   MODIFY `EMP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `genfees_t`
 --
 ALTER TABLE `genfees_t`
-  MODIFY `FEE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `FEE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `genreqs_t`
 --
 ALTER TABLE `genreqs_t`
   MODIFY `REQ_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
 --
 -- AUTO_INCREMENT for table `genskills_t`
 --
 ALTER TABLE `genskills_t`
-  MODIFY `SKILL_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `SKILL_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT for table `jobcategory_t`
 --
 ALTER TABLE `jobcategory_t`
-  MODIFY `CATEGORY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `CATEGORY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `joborder_t`
 --
 ALTER TABLE `joborder_t`
   MODIFY `JORDER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `jobtype_t`
 --
 ALTER TABLE `jobtype_t`
-  MODIFY `JOBTYPE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `JOBTYPE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `job_t`
 --
 ALTER TABLE `job_t`
   MODIFY `JOB_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `logs_t`
 --
 ALTER TABLE `logs_t`
   MODIFY `LOG_ID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `payables_t`
 --
 ALTER TABLE `payables_t`
   MODIFY `APP_NO` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `receipts_t`
 --
 ALTER TABLE `receipts_t`
   MODIFY `APP_ID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- Constraints for dumped tables
 --
@@ -1164,6 +1267,12 @@ ALTER TABLE `appworkex_t`
   ADD CONSTRAINT `appworkex_t_ibfk_1` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `appworkex_t_ibfk_2` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `appworkex_t_ibfk_3` FOREIGN KEY (`APP_ID`) REFERENCES `app_t` (`APP_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `app_t`
+--
+ALTER TABLE `app_t`
+  ADD CONSTRAINT `app_t_ibfk_1` FOREIGN KEY (`JOB_ID`) REFERENCES `job_t` (`JOB_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `banksallowed_t`
@@ -1266,6 +1375,7 @@ ALTER TABLE `receipts_t`
 ALTER TABLE `specskills_t`
   ADD CONSTRAINT `specskills_t_ibfk_1` FOREIGN KEY (`Job_id`) REFERENCES `job_t` (`JOB_ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `specskills_t_ibfk_2` FOREIGN KEY (`Skill_id`) REFERENCES `genskills_t` (`SKILL_ID`) ON DELETE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
